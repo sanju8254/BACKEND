@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./src/generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root@localhost:3306/ame_db_live"
+}
+
+model Customer_types {
+  id    Int     @id @default(autoincrement())
+  type_name String?
+  status Int @default(1) // 1=active,0=inactive
+  is_deleted Int @default(0) // 0=not deleted,1=deleted
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("customer_types")
+}
+
+model Roles {
+  id Int @id @default(autoincrement())
+  title String?
+  status Int @default(1) // 1=active,0=inactive
+  is_deleted Int @default(0) // 0=not deleted,1=deleted
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  role_type Users[]
+  @@map("roles")
+}
+
+model Users {
+  id Int @id @default(autoincrement())
+  name String?
+  contact_name String?
+  email String?
+  password String? @db.VarChar(255)
+  address String?
+  contact String?
+  customer_type_id Int @default(0)
+  role_type Roles? @relation(fields: [user_type], references: [id])
+  user_type Int @default(0)
+  status Int @default(1) // 1=active,0=inactive
+  is_deleted Int @default(0) // 0=not deleted,1=deleted
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Contract_types {
+  id  Int @id @default(autoincrement())
+  type_name String?
+  status Int @default(1) // 1=active,0=inactive
+  is_deleted Int @default(0) // 0=not deleted,1=deleted
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("contract_types")
+}
+
+model GeneratorBrands {
+  id Int @id @default(autoincrement())
+  brand_name String?
+  status Int @default(1) //1=active,0=inactive
+  is_deleted Int @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  brand_type GeneratorModels[]
+
+  @@map("generator_brands")
+}
+
+model GeneratorModels {
+  id Int @id @default(autoincrement())
+  model_name String?
+  brand_type GeneratorBrands? @relation(fields: [brand_id], references: [id])
+  brand_id Int @default(0)
+  status Int @default(1)
+  is_deleted Int @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("generator_models")
+}
