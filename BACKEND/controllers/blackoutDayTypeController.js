@@ -1,7 +1,7 @@
-const customerTypes = require("../services/customerTypes");
+const blackoutDayTypes = require('../services/blackoutDayTypes');
 const index = async (req, res, next) => {
     try{
-		res.json(await customerTypes.list(req.body));
+		res.json(await blackoutDayTypes.list());
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -9,9 +9,9 @@ const index = async (req, res, next) => {
 	}
 }
 
-const store = async (req, res, next) => {
+const create = async (req, res, next) => {
     try{
-		res.json(await customerTypes.store(req.body));
+		res.json(await blackoutDayTypes.store(req.body));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -20,8 +20,8 @@ const store = async (req, res, next) => {
 }
 
 const update = async (req, res, next) => {
-    try{
-		res.json(await customerTypes.update(req.body));
+	try{
+		res.json(await blackoutDayTypes.update(req.body));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -30,8 +30,8 @@ const update = async (req, res, next) => {
 }
 
 const remove_record = async (req, res, next) => {
-    try{
-		res.json(await customerTypes.remove_record(req.body));
+	try{
+		res.json(await blackoutDayTypes.remove_record(req.body));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -41,8 +41,7 @@ const remove_record = async (req, res, next) => {
 
 module.exports = {
     index,
-    store,
-    update,
-    remove_record
+    create,
+	update,
+	remove_record
 }
-

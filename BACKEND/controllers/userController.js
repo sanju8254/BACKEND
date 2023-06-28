@@ -29,7 +29,12 @@ const login = async (req, res, next) => {
     });
 }
 
+const check_login = (req, res, next) => {
+    response = {status: 200, msg: "Valid token."};
+    res.json(response);
+}
 module.exports = {
-    login
+    login,
+    check_login
 }
 

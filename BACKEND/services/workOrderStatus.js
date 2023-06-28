@@ -2,20 +2,23 @@ const { PrismaClient } = require("../prisma/src/generated/client");
 const prisma = new PrismaClient();
 
 const list = async (data) => {
-    const { searchString } = data;
-    const or = searchString ? { type_name: { contains: searchString } } : {}
+    const searchStatusName = data.searchStatusName ? { status_name: { contains: data.searchStatusName } } : {}
+    const searchDescriptionName = data.searchDescriptionName ? { description: { contains: data.searchDescriptionName } } : {}
+    const searchAppliesTo = data.searchAppliesTo ? { applies_to: data.searchAppliesTo } : {}
     let status = 200;
     let response = {};
-    await prisma.contract_types.findMany({
+    await prisma.workOrderStatus.findMany({
         orderBy: {
             id: 'desc'
         },
         where: {
             is_deleted: 0,
-            ...or
+            ...searchStatusName,
+            ...searchDescriptionName,
+            ...searchAppliesTo
         }
     }).then(result => {
-        response = {status: status, msg: "Fetched contact type list.", data: result};
+        response = {status: status, msg: "Fetched work order status list.", data: result};
     }).catch(error => {
 		response = {status: 400, msg: "An error occured."};
 	});
@@ -25,16 +28,19 @@ const list = async (data) => {
 const store = async (data) => {
     let status = 200;
     let response = {};
-    const { type_name } = data;
-    await prisma.contract_types.findFirst({ where: {type_name: type_name, is_deleted: 0} }).then(duplicate => {
+    
+    await prisma.workOrderStatus.findFirst({ where: {status_name: data.status_name, is_deleted: 0} }).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
-                prisma.contract_types.create({
+                prisma.workOrderStatus.create({
                     data: {
-                        type_name
+                        status_name: data.status_name,
+                        color_code: data.color_code,
+                        description: data.description,
+                        applies_to: data.applies_to
                     }
                 }).then(result => {
-                    response = {status: status, msg: "Contract type added successfully.", data: result};
+                    response = {status: status, msg: "Work order status added successfully.", data: result};
                     resolve(response);
                 }).catch(error => {
                     response = {status: 400, msg: "An error occured."};
@@ -44,7 +50,7 @@ const store = async (data) => {
             return promiseResult;
         }
         else{
-            response = {status: 400, msg: "Sorry! the contract type is already exist."};
+            response = {status: 400, msg: "Sorry! the status is already exist."};
         }
     }).catch(error => {
         response = {status: 400, msg: "An error occured."};
@@ -55,15 +61,18 @@ const store = async (data) => {
 const update = async (data) => {
     let status = 200;
     let response = {};
-    await prisma.contract_types.findFirst({ where: { type_name: data.type_name, is_deleted: 0, NOT: { id: data.type_id } }}).then(duplicate => {
+    await prisma.workOrderStatus.findFirst({ where: { status_name: data.status_name, is_deleted: 0, NOT: { id: data.status_id } }}).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
-                prisma.contract_types.update({
+                prisma.workOrderStatus.update({
                     where: {
-                        id: data.type_id
+                        id: data.status_id
                     },
                     data: {
-                        type_name: data.type_name
+                        status_name: data.status_name,
+                        color_code: data.color_code,
+                        description: data.description,
+                        applies_to: data.applies_to
                     }
                 }).then(result => {
                     response = {status: 200, msg: "Record updated successfully."};
@@ -87,9 +96,9 @@ const update = async (data) => {
 const remove_record = async (data) => {
     let status = 200;
     let response = {};
-    await prisma.contract_types.update({
+    await prisma.workOrderStatus.update({
         where: {
-            id: data.type_id
+            id: data.status_id
         },
         data: {
             is_deleted: 1

@@ -1,24 +1,41 @@
 const { PrismaClient } = require("../prisma/src/generated/client");
 const prisma = new PrismaClient();
+const helper = require("../helpers/config");
 
 const list = async (data) => {
-    const { searchString } = data;
-    const or = searchString ? { brand_name: { contains: searchString } } : {}
+    const perPage = 10;
+    const pageNo = data.page_no;
+    const offSet = helper.getOffset(pageNo);
+    const or = data.searchString ? { brand_name: { contains: data.searchString } } : {}
     let status = 200;
     let response = {};
-    await prisma.generatorBrands.findMany({
-        orderBy: {
-            id: 'desc'
-        },
+    const total_record = await prisma.generatorBrands.count({
         where: {
             is_deleted: 0,
             ...or
         }
-    }).then(result => {
-        response = {status: status, msg: "Fetched generator brands.", data: result};
-    }).catch(error => {
-		response = {status: 400, msg: "An error occured."};
-	});
+    });
+    const total_page_number = Math.ceil(total_record/perPage);
+    if(total_record > 0){
+        await prisma.generatorBrands.findMany({
+            skip: offSet,
+            take: perPage,
+            orderBy: {
+                id: 'desc'
+            },
+            where: {
+                is_deleted: 0,
+                ...or
+            }
+        }).then(result => {
+            response = {status: status, msg: "Fetched generator brands.", data: result, total_page: total_page_number, total_record: total_record};
+        }).catch(error => {
+            response = {status: 400, msg: "An error occured."};
+        });
+    }
+    else{
+        response = {status: status, msg: "No record found.", data: [], total_record: total_page_number, total_record: total_record};
+    }
     return response;
 }
 
@@ -26,7 +43,7 @@ const store = async (data) => {
     let status = 200;
     let response = {};
     const { brand_name } = data;
-    await prisma.generatorBrands.findFirst({ where: {brand_name: brand_name} }).then(duplicate => {
+    await prisma.generatorBrands.findFirst({ where: {brand_name: brand_name, is_deleted: 0} }).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
                 prisma.generatorBrands.create({
@@ -55,7 +72,7 @@ const store = async (data) => {
 const update = async (data) => {
     let status = 200;
     let response = {};
-    await prisma.generatorBrands.findFirst({ where: { brand_name: data.brand_name, NOT: { id: data.brand_id } }}).then(duplicate => {
+    await prisma.generatorBrands.findFirst({ where: { brand_name: data.brand_name, is_deleted: 0, NOT: { id: data.brand_id } }}).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
                 prisma.generatorBrands.update({

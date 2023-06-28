@@ -3,10 +3,10 @@ const prisma = new PrismaClient();
 
 const list = async (data) => {
     const { searchString } = data;
-    const or = searchString ? { type_name: { contains: searchString } } : {}
+    const or = searchString ? { phase_type: { contains: searchString } } : {}
     let status = 200;
     let response = {};
-    await prisma.contract_types.findMany({
+    await prisma.generatorPhaseTypes.findMany({
         orderBy: {
             id: 'desc'
         },
@@ -15,7 +15,7 @@ const list = async (data) => {
             ...or
         }
     }).then(result => {
-        response = {status: status, msg: "Fetched contact type list.", data: result};
+        response = {status: status, msg: "Fetched generator phase type list.", data: result};
     }).catch(error => {
 		response = {status: 400, msg: "An error occured."};
 	});
@@ -25,16 +25,16 @@ const list = async (data) => {
 const store = async (data) => {
     let status = 200;
     let response = {};
-    const { type_name } = data;
-    await prisma.contract_types.findFirst({ where: {type_name: type_name, is_deleted: 0} }).then(duplicate => {
+    const { phase_type } = data;
+    await prisma.generatorPhaseTypes.findFirst({ where: {phase_type: phase_type, is_deleted: 0} }).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
-                prisma.contract_types.create({
+                prisma.generatorPhaseTypes.create({
                     data: {
-                        type_name
+                        phase_type
                     }
                 }).then(result => {
-                    response = {status: status, msg: "Contract type added successfully.", data: result};
+                    response = {status: status, msg: "Generator phase type added successfully.", data: result};
                     resolve(response);
                 }).catch(error => {
                     response = {status: 400, msg: "An error occured."};
@@ -55,15 +55,15 @@ const store = async (data) => {
 const update = async (data) => {
     let status = 200;
     let response = {};
-    await prisma.contract_types.findFirst({ where: { type_name: data.type_name, is_deleted: 0, NOT: { id: data.type_id } }}).then(duplicate => {
+    await prisma.generatorPhaseTypes.findFirst({ where: { phase_type: data.phase_type, is_deleted: 0, NOT: { id: data.type_id } }}).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
-                prisma.contract_types.update({
+                prisma.generatorPhaseTypes.update({
                     where: {
                         id: data.type_id
                     },
                     data: {
-                        type_name: data.type_name
+                        phase_type: data.phase_type
                     }
                 }).then(result => {
                     response = {status: 200, msg: "Record updated successfully."};
@@ -87,7 +87,7 @@ const update = async (data) => {
 const remove_record = async (data) => {
     let status = 200;
     let response = {};
-    await prisma.contract_types.update({
+    await prisma.generatorPhaseTypes.update({
         where: {
             id: data.type_id
         },

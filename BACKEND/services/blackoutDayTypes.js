@@ -1,21 +1,18 @@
 const { PrismaClient } = require("../prisma/src/generated/client");
 const prisma = new PrismaClient();
 
-const list = async (data) => {
-    const { searchString } = data;
-    const or = searchString ? { type_name: { contains: searchString } } : {}
+const list = async () => {
     let status = 200;
     let response = {};
-    await prisma.contract_types.findMany({
+    await prisma.blackOutDayTypes.findMany({
         orderBy: {
             id: 'desc'
         },
         where: {
-            is_deleted: 0,
-            ...or
+            is_deleted: 0
         }
     }).then(result => {
-        response = {status: status, msg: "Fetched contact type list.", data: result};
+        response = {status: status, msg: "Fetched blackout day type list.", data: result};
     }).catch(error => {
 		response = {status: 400, msg: "An error occured."};
 	});
@@ -25,16 +22,16 @@ const list = async (data) => {
 const store = async (data) => {
     let status = 200;
     let response = {};
-    const { type_name } = data;
-    await prisma.contract_types.findFirst({ where: {type_name: type_name, is_deleted: 0} }).then(duplicate => {
+    const { type } = data;
+    await prisma.blackOutDayTypes.findFirst({ where: {type: type, is_deleted: 0} }).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
-                prisma.contract_types.create({
+                prisma.blackOutDayTypes.create({
                     data: {
-                        type_name
+                        type
                     }
                 }).then(result => {
-                    response = {status: status, msg: "Contract type added successfully.", data: result};
+                    response = {status: status, msg: "Blackout data type added successfully.", data: result};
                     resolve(response);
                 }).catch(error => {
                     response = {status: 400, msg: "An error occured."};
@@ -44,7 +41,7 @@ const store = async (data) => {
             return promiseResult;
         }
         else{
-            response = {status: 400, msg: "Sorry! the contract type is already exist."};
+            response = {status: 400, msg: "Sorry! this day type is already exist."};
         }
     }).catch(error => {
         response = {status: 400, msg: "An error occured."};
@@ -55,18 +52,18 @@ const store = async (data) => {
 const update = async (data) => {
     let status = 200;
     let response = {};
-    await prisma.contract_types.findFirst({ where: { type_name: data.type_name, is_deleted: 0, NOT: { id: data.type_id } }}).then(duplicate => {
+    await prisma.blackOutDayTypes.findFirst({ where: { type: data.type, is_deleted: 0, NOT: { id: data.type_id } }}).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
-                prisma.contract_types.update({
+                prisma.blackOutDayTypes.update({
                     where: {
                         id: data.type_id
                     },
                     data: {
-                        type_name: data.type_name
+                        type: data.type
                     }
                 }).then(result => {
-                    response = {status: 200, msg: "Record updated successfully."};
+                    response = {status: 200, msg: "Record updated successfully.", data: result};
                     resolve(response);
                 }).catch(error => {
                     response = {status: 400, msg: "An error occured."};
@@ -76,7 +73,7 @@ const update = async (data) => {
             return promiseResult;
         }
         else{
-            response = {status: 400, msg: "Sorry! the customer type is already exist."};
+            response = {status: 400, msg: "Sorry! this day type is already exist."};
         }
     }).catch(error => {
         response = {status: 400, msg: "An error occured."};
@@ -87,7 +84,7 @@ const update = async (data) => {
 const remove_record = async (data) => {
     let status = 200;
     let response = {};
-    await prisma.contract_types.update({
+    await prisma.blackOutDayTypes.update({
         where: {
             id: data.type_id
         },

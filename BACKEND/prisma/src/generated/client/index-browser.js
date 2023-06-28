@@ -86,6 +86,29 @@ Prisma.NullTypes = {
  * Enums
  */
 
+exports.Prisma.BlackOutDayTypesScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.BlackOutDaysScalarFieldEnum = {
+  id: 'id',
+  day_type_id: 'day_type_id',
+  title: 'title',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  applies_to: 'applies_to',
+  color_code: 'color_code',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.Contract_typesScalarFieldEnum = {
   id: 'id',
   type_name: 'type_name',
@@ -123,6 +146,15 @@ exports.Prisma.GeneratorModelsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.GeneratorPhaseTypesScalarFieldEnum = {
+  id: 'id',
+  phase_type: 'phase_type',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.RolesScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -130,6 +162,21 @@ exports.Prisma.RolesScalarFieldEnum = {
   is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_levelsScalarFieldEnum = {
+  id: 'id',
+  service_name: 'service_name',
+  service_limit: 'service_limit',
+  default_load_test_duration: 'default_load_test_duration',
+  on_screen_color_code: 'on_screen_color_code',
+  on_report_color_code: 'on_report_color_code',
+  default_duration: 'default_duration',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_by: 'created_by',
+  created_date: 'created_date',
+  updated_date: 'updated_date'
 };
 
 exports.Prisma.SortOrder = {
@@ -160,6 +207,29 @@ exports.Prisma.UsersScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.WorkOrderStatusScalarFieldEnum = {
+  id: 'id',
+  status_name: 'status_name',
+  color_code: 'color_code',
+  description: 'description',
+  applies_to: 'applies_to',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.WorkOrderTypesScalarFieldEnum = {
+  id: 'id',
+  order_type: 'order_type',
+  on_screen_color_code: 'on_screen_color_code',
+  on_report_color_code: 'on_report_color_code',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 
 exports.Prisma.ModelName = {
   Customer_types: 'Customer_types',
@@ -167,7 +237,13 @@ exports.Prisma.ModelName = {
   Users: 'Users',
   Contract_types: 'Contract_types',
   GeneratorBrands: 'GeneratorBrands',
-  GeneratorModels: 'GeneratorModels'
+  GeneratorModels: 'GeneratorModels',
+  GeneratorPhaseTypes: 'GeneratorPhaseTypes',
+  WorkOrderStatus: 'WorkOrderStatus',
+  WorkOrderTypes: 'WorkOrderTypes',
+  service_levels: 'service_levels',
+  BlackOutDayTypes: 'BlackOutDayTypes',
+  BlackOutDays: 'BlackOutDays'
 };
 
 /**
