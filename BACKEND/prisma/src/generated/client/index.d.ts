@@ -192,6 +192,19 @@ export type BlackOutDays = {
   updated_at: Date
 }
 
+/**
+ * Model ReminderThresoldDays
+ * 
+ */
+export type ReminderThresoldDays = {
+  id: number
+  thresold_day: number
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
 
 /**
  * ##  Prisma Client ʲˢ
@@ -429,6 +442,16 @@ export class PrismaClient<
     * ```
     */
   get blackOutDays(): Prisma.BlackOutDaysDelegate<GlobalReject>;
+
+  /**
+   * `prisma.reminderThresoldDays`: Exposes CRUD operations for the **ReminderThresoldDays** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ReminderThresoldDays
+    * const reminderThresoldDays = await prisma.reminderThresoldDays.findMany()
+    * ```
+    */
+  get reminderThresoldDays(): Prisma.ReminderThresoldDaysDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -909,7 +932,8 @@ export namespace Prisma {
     WorkOrderTypes: 'WorkOrderTypes',
     service_levels: 'service_levels',
     BlackOutDayTypes: 'BlackOutDayTypes',
-    BlackOutDays: 'BlackOutDays'
+    BlackOutDays: 'BlackOutDays',
+    ReminderThresoldDays: 'ReminderThresoldDays'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -12993,6 +13017,942 @@ export namespace Prisma {
 
 
   /**
+   * Model ReminderThresoldDays
+   */
+
+
+  export type AggregateReminderThresoldDays = {
+    _count: ReminderThresoldDaysCountAggregateOutputType | null
+    _avg: ReminderThresoldDaysAvgAggregateOutputType | null
+    _sum: ReminderThresoldDaysSumAggregateOutputType | null
+    _min: ReminderThresoldDaysMinAggregateOutputType | null
+    _max: ReminderThresoldDaysMaxAggregateOutputType | null
+  }
+
+  export type ReminderThresoldDaysAvgAggregateOutputType = {
+    id: number | null
+    thresold_day: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type ReminderThresoldDaysSumAggregateOutputType = {
+    id: number | null
+    thresold_day: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type ReminderThresoldDaysMinAggregateOutputType = {
+    id: number | null
+    thresold_day: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ReminderThresoldDaysMaxAggregateOutputType = {
+    id: number | null
+    thresold_day: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ReminderThresoldDaysCountAggregateOutputType = {
+    id: number
+    thresold_day: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ReminderThresoldDaysAvgAggregateInputType = {
+    id?: true
+    thresold_day?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type ReminderThresoldDaysSumAggregateInputType = {
+    id?: true
+    thresold_day?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type ReminderThresoldDaysMinAggregateInputType = {
+    id?: true
+    thresold_day?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ReminderThresoldDaysMaxAggregateInputType = {
+    id?: true
+    thresold_day?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ReminderThresoldDaysCountAggregateInputType = {
+    id?: true
+    thresold_day?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ReminderThresoldDaysAggregateArgs = {
+    /**
+     * Filter which ReminderThresoldDays to aggregate.
+     */
+    where?: ReminderThresoldDaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReminderThresoldDays to fetch.
+     */
+    orderBy?: Enumerable<ReminderThresoldDaysOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReminderThresoldDaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReminderThresoldDays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReminderThresoldDays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ReminderThresoldDays
+    **/
+    _count?: true | ReminderThresoldDaysCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReminderThresoldDaysAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReminderThresoldDaysSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReminderThresoldDaysMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReminderThresoldDaysMaxAggregateInputType
+  }
+
+  export type GetReminderThresoldDaysAggregateType<T extends ReminderThresoldDaysAggregateArgs> = {
+        [P in keyof T & keyof AggregateReminderThresoldDays]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReminderThresoldDays[P]>
+      : GetScalarType<T[P], AggregateReminderThresoldDays[P]>
+  }
+
+
+
+
+  export type ReminderThresoldDaysGroupByArgs = {
+    where?: ReminderThresoldDaysWhereInput
+    orderBy?: Enumerable<ReminderThresoldDaysOrderByWithAggregationInput>
+    by: ReminderThresoldDaysScalarFieldEnum[]
+    having?: ReminderThresoldDaysScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReminderThresoldDaysCountAggregateInputType | true
+    _avg?: ReminderThresoldDaysAvgAggregateInputType
+    _sum?: ReminderThresoldDaysSumAggregateInputType
+    _min?: ReminderThresoldDaysMinAggregateInputType
+    _max?: ReminderThresoldDaysMaxAggregateInputType
+  }
+
+
+  export type ReminderThresoldDaysGroupByOutputType = {
+    id: number
+    thresold_day: number
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: ReminderThresoldDaysCountAggregateOutputType | null
+    _avg: ReminderThresoldDaysAvgAggregateOutputType | null
+    _sum: ReminderThresoldDaysSumAggregateOutputType | null
+    _min: ReminderThresoldDaysMinAggregateOutputType | null
+    _max: ReminderThresoldDaysMaxAggregateOutputType | null
+  }
+
+  type GetReminderThresoldDaysGroupByPayload<T extends ReminderThresoldDaysGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<ReminderThresoldDaysGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReminderThresoldDaysGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReminderThresoldDaysGroupByOutputType[P]>
+            : GetScalarType<T[P], ReminderThresoldDaysGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReminderThresoldDaysSelect = {
+    id?: boolean
+    thresold_day?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type ReminderThresoldDaysGetPayload<S extends boolean | null | undefined | ReminderThresoldDaysArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? ReminderThresoldDays :
+    S extends undefined ? never :
+    S extends { include: any } & (ReminderThresoldDaysArgs | ReminderThresoldDaysFindManyArgs)
+    ? ReminderThresoldDays 
+    : S extends { select: any } & (ReminderThresoldDaysArgs | ReminderThresoldDaysFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof ReminderThresoldDays ? ReminderThresoldDays[P] : never
+  } 
+      : ReminderThresoldDays
+
+
+  type ReminderThresoldDaysCountArgs = 
+    Omit<ReminderThresoldDaysFindManyArgs, 'select' | 'include'> & {
+      select?: ReminderThresoldDaysCountAggregateInputType | true
+    }
+
+  export interface ReminderThresoldDaysDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one ReminderThresoldDays that matches the filter.
+     * @param {ReminderThresoldDaysFindUniqueArgs} args - Arguments to find a ReminderThresoldDays
+     * @example
+     * // Get one ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ReminderThresoldDaysFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, ReminderThresoldDaysFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ReminderThresoldDays'> extends True ? Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T>> : Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T> | null, null>
+
+    /**
+     * Find one ReminderThresoldDays that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ReminderThresoldDaysFindUniqueOrThrowArgs} args - Arguments to find a ReminderThresoldDays
+     * @example
+     * // Get one ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ReminderThresoldDaysFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, ReminderThresoldDaysFindUniqueOrThrowArgs>
+    ): Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T>>
+
+    /**
+     * Find the first ReminderThresoldDays that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderThresoldDaysFindFirstArgs} args - Arguments to find a ReminderThresoldDays
+     * @example
+     * // Get one ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ReminderThresoldDaysFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, ReminderThresoldDaysFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ReminderThresoldDays'> extends True ? Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T>> : Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T> | null, null>
+
+    /**
+     * Find the first ReminderThresoldDays that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderThresoldDaysFindFirstOrThrowArgs} args - Arguments to find a ReminderThresoldDays
+     * @example
+     * // Get one ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ReminderThresoldDaysFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, ReminderThresoldDaysFindFirstOrThrowArgs>
+    ): Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T>>
+
+    /**
+     * Find zero or more ReminderThresoldDays that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderThresoldDaysFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.findMany()
+     * 
+     * // Get first 10 ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reminderThresoldDaysWithIdOnly = await prisma.reminderThresoldDays.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ReminderThresoldDaysFindManyArgs>(
+      args?: SelectSubset<T, ReminderThresoldDaysFindManyArgs>
+    ): Prisma.PrismaPromise<Array<ReminderThresoldDaysGetPayload<T>>>
+
+    /**
+     * Create a ReminderThresoldDays.
+     * @param {ReminderThresoldDaysCreateArgs} args - Arguments to create a ReminderThresoldDays.
+     * @example
+     * // Create one ReminderThresoldDays
+     * const ReminderThresoldDays = await prisma.reminderThresoldDays.create({
+     *   data: {
+     *     // ... data to create a ReminderThresoldDays
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ReminderThresoldDaysCreateArgs>(
+      args: SelectSubset<T, ReminderThresoldDaysCreateArgs>
+    ): Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T>>
+
+    /**
+     * Create many ReminderThresoldDays.
+     *     @param {ReminderThresoldDaysCreateManyArgs} args - Arguments to create many ReminderThresoldDays.
+     *     @example
+     *     // Create many ReminderThresoldDays
+     *     const reminderThresoldDays = await prisma.reminderThresoldDays.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ReminderThresoldDaysCreateManyArgs>(
+      args?: SelectSubset<T, ReminderThresoldDaysCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ReminderThresoldDays.
+     * @param {ReminderThresoldDaysDeleteArgs} args - Arguments to delete one ReminderThresoldDays.
+     * @example
+     * // Delete one ReminderThresoldDays
+     * const ReminderThresoldDays = await prisma.reminderThresoldDays.delete({
+     *   where: {
+     *     // ... filter to delete one ReminderThresoldDays
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ReminderThresoldDaysDeleteArgs>(
+      args: SelectSubset<T, ReminderThresoldDaysDeleteArgs>
+    ): Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T>>
+
+    /**
+     * Update one ReminderThresoldDays.
+     * @param {ReminderThresoldDaysUpdateArgs} args - Arguments to update one ReminderThresoldDays.
+     * @example
+     * // Update one ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ReminderThresoldDaysUpdateArgs>(
+      args: SelectSubset<T, ReminderThresoldDaysUpdateArgs>
+    ): Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T>>
+
+    /**
+     * Delete zero or more ReminderThresoldDays.
+     * @param {ReminderThresoldDaysDeleteManyArgs} args - Arguments to filter ReminderThresoldDays to delete.
+     * @example
+     * // Delete a few ReminderThresoldDays
+     * const { count } = await prisma.reminderThresoldDays.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ReminderThresoldDaysDeleteManyArgs>(
+      args?: SelectSubset<T, ReminderThresoldDaysDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReminderThresoldDays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderThresoldDaysUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ReminderThresoldDaysUpdateManyArgs>(
+      args: SelectSubset<T, ReminderThresoldDaysUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ReminderThresoldDays.
+     * @param {ReminderThresoldDaysUpsertArgs} args - Arguments to update or create a ReminderThresoldDays.
+     * @example
+     * // Update or create a ReminderThresoldDays
+     * const reminderThresoldDays = await prisma.reminderThresoldDays.upsert({
+     *   create: {
+     *     // ... data to create a ReminderThresoldDays
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ReminderThresoldDays we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ReminderThresoldDaysUpsertArgs>(
+      args: SelectSubset<T, ReminderThresoldDaysUpsertArgs>
+    ): Prisma__ReminderThresoldDaysClient<ReminderThresoldDaysGetPayload<T>>
+
+    /**
+     * Count the number of ReminderThresoldDays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderThresoldDaysCountArgs} args - Arguments to filter ReminderThresoldDays to count.
+     * @example
+     * // Count the number of ReminderThresoldDays
+     * const count = await prisma.reminderThresoldDays.count({
+     *   where: {
+     *     // ... the filter for the ReminderThresoldDays we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReminderThresoldDaysCountArgs>(
+      args?: Subset<T, ReminderThresoldDaysCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReminderThresoldDaysCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ReminderThresoldDays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderThresoldDaysAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReminderThresoldDaysAggregateArgs>(args: Subset<T, ReminderThresoldDaysAggregateArgs>): Prisma.PrismaPromise<GetReminderThresoldDaysAggregateType<T>>
+
+    /**
+     * Group by ReminderThresoldDays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderThresoldDaysGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReminderThresoldDaysGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReminderThresoldDaysGroupByArgs['orderBy'] }
+        : { orderBy?: ReminderThresoldDaysGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReminderThresoldDaysGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReminderThresoldDaysGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ReminderThresoldDays.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__ReminderThresoldDaysClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * ReminderThresoldDays base type for findUnique actions
+   */
+  export type ReminderThresoldDaysFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * Filter, which ReminderThresoldDays to fetch.
+     */
+    where: ReminderThresoldDaysWhereUniqueInput
+  }
+
+  /**
+   * ReminderThresoldDays findUnique
+   */
+  export interface ReminderThresoldDaysFindUniqueArgs extends ReminderThresoldDaysFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * ReminderThresoldDays findUniqueOrThrow
+   */
+  export type ReminderThresoldDaysFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * Filter, which ReminderThresoldDays to fetch.
+     */
+    where: ReminderThresoldDaysWhereUniqueInput
+  }
+
+
+  /**
+   * ReminderThresoldDays base type for findFirst actions
+   */
+  export type ReminderThresoldDaysFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * Filter, which ReminderThresoldDays to fetch.
+     */
+    where?: ReminderThresoldDaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReminderThresoldDays to fetch.
+     */
+    orderBy?: Enumerable<ReminderThresoldDaysOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReminderThresoldDays.
+     */
+    cursor?: ReminderThresoldDaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReminderThresoldDays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReminderThresoldDays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReminderThresoldDays.
+     */
+    distinct?: Enumerable<ReminderThresoldDaysScalarFieldEnum>
+  }
+
+  /**
+   * ReminderThresoldDays findFirst
+   */
+  export interface ReminderThresoldDaysFindFirstArgs extends ReminderThresoldDaysFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * ReminderThresoldDays findFirstOrThrow
+   */
+  export type ReminderThresoldDaysFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * Filter, which ReminderThresoldDays to fetch.
+     */
+    where?: ReminderThresoldDaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReminderThresoldDays to fetch.
+     */
+    orderBy?: Enumerable<ReminderThresoldDaysOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReminderThresoldDays.
+     */
+    cursor?: ReminderThresoldDaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReminderThresoldDays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReminderThresoldDays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReminderThresoldDays.
+     */
+    distinct?: Enumerable<ReminderThresoldDaysScalarFieldEnum>
+  }
+
+
+  /**
+   * ReminderThresoldDays findMany
+   */
+  export type ReminderThresoldDaysFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * Filter, which ReminderThresoldDays to fetch.
+     */
+    where?: ReminderThresoldDaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReminderThresoldDays to fetch.
+     */
+    orderBy?: Enumerable<ReminderThresoldDaysOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ReminderThresoldDays.
+     */
+    cursor?: ReminderThresoldDaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReminderThresoldDays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReminderThresoldDays.
+     */
+    skip?: number
+    distinct?: Enumerable<ReminderThresoldDaysScalarFieldEnum>
+  }
+
+
+  /**
+   * ReminderThresoldDays create
+   */
+  export type ReminderThresoldDaysCreateArgs = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * The data needed to create a ReminderThresoldDays.
+     */
+    data: XOR<ReminderThresoldDaysCreateInput, ReminderThresoldDaysUncheckedCreateInput>
+  }
+
+
+  /**
+   * ReminderThresoldDays createMany
+   */
+  export type ReminderThresoldDaysCreateManyArgs = {
+    /**
+     * The data used to create many ReminderThresoldDays.
+     */
+    data: Enumerable<ReminderThresoldDaysCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ReminderThresoldDays update
+   */
+  export type ReminderThresoldDaysUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * The data needed to update a ReminderThresoldDays.
+     */
+    data: XOR<ReminderThresoldDaysUpdateInput, ReminderThresoldDaysUncheckedUpdateInput>
+    /**
+     * Choose, which ReminderThresoldDays to update.
+     */
+    where: ReminderThresoldDaysWhereUniqueInput
+  }
+
+
+  /**
+   * ReminderThresoldDays updateMany
+   */
+  export type ReminderThresoldDaysUpdateManyArgs = {
+    /**
+     * The data used to update ReminderThresoldDays.
+     */
+    data: XOR<ReminderThresoldDaysUpdateManyMutationInput, ReminderThresoldDaysUncheckedUpdateManyInput>
+    /**
+     * Filter which ReminderThresoldDays to update
+     */
+    where?: ReminderThresoldDaysWhereInput
+  }
+
+
+  /**
+   * ReminderThresoldDays upsert
+   */
+  export type ReminderThresoldDaysUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * The filter to search for the ReminderThresoldDays to update in case it exists.
+     */
+    where: ReminderThresoldDaysWhereUniqueInput
+    /**
+     * In case the ReminderThresoldDays found by the `where` argument doesn't exist, create a new ReminderThresoldDays with this data.
+     */
+    create: XOR<ReminderThresoldDaysCreateInput, ReminderThresoldDaysUncheckedCreateInput>
+    /**
+     * In case the ReminderThresoldDays was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReminderThresoldDaysUpdateInput, ReminderThresoldDaysUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ReminderThresoldDays delete
+   */
+  export type ReminderThresoldDaysDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+    /**
+     * Filter which ReminderThresoldDays to delete.
+     */
+    where: ReminderThresoldDaysWhereUniqueInput
+  }
+
+
+  /**
+   * ReminderThresoldDays deleteMany
+   */
+  export type ReminderThresoldDaysDeleteManyArgs = {
+    /**
+     * Filter which ReminderThresoldDays to delete
+     */
+    where?: ReminderThresoldDaysWhereInput
+  }
+
+
+  /**
+   * ReminderThresoldDays without action
+   */
+  export type ReminderThresoldDaysArgs = {
+    /**
+     * Select specific fields to fetch from the ReminderThresoldDays
+     */
+    select?: ReminderThresoldDaysSelect | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -13084,6 +14044,18 @@ export namespace Prisma {
   };
 
   export type GeneratorPhaseTypesScalarFieldEnum = (typeof GeneratorPhaseTypesScalarFieldEnum)[keyof typeof GeneratorPhaseTypesScalarFieldEnum]
+
+
+  export const ReminderThresoldDaysScalarFieldEnum: {
+    id: 'id',
+    thresold_day: 'thresold_day',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ReminderThresoldDaysScalarFieldEnum = (typeof ReminderThresoldDaysScalarFieldEnum)[keyof typeof ReminderThresoldDaysScalarFieldEnum]
 
 
   export const RolesScalarFieldEnum: {
@@ -13904,6 +14876,57 @@ export namespace Prisma {
     end_date?: DateTimeWithAggregatesFilter | Date | string
     applies_to?: IntWithAggregatesFilter | number
     color_code?: StringNullableWithAggregatesFilter | string | null
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type ReminderThresoldDaysWhereInput = {
+    AND?: Enumerable<ReminderThresoldDaysWhereInput>
+    OR?: Enumerable<ReminderThresoldDaysWhereInput>
+    NOT?: Enumerable<ReminderThresoldDaysWhereInput>
+    id?: IntFilter | number
+    thresold_day?: IntFilter | number
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+  }
+
+  export type ReminderThresoldDaysOrderByWithRelationInput = {
+    id?: SortOrder
+    thresold_day?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ReminderThresoldDaysWhereUniqueInput = {
+    id?: number
+  }
+
+  export type ReminderThresoldDaysOrderByWithAggregationInput = {
+    id?: SortOrder
+    thresold_day?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ReminderThresoldDaysCountOrderByAggregateInput
+    _avg?: ReminderThresoldDaysAvgOrderByAggregateInput
+    _max?: ReminderThresoldDaysMaxOrderByAggregateInput
+    _min?: ReminderThresoldDaysMinOrderByAggregateInput
+    _sum?: ReminderThresoldDaysSumOrderByAggregateInput
+  }
+
+  export type ReminderThresoldDaysScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<ReminderThresoldDaysScalarWhereWithAggregatesInput>
+    OR?: Enumerable<ReminderThresoldDaysScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<ReminderThresoldDaysScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    thresold_day?: IntWithAggregatesFilter | number
     status?: IntWithAggregatesFilter | number
     is_deleted?: IntWithAggregatesFilter | number
     created_at?: DateTimeWithAggregatesFilter | Date | string
@@ -14807,6 +15830,66 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ReminderThresoldDaysCreateInput = {
+    thresold_day: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ReminderThresoldDaysUncheckedCreateInput = {
+    id?: number
+    thresold_day: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ReminderThresoldDaysUpdateInput = {
+    thresold_day?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderThresoldDaysUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    thresold_day?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderThresoldDaysCreateManyInput = {
+    id?: number
+    thresold_day: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ReminderThresoldDaysUpdateManyMutationInput = {
+    thresold_day?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderThresoldDaysUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    thresold_day?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter = {
     equals?: number
     in?: Enumerable<number> | number
@@ -15524,6 +16607,47 @@ export namespace Prisma {
     id?: SortOrder
     day_type_id?: SortOrder
     applies_to?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type ReminderThresoldDaysCountOrderByAggregateInput = {
+    id?: SortOrder
+    thresold_day?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ReminderThresoldDaysAvgOrderByAggregateInput = {
+    id?: SortOrder
+    thresold_day?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type ReminderThresoldDaysMaxOrderByAggregateInput = {
+    id?: SortOrder
+    thresold_day?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ReminderThresoldDaysMinOrderByAggregateInput = {
+    id?: SortOrder
+    thresold_day?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ReminderThresoldDaysSumOrderByAggregateInput = {
+    id?: SortOrder
+    thresold_day?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
   }

@@ -155,6 +155,15 @@ exports.Prisma.GeneratorPhaseTypesScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ReminderThresoldDaysScalarFieldEnum = {
+  id: 'id',
+  thresold_day: 'thresold_day',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.RolesScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -243,7 +252,8 @@ exports.Prisma.ModelName = {
   WorkOrderTypes: 'WorkOrderTypes',
   service_levels: 'service_levels',
   BlackOutDayTypes: 'BlackOutDayTypes',
-  BlackOutDays: 'BlackOutDays'
+  BlackOutDays: 'BlackOutDays',
+  ReminderThresoldDays: 'ReminderThresoldDays'
 };
 
 /**
