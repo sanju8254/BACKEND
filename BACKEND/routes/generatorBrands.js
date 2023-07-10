@@ -8,5 +8,6 @@ router.post('/', loginMiddleware.validateToken, generatorBrandController.index);
 router.post('/store', loginMiddleware.validateToken, generatorBrandController.create);
 router.post('/update', loginMiddleware.validateToken, generatorBrandController.update);
 router.post('/remove_record', loginMiddleware.validateToken, generatorBrandController.remove_record);
+router.get('/all-brands', loginMiddleware.validateToken, generatorBrandController.all_brands);
 
 module.exports = router;

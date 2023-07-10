@@ -118,6 +118,49 @@ exports.Prisma.Contract_typesScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.CustomerContractsScalarFieldEnum = {
+  id: 'id',
+  customer_id: 'customer_id',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  primary_email: 'primary_email',
+  secondary_email: 'secondary_email',
+  home_phone_number: 'home_phone_number',
+  work_phone_number: 'work_phone_number',
+  mobile: 'mobile',
+  fax_phone_number: 'fax_phone_number',
+  other_phone_number1: 'other_phone_number1',
+  other_phone_number2: 'other_phone_number2',
+  job_title: 'job_title',
+  is_primary: 'is_primary',
+  created_by: 'created_by',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.CustomerNoteTitlesMasterScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  created_by: 'created_by',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.CustomerStatusListScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  created_by: 'created_by',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.Customer_typesScalarFieldEnum = {
   id: 'id',
   type_name: 'type_name',
@@ -155,6 +198,28 @@ exports.Prisma.GeneratorPhaseTypesScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.LoggingDetailsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  configuare_value: 'configuare_value',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.MiscConfigurationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  created_by: 'created_by',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.ReminderThresoldDaysScalarFieldEnum = {
   id: 'id',
   thresold_day: 'thresold_day',
@@ -177,6 +242,7 @@ exports.Prisma.Service_levelsScalarFieldEnum = {
   id: 'id',
   service_name: 'service_name',
   service_limit: 'service_limit',
+  threshold_limit: 'threshold_limit',
   default_load_test_duration: 'default_load_test_duration',
   on_screen_color_code: 'on_screen_color_code',
   on_report_color_code: 'on_report_color_code',
@@ -186,6 +252,20 @@ exports.Prisma.Service_levelsScalarFieldEnum = {
   created_by: 'created_by',
   created_date: 'created_date',
   updated_date: 'updated_date'
+};
+
+exports.Prisma.SmtpDetailsScalarFieldEnum = {
+  id: 'id',
+  host_name: 'host_name',
+  port_no: 'port_no',
+  user_name: 'user_name',
+  password: 'password',
+  encryption_type: 'encryption_type',
+  sent_from: 'sent_from',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -207,9 +287,11 @@ exports.Prisma.UsersScalarFieldEnum = {
   email: 'email',
   password: 'password',
   address: 'address',
+  billing_address: 'billing_address',
   contact: 'contact',
   customer_type_id: 'customer_type_id',
   user_type: 'user_type',
+  created_by: 'created_by',
   status: 'status',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
@@ -253,7 +335,13 @@ exports.Prisma.ModelName = {
   service_levels: 'service_levels',
   BlackOutDayTypes: 'BlackOutDayTypes',
   BlackOutDays: 'BlackOutDays',
-  ReminderThresoldDays: 'ReminderThresoldDays'
+  ReminderThresoldDays: 'ReminderThresoldDays',
+  CustomerContracts: 'CustomerContracts',
+  CustomerNoteTitlesMaster: 'CustomerNoteTitlesMaster',
+  CustomerStatusList: 'CustomerStatusList',
+  MiscConfiguration: 'MiscConfiguration',
+  LoggingDetails: 'LoggingDetails',
+  SmtpDetails: 'SmtpDetails'
 };
 
 /**

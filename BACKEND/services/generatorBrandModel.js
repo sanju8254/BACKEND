@@ -1,6 +1,24 @@
 const { PrismaClient } = require("../prisma/src/generated/client");
 const prisma = new PrismaClient();
 const helper = require("../helpers/config");
+const { response } = require("express");
+
+const all_list = async () => {
+    let response = {};
+    await prisma.generatorBrands.findMany({
+        orderBy: {
+            id: 'desc'
+        },
+        where: {
+            is_deleted: 0
+        }
+    }).then(result => {
+        response = {status: 200, msg: "All generator brands.", data: result};
+    }).catch(error => {
+        response = {status: 400, msg: "An error occured."};
+    });
+    return response;
+}
 
 const list = async (data) => {
     const perPage = 10;
@@ -120,6 +138,7 @@ const remove_record = async (data) => {
 }
 
 module.exports = {
+    all_list,
     list,
     store,
     update,

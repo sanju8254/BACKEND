@@ -1,7 +1,7 @@
-const generatorBrandModel = require('../services/generatorBrandModel');
+const customerStatusList = require("../services/customerStatusList");
 const index = async (req, res, next) => {
     try{
-		res.json(await generatorBrandModel.list(req.body));
+		res.json(await customerStatusList.list(req.body));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -9,9 +9,9 @@ const index = async (req, res, next) => {
 	}
 }
 
-const create = async (req, res, next) => {
+const store = async (req, res, next) => {
     try{
-		res.json(await generatorBrandModel.store(req.body));
+		res.json(await customerStatusList.store(req.body, req.user));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -20,8 +20,8 @@ const create = async (req, res, next) => {
 }
 
 const update = async (req, res, next) => {
-	try{
-		res.json(await generatorBrandModel.update(req.body));
+    try{
+		res.json(await customerStatusList.update(req.body, req.user));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -30,18 +30,8 @@ const update = async (req, res, next) => {
 }
 
 const remove_record = async (req, res, next) => {
-	try{
-		res.json(await generatorBrandModel.remove_record(req.body));
-	}
-	catch(err){
-		console.error(`Error while getting programming languages `, err.message);
-    	next(err);
-	}
-}
-
-const all_brands = async (req, res, next) => {
-	try{
-		res.json(await generatorBrandModel.all_list());
+    try{
+		res.json(await customerStatusList.remove_record(req.body));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -51,8 +41,8 @@ const all_brands = async (req, res, next) => {
 
 module.exports = {
     index,
-    create,
-	update,
-	remove_record,
-	all_brands
+    store,
+    update,
+    remove_record
 }
+

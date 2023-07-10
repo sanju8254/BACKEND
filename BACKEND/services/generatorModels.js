@@ -29,6 +29,13 @@ const list = async (data) => {
                 brand_id: data.brand_id,
                 is_deleted: 0,
                 ...or
+            },
+            include: { 
+                brand_type: { 
+                    select: { 
+                        brand_name: true 
+                    } 
+                } 
             }
         }).then(result => {
             response = {status: status, msg: "Fetched generator models.", data: result, total_page: total_page_number, total_record: total_record};

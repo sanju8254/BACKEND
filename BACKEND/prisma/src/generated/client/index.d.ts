@@ -49,9 +49,11 @@ export type Users = {
   email: string | null
   password: string | null
   address: string | null
+  billing_address: string | null
   contact: string | null
   customer_type_id: number
   user_type: number
+  created_by: number
   status: number
   is_deleted: number
   created_at: Date
@@ -150,6 +152,7 @@ export type service_levels = {
   id: number
   service_name: number
   service_limit: number
+  threshold_limit: number
   default_load_test_duration: number
   on_screen_color_code: string
   on_report_color_code: string
@@ -199,6 +202,109 @@ export type BlackOutDays = {
 export type ReminderThresoldDays = {
   id: number
   thresold_day: number
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model CustomerContracts
+ * 
+ */
+export type CustomerContracts = {
+  id: number
+  customer_id: number
+  first_name: string | null
+  last_name: string | null
+  primary_email: string | null
+  secondary_email: string | null
+  home_phone_number: string | null
+  work_phone_number: string | null
+  mobile: string | null
+  fax_phone_number: string | null
+  other_phone_number1: string | null
+  other_phone_number2: string | null
+  job_title: string | null
+  is_primary: number
+  created_by: number
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model CustomerNoteTitlesMaster
+ * 
+ */
+export type CustomerNoteTitlesMaster = {
+  id: number
+  title: string | null
+  created_by: number
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model CustomerStatusList
+ * 
+ */
+export type CustomerStatusList = {
+  id: number
+  title: string | null
+  description: string | null
+  created_by: number
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model MiscConfiguration
+ * 
+ */
+export type MiscConfiguration = {
+  id: number
+  name: string | null
+  description: string | null
+  created_by: number
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model LoggingDetails
+ * 
+ */
+export type LoggingDetails = {
+  id: number
+  title: string | null
+  description: string | null
+  configuare_value: string | null
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model SmtpDetails
+ * 
+ */
+export type SmtpDetails = {
+  id: number
+  host_name: string | null
+  port_no: number
+  user_name: string | null
+  password: string | null
+  encryption_type: string | null
+  sent_from: string | null
   status: number
   is_deleted: number
   created_at: Date
@@ -452,6 +558,66 @@ export class PrismaClient<
     * ```
     */
   get reminderThresoldDays(): Prisma.ReminderThresoldDaysDelegate<GlobalReject>;
+
+  /**
+   * `prisma.customerContracts`: Exposes CRUD operations for the **CustomerContracts** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerContracts
+    * const customerContracts = await prisma.customerContracts.findMany()
+    * ```
+    */
+  get customerContracts(): Prisma.CustomerContractsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.customerNoteTitlesMaster`: Exposes CRUD operations for the **CustomerNoteTitlesMaster** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerNoteTitlesMasters
+    * const customerNoteTitlesMasters = await prisma.customerNoteTitlesMaster.findMany()
+    * ```
+    */
+  get customerNoteTitlesMaster(): Prisma.CustomerNoteTitlesMasterDelegate<GlobalReject>;
+
+  /**
+   * `prisma.customerStatusList`: Exposes CRUD operations for the **CustomerStatusList** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerStatusLists
+    * const customerStatusLists = await prisma.customerStatusList.findMany()
+    * ```
+    */
+  get customerStatusList(): Prisma.CustomerStatusListDelegate<GlobalReject>;
+
+  /**
+   * `prisma.miscConfiguration`: Exposes CRUD operations for the **MiscConfiguration** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MiscConfigurations
+    * const miscConfigurations = await prisma.miscConfiguration.findMany()
+    * ```
+    */
+  get miscConfiguration(): Prisma.MiscConfigurationDelegate<GlobalReject>;
+
+  /**
+   * `prisma.loggingDetails`: Exposes CRUD operations for the **LoggingDetails** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LoggingDetails
+    * const loggingDetails = await prisma.loggingDetails.findMany()
+    * ```
+    */
+  get loggingDetails(): Prisma.LoggingDetailsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.smtpDetails`: Exposes CRUD operations for the **SmtpDetails** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SmtpDetails
+    * const smtpDetails = await prisma.smtpDetails.findMany()
+    * ```
+    */
+  get smtpDetails(): Prisma.SmtpDetailsDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -933,7 +1099,13 @@ export namespace Prisma {
     service_levels: 'service_levels',
     BlackOutDayTypes: 'BlackOutDayTypes',
     BlackOutDays: 'BlackOutDays',
-    ReminderThresoldDays: 'ReminderThresoldDays'
+    ReminderThresoldDays: 'ReminderThresoldDays',
+    CustomerContracts: 'CustomerContracts',
+    CustomerNoteTitlesMaster: 'CustomerNoteTitlesMaster',
+    CustomerStatusList: 'CustomerStatusList',
+    MiscConfiguration: 'MiscConfiguration',
+    LoggingDetails: 'LoggingDetails',
+    SmtpDetails: 'SmtpDetails'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1095,6 +1267,49 @@ export namespace Prisma {
 
 
   /**
+   * Count Type Customer_typesCountOutputType
+   */
+
+
+  export type Customer_typesCountOutputType = {
+    customer_type: number
+  }
+
+  export type Customer_typesCountOutputTypeSelect = {
+    customer_type?: boolean
+  }
+
+  export type Customer_typesCountOutputTypeGetPayload<S extends boolean | null | undefined | Customer_typesCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Customer_typesCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (Customer_typesCountOutputTypeArgs)
+    ? Customer_typesCountOutputType 
+    : S extends { select: any } & (Customer_typesCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof Customer_typesCountOutputType ? Customer_typesCountOutputType[P] : never
+  } 
+      : Customer_typesCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Customer_typesCountOutputType without action
+   */
+  export type Customer_typesCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the Customer_typesCountOutputType
+     */
+    select?: Customer_typesCountOutputTypeSelect | null
+  }
+
+
+
+  /**
    * Count Type RolesCountOutputType
    */
 
@@ -1133,6 +1348,49 @@ export namespace Prisma {
      * Select specific fields to fetch from the RolesCountOutputType
      */
     select?: RolesCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type UsersCountOutputType
+   */
+
+
+  export type UsersCountOutputType = {
+    user_contacts: number
+  }
+
+  export type UsersCountOutputTypeSelect = {
+    user_contacts?: boolean
+  }
+
+  export type UsersCountOutputTypeGetPayload<S extends boolean | null | undefined | UsersCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? UsersCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (UsersCountOutputTypeArgs)
+    ? UsersCountOutputType 
+    : S extends { select: any } & (UsersCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof UsersCountOutputType ? UsersCountOutputType[P] : never
+  } 
+      : UsersCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the UsersCountOutputType
+     */
+    select?: UsersCountOutputTypeSelect | null
   }
 
 
@@ -1443,19 +1701,31 @@ export namespace Prisma {
     is_deleted?: boolean
     created_at?: boolean
     updated_at?: boolean
+    customer_type?: boolean | Customer_types$customer_typeArgs
+    _count?: boolean | Customer_typesCountOutputTypeArgs
   }
 
+
+  export type Customer_typesInclude = {
+    customer_type?: boolean | Customer_types$customer_typeArgs
+    _count?: boolean | Customer_typesCountOutputTypeArgs
+  }
 
   export type Customer_typesGetPayload<S extends boolean | null | undefined | Customer_typesArgs> =
     S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
     S extends true ? Customer_types :
     S extends undefined ? never :
     S extends { include: any } & (Customer_typesArgs | Customer_typesFindManyArgs)
-    ? Customer_types 
+    ? Customer_types  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'customer_type' ? Array < UsersGetPayload<S['include'][P]>>  :
+        P extends '_count' ? Customer_typesCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
     : S extends { select: any } & (Customer_typesArgs | Customer_typesFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-    P extends keyof Customer_types ? Customer_types[P] : never
+        P extends 'customer_type' ? Array < UsersGetPayload<S['select'][P]>>  :
+        P extends '_count' ? Customer_typesCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Customer_types ? Customer_types[P] : never
   } 
       : Customer_types
 
@@ -1827,6 +2097,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    customer_type<T extends Customer_types$customer_typeArgs= {}>(args?: Subset<T, Customer_types$customer_typeArgs>): Prisma.PrismaPromise<Array<UsersGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -1864,6 +2135,10 @@ export namespace Prisma {
      */
     select?: Customer_typesSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
+    /**
      * Filter, which Customer_types to fetch.
      */
     where: Customer_typesWhereUniqueInput
@@ -1890,6 +2165,10 @@ export namespace Prisma {
      */
     select?: Customer_typesSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
+    /**
      * Filter, which Customer_types to fetch.
      */
     where: Customer_typesWhereUniqueInput
@@ -1904,6 +2183,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Customer_types
      */
     select?: Customer_typesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
     /**
      * Filter, which Customer_types to fetch.
      */
@@ -1961,6 +2244,10 @@ export namespace Prisma {
      */
     select?: Customer_typesSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
+    /**
      * Filter, which Customer_types to fetch.
      */
     where?: Customer_typesWhereInput
@@ -2006,6 +2293,10 @@ export namespace Prisma {
      */
     select?: Customer_typesSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
+    /**
      * Filter, which Customer_types to fetch.
      */
     where?: Customer_typesWhereInput
@@ -2046,6 +2337,10 @@ export namespace Prisma {
      */
     select?: Customer_typesSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
+    /**
      * The data needed to create a Customer_types.
      */
     data: XOR<Customer_typesCreateInput, Customer_typesUncheckedCreateInput>
@@ -2072,6 +2367,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Customer_types
      */
     select?: Customer_typesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
     /**
      * The data needed to update a Customer_types.
      */
@@ -2107,6 +2406,10 @@ export namespace Prisma {
      */
     select?: Customer_typesSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
+    /**
      * The filter to search for the Customer_types to update in case it exists.
      */
     where: Customer_typesWhereUniqueInput
@@ -2130,6 +2433,10 @@ export namespace Prisma {
      */
     select?: Customer_typesSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
+    /**
      * Filter which Customer_types to delete.
      */
     where: Customer_typesWhereUniqueInput
@@ -2148,6 +2455,27 @@ export namespace Prisma {
 
 
   /**
+   * Customer_types.customer_type
+   */
+  export type Customer_types$customer_typeArgs = {
+    /**
+     * Select specific fields to fetch from the Users
+     */
+    select?: UsersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UsersInclude | null
+    where?: UsersWhereInput
+    orderBy?: Enumerable<UsersOrderByWithRelationInput>
+    cursor?: UsersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<UsersScalarFieldEnum>
+  }
+
+
+  /**
    * Customer_types without action
    */
   export type Customer_typesArgs = {
@@ -2155,6 +2483,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Customer_types
      */
     select?: Customer_typesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: Customer_typesInclude | null
   }
 
 
@@ -3182,6 +3514,7 @@ export namespace Prisma {
     id: number | null
     customer_type_id: number | null
     user_type: number | null
+    created_by: number | null
     status: number | null
     is_deleted: number | null
   }
@@ -3190,6 +3523,7 @@ export namespace Prisma {
     id: number | null
     customer_type_id: number | null
     user_type: number | null
+    created_by: number | null
     status: number | null
     is_deleted: number | null
   }
@@ -3201,9 +3535,11 @@ export namespace Prisma {
     email: string | null
     password: string | null
     address: string | null
+    billing_address: string | null
     contact: string | null
     customer_type_id: number | null
     user_type: number | null
+    created_by: number | null
     status: number | null
     is_deleted: number | null
     created_at: Date | null
@@ -3217,9 +3553,11 @@ export namespace Prisma {
     email: string | null
     password: string | null
     address: string | null
+    billing_address: string | null
     contact: string | null
     customer_type_id: number | null
     user_type: number | null
+    created_by: number | null
     status: number | null
     is_deleted: number | null
     created_at: Date | null
@@ -3233,9 +3571,11 @@ export namespace Prisma {
     email: number
     password: number
     address: number
+    billing_address: number
     contact: number
     customer_type_id: number
     user_type: number
+    created_by: number
     status: number
     is_deleted: number
     created_at: number
@@ -3248,6 +3588,7 @@ export namespace Prisma {
     id?: true
     customer_type_id?: true
     user_type?: true
+    created_by?: true
     status?: true
     is_deleted?: true
   }
@@ -3256,6 +3597,7 @@ export namespace Prisma {
     id?: true
     customer_type_id?: true
     user_type?: true
+    created_by?: true
     status?: true
     is_deleted?: true
   }
@@ -3267,9 +3609,11 @@ export namespace Prisma {
     email?: true
     password?: true
     address?: true
+    billing_address?: true
     contact?: true
     customer_type_id?: true
     user_type?: true
+    created_by?: true
     status?: true
     is_deleted?: true
     created_at?: true
@@ -3283,9 +3627,11 @@ export namespace Prisma {
     email?: true
     password?: true
     address?: true
+    billing_address?: true
     contact?: true
     customer_type_id?: true
     user_type?: true
+    created_by?: true
     status?: true
     is_deleted?: true
     created_at?: true
@@ -3299,9 +3645,11 @@ export namespace Prisma {
     email?: true
     password?: true
     address?: true
+    billing_address?: true
     contact?: true
     customer_type_id?: true
     user_type?: true
+    created_by?: true
     status?: true
     is_deleted?: true
     created_at?: true
@@ -3403,9 +3751,11 @@ export namespace Prisma {
     email: string | null
     password: string | null
     address: string | null
+    billing_address: string | null
     contact: string | null
     customer_type_id: number
     user_type: number
+    created_by: number
     status: number
     is_deleted: number
     created_at: Date
@@ -3438,19 +3788,27 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     address?: boolean
+    billing_address?: boolean
     contact?: boolean
     customer_type_id?: boolean
     user_type?: boolean
+    created_by?: boolean
     status?: boolean
     is_deleted?: boolean
     created_at?: boolean
     updated_at?: boolean
+    customer_type?: boolean | Customer_typesArgs
     role_type?: boolean | RolesArgs
+    user_contacts?: boolean | Users$user_contactsArgs
+    _count?: boolean | UsersCountOutputTypeArgs
   }
 
 
   export type UsersInclude = {
+    customer_type?: boolean | Customer_typesArgs
     role_type?: boolean | RolesArgs
+    user_contacts?: boolean | Users$user_contactsArgs
+    _count?: boolean | UsersCountOutputTypeArgs
   }
 
   export type UsersGetPayload<S extends boolean | null | undefined | UsersArgs> =
@@ -3460,12 +3818,18 @@ export namespace Prisma {
     S extends { include: any } & (UsersArgs | UsersFindManyArgs)
     ? Users  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'role_type' ? RolesGetPayload<S['include'][P]> | null :  never
+        P extends 'customer_type' ? Customer_typesGetPayload<S['include'][P]> | null :
+        P extends 'role_type' ? RolesGetPayload<S['include'][P]> | null :
+        P extends 'user_contacts' ? Array < CustomerContractsGetPayload<S['include'][P]>>  :
+        P extends '_count' ? UsersCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (UsersArgs | UsersFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'role_type' ? RolesGetPayload<S['select'][P]> | null :  P extends keyof Users ? Users[P] : never
+        P extends 'customer_type' ? Customer_typesGetPayload<S['select'][P]> | null :
+        P extends 'role_type' ? RolesGetPayload<S['select'][P]> | null :
+        P extends 'user_contacts' ? Array < CustomerContractsGetPayload<S['select'][P]>>  :
+        P extends '_count' ? UsersCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Users ? Users[P] : never
   } 
       : Users
 
@@ -3837,7 +4201,11 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    customer_type<T extends Customer_typesArgs= {}>(args?: Subset<T, Customer_typesArgs>): Prisma__Customer_typesClient<Customer_typesGetPayload<T> | Null>;
+
     role_type<T extends RolesArgs= {}>(args?: Subset<T, RolesArgs>): Prisma__RolesClient<RolesGetPayload<T> | Null>;
+
+    user_contacts<T extends Users$user_contactsArgs= {}>(args?: Subset<T, Users$user_contactsArgs>): Prisma.PrismaPromise<Array<CustomerContractsGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -4191,6 +4559,27 @@ export namespace Prisma {
      * Filter which Users to delete
      */
     where?: UsersWhereInput
+  }
+
+
+  /**
+   * Users.user_contacts
+   */
+  export type Users$user_contactsArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    where?: CustomerContractsWhereInput
+    orderBy?: Enumerable<CustomerContractsOrderByWithRelationInput>
+    cursor?: CustomerContractsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<CustomerContractsScalarFieldEnum>
   }
 
 
@@ -9998,6 +10387,7 @@ export namespace Prisma {
     id: number | null
     service_name: number | null
     service_limit: number | null
+    threshold_limit: number | null
     default_load_test_duration: number | null
     default_duration: number | null
     status: number | null
@@ -10009,6 +10399,7 @@ export namespace Prisma {
     id: number | null
     service_name: number | null
     service_limit: number | null
+    threshold_limit: number | null
     default_load_test_duration: number | null
     default_duration: number | null
     status: number | null
@@ -10020,6 +10411,7 @@ export namespace Prisma {
     id: number | null
     service_name: number | null
     service_limit: number | null
+    threshold_limit: number | null
     default_load_test_duration: number | null
     on_screen_color_code: string | null
     on_report_color_code: string | null
@@ -10035,6 +10427,7 @@ export namespace Prisma {
     id: number | null
     service_name: number | null
     service_limit: number | null
+    threshold_limit: number | null
     default_load_test_duration: number | null
     on_screen_color_code: string | null
     on_report_color_code: string | null
@@ -10050,6 +10443,7 @@ export namespace Prisma {
     id: number
     service_name: number
     service_limit: number
+    threshold_limit: number
     default_load_test_duration: number
     on_screen_color_code: number
     on_report_color_code: number
@@ -10067,6 +10461,7 @@ export namespace Prisma {
     id?: true
     service_name?: true
     service_limit?: true
+    threshold_limit?: true
     default_load_test_duration?: true
     default_duration?: true
     status?: true
@@ -10078,6 +10473,7 @@ export namespace Prisma {
     id?: true
     service_name?: true
     service_limit?: true
+    threshold_limit?: true
     default_load_test_duration?: true
     default_duration?: true
     status?: true
@@ -10089,6 +10485,7 @@ export namespace Prisma {
     id?: true
     service_name?: true
     service_limit?: true
+    threshold_limit?: true
     default_load_test_duration?: true
     on_screen_color_code?: true
     on_report_color_code?: true
@@ -10104,6 +10501,7 @@ export namespace Prisma {
     id?: true
     service_name?: true
     service_limit?: true
+    threshold_limit?: true
     default_load_test_duration?: true
     on_screen_color_code?: true
     on_report_color_code?: true
@@ -10119,6 +10517,7 @@ export namespace Prisma {
     id?: true
     service_name?: true
     service_limit?: true
+    threshold_limit?: true
     default_load_test_duration?: true
     on_screen_color_code?: true
     on_report_color_code?: true
@@ -10222,6 +10621,7 @@ export namespace Prisma {
     id: number
     service_name: number
     service_limit: number
+    threshold_limit: number
     default_load_test_duration: number
     on_screen_color_code: string
     on_report_color_code: string
@@ -10256,6 +10656,7 @@ export namespace Prisma {
     id?: boolean
     service_name?: boolean
     service_limit?: boolean
+    threshold_limit?: boolean
     default_load_test_duration?: boolean
     on_screen_color_code?: boolean
     on_report_color_code?: boolean
@@ -13953,6 +14354,5875 @@ export namespace Prisma {
 
 
   /**
+   * Model CustomerContracts
+   */
+
+
+  export type AggregateCustomerContracts = {
+    _count: CustomerContractsCountAggregateOutputType | null
+    _avg: CustomerContractsAvgAggregateOutputType | null
+    _sum: CustomerContractsSumAggregateOutputType | null
+    _min: CustomerContractsMinAggregateOutputType | null
+    _max: CustomerContractsMaxAggregateOutputType | null
+  }
+
+  export type CustomerContractsAvgAggregateOutputType = {
+    id: number | null
+    customer_id: number | null
+    is_primary: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type CustomerContractsSumAggregateOutputType = {
+    id: number | null
+    customer_id: number | null
+    is_primary: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type CustomerContractsMinAggregateOutputType = {
+    id: number | null
+    customer_id: number | null
+    first_name: string | null
+    last_name: string | null
+    primary_email: string | null
+    secondary_email: string | null
+    home_phone_number: string | null
+    work_phone_number: string | null
+    mobile: string | null
+    fax_phone_number: string | null
+    other_phone_number1: string | null
+    other_phone_number2: string | null
+    job_title: string | null
+    is_primary: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CustomerContractsMaxAggregateOutputType = {
+    id: number | null
+    customer_id: number | null
+    first_name: string | null
+    last_name: string | null
+    primary_email: string | null
+    secondary_email: string | null
+    home_phone_number: string | null
+    work_phone_number: string | null
+    mobile: string | null
+    fax_phone_number: string | null
+    other_phone_number1: string | null
+    other_phone_number2: string | null
+    job_title: string | null
+    is_primary: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CustomerContractsCountAggregateOutputType = {
+    id: number
+    customer_id: number
+    first_name: number
+    last_name: number
+    primary_email: number
+    secondary_email: number
+    home_phone_number: number
+    work_phone_number: number
+    mobile: number
+    fax_phone_number: number
+    other_phone_number1: number
+    other_phone_number2: number
+    job_title: number
+    is_primary: number
+    created_by: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type CustomerContractsAvgAggregateInputType = {
+    id?: true
+    customer_id?: true
+    is_primary?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type CustomerContractsSumAggregateInputType = {
+    id?: true
+    customer_id?: true
+    is_primary?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type CustomerContractsMinAggregateInputType = {
+    id?: true
+    customer_id?: true
+    first_name?: true
+    last_name?: true
+    primary_email?: true
+    secondary_email?: true
+    home_phone_number?: true
+    work_phone_number?: true
+    mobile?: true
+    fax_phone_number?: true
+    other_phone_number1?: true
+    other_phone_number2?: true
+    job_title?: true
+    is_primary?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CustomerContractsMaxAggregateInputType = {
+    id?: true
+    customer_id?: true
+    first_name?: true
+    last_name?: true
+    primary_email?: true
+    secondary_email?: true
+    home_phone_number?: true
+    work_phone_number?: true
+    mobile?: true
+    fax_phone_number?: true
+    other_phone_number1?: true
+    other_phone_number2?: true
+    job_title?: true
+    is_primary?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CustomerContractsCountAggregateInputType = {
+    id?: true
+    customer_id?: true
+    first_name?: true
+    last_name?: true
+    primary_email?: true
+    secondary_email?: true
+    home_phone_number?: true
+    work_phone_number?: true
+    mobile?: true
+    fax_phone_number?: true
+    other_phone_number1?: true
+    other_phone_number2?: true
+    job_title?: true
+    is_primary?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type CustomerContractsAggregateArgs = {
+    /**
+     * Filter which CustomerContracts to aggregate.
+     */
+    where?: CustomerContractsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerContracts to fetch.
+     */
+    orderBy?: Enumerable<CustomerContractsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerContractsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerContracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerContracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerContracts
+    **/
+    _count?: true | CustomerContractsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerContractsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerContractsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerContractsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerContractsMaxAggregateInputType
+  }
+
+  export type GetCustomerContractsAggregateType<T extends CustomerContractsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerContracts]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerContracts[P]>
+      : GetScalarType<T[P], AggregateCustomerContracts[P]>
+  }
+
+
+
+
+  export type CustomerContractsGroupByArgs = {
+    where?: CustomerContractsWhereInput
+    orderBy?: Enumerable<CustomerContractsOrderByWithAggregationInput>
+    by: CustomerContractsScalarFieldEnum[]
+    having?: CustomerContractsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerContractsCountAggregateInputType | true
+    _avg?: CustomerContractsAvgAggregateInputType
+    _sum?: CustomerContractsSumAggregateInputType
+    _min?: CustomerContractsMinAggregateInputType
+    _max?: CustomerContractsMaxAggregateInputType
+  }
+
+
+  export type CustomerContractsGroupByOutputType = {
+    id: number
+    customer_id: number
+    first_name: string | null
+    last_name: string | null
+    primary_email: string | null
+    secondary_email: string | null
+    home_phone_number: string | null
+    work_phone_number: string | null
+    mobile: string | null
+    fax_phone_number: string | null
+    other_phone_number1: string | null
+    other_phone_number2: string | null
+    job_title: string | null
+    is_primary: number
+    created_by: number
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: CustomerContractsCountAggregateOutputType | null
+    _avg: CustomerContractsAvgAggregateOutputType | null
+    _sum: CustomerContractsSumAggregateOutputType | null
+    _min: CustomerContractsMinAggregateOutputType | null
+    _max: CustomerContractsMaxAggregateOutputType | null
+  }
+
+  type GetCustomerContractsGroupByPayload<T extends CustomerContractsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<CustomerContractsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerContractsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerContractsGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerContractsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerContractsSelect = {
+    id?: boolean
+    customer_id?: boolean
+    first_name?: boolean
+    last_name?: boolean
+    primary_email?: boolean
+    secondary_email?: boolean
+    home_phone_number?: boolean
+    work_phone_number?: boolean
+    mobile?: boolean
+    fax_phone_number?: boolean
+    other_phone_number1?: boolean
+    other_phone_number2?: boolean
+    job_title?: boolean
+    is_primary?: boolean
+    created_by?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user_contacts?: boolean | UsersArgs
+  }
+
+
+  export type CustomerContractsInclude = {
+    user_contacts?: boolean | UsersArgs
+  }
+
+  export type CustomerContractsGetPayload<S extends boolean | null | undefined | CustomerContractsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? CustomerContracts :
+    S extends undefined ? never :
+    S extends { include: any } & (CustomerContractsArgs | CustomerContractsFindManyArgs)
+    ? CustomerContracts  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'user_contacts' ? UsersGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (CustomerContractsArgs | CustomerContractsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'user_contacts' ? UsersGetPayload<S['select'][P]> | null :  P extends keyof CustomerContracts ? CustomerContracts[P] : never
+  } 
+      : CustomerContracts
+
+
+  type CustomerContractsCountArgs = 
+    Omit<CustomerContractsFindManyArgs, 'select' | 'include'> & {
+      select?: CustomerContractsCountAggregateInputType | true
+    }
+
+  export interface CustomerContractsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one CustomerContracts that matches the filter.
+     * @param {CustomerContractsFindUniqueArgs} args - Arguments to find a CustomerContracts
+     * @example
+     * // Get one CustomerContracts
+     * const customerContracts = await prisma.customerContracts.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends CustomerContractsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, CustomerContractsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'CustomerContracts'> extends True ? Prisma__CustomerContractsClient<CustomerContractsGetPayload<T>> : Prisma__CustomerContractsClient<CustomerContractsGetPayload<T> | null, null>
+
+    /**
+     * Find one CustomerContracts that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {CustomerContractsFindUniqueOrThrowArgs} args - Arguments to find a CustomerContracts
+     * @example
+     * // Get one CustomerContracts
+     * const customerContracts = await prisma.customerContracts.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends CustomerContractsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, CustomerContractsFindUniqueOrThrowArgs>
+    ): Prisma__CustomerContractsClient<CustomerContractsGetPayload<T>>
+
+    /**
+     * Find the first CustomerContracts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerContractsFindFirstArgs} args - Arguments to find a CustomerContracts
+     * @example
+     * // Get one CustomerContracts
+     * const customerContracts = await prisma.customerContracts.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends CustomerContractsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, CustomerContractsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'CustomerContracts'> extends True ? Prisma__CustomerContractsClient<CustomerContractsGetPayload<T>> : Prisma__CustomerContractsClient<CustomerContractsGetPayload<T> | null, null>
+
+    /**
+     * Find the first CustomerContracts that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerContractsFindFirstOrThrowArgs} args - Arguments to find a CustomerContracts
+     * @example
+     * // Get one CustomerContracts
+     * const customerContracts = await prisma.customerContracts.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends CustomerContractsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CustomerContractsFindFirstOrThrowArgs>
+    ): Prisma__CustomerContractsClient<CustomerContractsGetPayload<T>>
+
+    /**
+     * Find zero or more CustomerContracts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerContractsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerContracts
+     * const customerContracts = await prisma.customerContracts.findMany()
+     * 
+     * // Get first 10 CustomerContracts
+     * const customerContracts = await prisma.customerContracts.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerContractsWithIdOnly = await prisma.customerContracts.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends CustomerContractsFindManyArgs>(
+      args?: SelectSubset<T, CustomerContractsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<CustomerContractsGetPayload<T>>>
+
+    /**
+     * Create a CustomerContracts.
+     * @param {CustomerContractsCreateArgs} args - Arguments to create a CustomerContracts.
+     * @example
+     * // Create one CustomerContracts
+     * const CustomerContracts = await prisma.customerContracts.create({
+     *   data: {
+     *     // ... data to create a CustomerContracts
+     *   }
+     * })
+     * 
+    **/
+    create<T extends CustomerContractsCreateArgs>(
+      args: SelectSubset<T, CustomerContractsCreateArgs>
+    ): Prisma__CustomerContractsClient<CustomerContractsGetPayload<T>>
+
+    /**
+     * Create many CustomerContracts.
+     *     @param {CustomerContractsCreateManyArgs} args - Arguments to create many CustomerContracts.
+     *     @example
+     *     // Create many CustomerContracts
+     *     const customerContracts = await prisma.customerContracts.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends CustomerContractsCreateManyArgs>(
+      args?: SelectSubset<T, CustomerContractsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a CustomerContracts.
+     * @param {CustomerContractsDeleteArgs} args - Arguments to delete one CustomerContracts.
+     * @example
+     * // Delete one CustomerContracts
+     * const CustomerContracts = await prisma.customerContracts.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerContracts
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends CustomerContractsDeleteArgs>(
+      args: SelectSubset<T, CustomerContractsDeleteArgs>
+    ): Prisma__CustomerContractsClient<CustomerContractsGetPayload<T>>
+
+    /**
+     * Update one CustomerContracts.
+     * @param {CustomerContractsUpdateArgs} args - Arguments to update one CustomerContracts.
+     * @example
+     * // Update one CustomerContracts
+     * const customerContracts = await prisma.customerContracts.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends CustomerContractsUpdateArgs>(
+      args: SelectSubset<T, CustomerContractsUpdateArgs>
+    ): Prisma__CustomerContractsClient<CustomerContractsGetPayload<T>>
+
+    /**
+     * Delete zero or more CustomerContracts.
+     * @param {CustomerContractsDeleteManyArgs} args - Arguments to filter CustomerContracts to delete.
+     * @example
+     * // Delete a few CustomerContracts
+     * const { count } = await prisma.customerContracts.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends CustomerContractsDeleteManyArgs>(
+      args?: SelectSubset<T, CustomerContractsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerContracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerContractsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerContracts
+     * const customerContracts = await prisma.customerContracts.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends CustomerContractsUpdateManyArgs>(
+      args: SelectSubset<T, CustomerContractsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerContracts.
+     * @param {CustomerContractsUpsertArgs} args - Arguments to update or create a CustomerContracts.
+     * @example
+     * // Update or create a CustomerContracts
+     * const customerContracts = await prisma.customerContracts.upsert({
+     *   create: {
+     *     // ... data to create a CustomerContracts
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerContracts we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends CustomerContractsUpsertArgs>(
+      args: SelectSubset<T, CustomerContractsUpsertArgs>
+    ): Prisma__CustomerContractsClient<CustomerContractsGetPayload<T>>
+
+    /**
+     * Count the number of CustomerContracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerContractsCountArgs} args - Arguments to filter CustomerContracts to count.
+     * @example
+     * // Count the number of CustomerContracts
+     * const count = await prisma.customerContracts.count({
+     *   where: {
+     *     // ... the filter for the CustomerContracts we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerContractsCountArgs>(
+      args?: Subset<T, CustomerContractsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerContractsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerContracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerContractsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerContractsAggregateArgs>(args: Subset<T, CustomerContractsAggregateArgs>): Prisma.PrismaPromise<GetCustomerContractsAggregateType<T>>
+
+    /**
+     * Group by CustomerContracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerContractsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerContractsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerContractsGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerContractsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerContractsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerContractsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerContracts.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__CustomerContractsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    user_contacts<T extends UsersArgs= {}>(args?: Subset<T, UsersArgs>): Prisma__UsersClient<UsersGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * CustomerContracts base type for findUnique actions
+   */
+  export type CustomerContractsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * Filter, which CustomerContracts to fetch.
+     */
+    where: CustomerContractsWhereUniqueInput
+  }
+
+  /**
+   * CustomerContracts findUnique
+   */
+  export interface CustomerContractsFindUniqueArgs extends CustomerContractsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * CustomerContracts findUniqueOrThrow
+   */
+  export type CustomerContractsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * Filter, which CustomerContracts to fetch.
+     */
+    where: CustomerContractsWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerContracts base type for findFirst actions
+   */
+  export type CustomerContractsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * Filter, which CustomerContracts to fetch.
+     */
+    where?: CustomerContractsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerContracts to fetch.
+     */
+    orderBy?: Enumerable<CustomerContractsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerContracts.
+     */
+    cursor?: CustomerContractsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerContracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerContracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerContracts.
+     */
+    distinct?: Enumerable<CustomerContractsScalarFieldEnum>
+  }
+
+  /**
+   * CustomerContracts findFirst
+   */
+  export interface CustomerContractsFindFirstArgs extends CustomerContractsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * CustomerContracts findFirstOrThrow
+   */
+  export type CustomerContractsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * Filter, which CustomerContracts to fetch.
+     */
+    where?: CustomerContractsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerContracts to fetch.
+     */
+    orderBy?: Enumerable<CustomerContractsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerContracts.
+     */
+    cursor?: CustomerContractsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerContracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerContracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerContracts.
+     */
+    distinct?: Enumerable<CustomerContractsScalarFieldEnum>
+  }
+
+
+  /**
+   * CustomerContracts findMany
+   */
+  export type CustomerContractsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * Filter, which CustomerContracts to fetch.
+     */
+    where?: CustomerContractsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerContracts to fetch.
+     */
+    orderBy?: Enumerable<CustomerContractsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerContracts.
+     */
+    cursor?: CustomerContractsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerContracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerContracts.
+     */
+    skip?: number
+    distinct?: Enumerable<CustomerContractsScalarFieldEnum>
+  }
+
+
+  /**
+   * CustomerContracts create
+   */
+  export type CustomerContractsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * The data needed to create a CustomerContracts.
+     */
+    data: XOR<CustomerContractsCreateInput, CustomerContractsUncheckedCreateInput>
+  }
+
+
+  /**
+   * CustomerContracts createMany
+   */
+  export type CustomerContractsCreateManyArgs = {
+    /**
+     * The data used to create many CustomerContracts.
+     */
+    data: Enumerable<CustomerContractsCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * CustomerContracts update
+   */
+  export type CustomerContractsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * The data needed to update a CustomerContracts.
+     */
+    data: XOR<CustomerContractsUpdateInput, CustomerContractsUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerContracts to update.
+     */
+    where: CustomerContractsWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerContracts updateMany
+   */
+  export type CustomerContractsUpdateManyArgs = {
+    /**
+     * The data used to update CustomerContracts.
+     */
+    data: XOR<CustomerContractsUpdateManyMutationInput, CustomerContractsUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerContracts to update
+     */
+    where?: CustomerContractsWhereInput
+  }
+
+
+  /**
+   * CustomerContracts upsert
+   */
+  export type CustomerContractsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * The filter to search for the CustomerContracts to update in case it exists.
+     */
+    where: CustomerContractsWhereUniqueInput
+    /**
+     * In case the CustomerContracts found by the `where` argument doesn't exist, create a new CustomerContracts with this data.
+     */
+    create: XOR<CustomerContractsCreateInput, CustomerContractsUncheckedCreateInput>
+    /**
+     * In case the CustomerContracts was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerContractsUpdateInput, CustomerContractsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * CustomerContracts delete
+   */
+  export type CustomerContractsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+    /**
+     * Filter which CustomerContracts to delete.
+     */
+    where: CustomerContractsWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerContracts deleteMany
+   */
+  export type CustomerContractsDeleteManyArgs = {
+    /**
+     * Filter which CustomerContracts to delete
+     */
+    where?: CustomerContractsWhereInput
+  }
+
+
+  /**
+   * CustomerContracts without action
+   */
+  export type CustomerContractsArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerContracts
+     */
+    select?: CustomerContractsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerContractsInclude | null
+  }
+
+
+
+  /**
+   * Model CustomerNoteTitlesMaster
+   */
+
+
+  export type AggregateCustomerNoteTitlesMaster = {
+    _count: CustomerNoteTitlesMasterCountAggregateOutputType | null
+    _avg: CustomerNoteTitlesMasterAvgAggregateOutputType | null
+    _sum: CustomerNoteTitlesMasterSumAggregateOutputType | null
+    _min: CustomerNoteTitlesMasterMinAggregateOutputType | null
+    _max: CustomerNoteTitlesMasterMaxAggregateOutputType | null
+  }
+
+  export type CustomerNoteTitlesMasterAvgAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type CustomerNoteTitlesMasterSumAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type CustomerNoteTitlesMasterMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CustomerNoteTitlesMasterMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CustomerNoteTitlesMasterCountAggregateOutputType = {
+    id: number
+    title: number
+    created_by: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type CustomerNoteTitlesMasterAvgAggregateInputType = {
+    id?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type CustomerNoteTitlesMasterSumAggregateInputType = {
+    id?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type CustomerNoteTitlesMasterMinAggregateInputType = {
+    id?: true
+    title?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CustomerNoteTitlesMasterMaxAggregateInputType = {
+    id?: true
+    title?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CustomerNoteTitlesMasterCountAggregateInputType = {
+    id?: true
+    title?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type CustomerNoteTitlesMasterAggregateArgs = {
+    /**
+     * Filter which CustomerNoteTitlesMaster to aggregate.
+     */
+    where?: CustomerNoteTitlesMasterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerNoteTitlesMasters to fetch.
+     */
+    orderBy?: Enumerable<CustomerNoteTitlesMasterOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerNoteTitlesMasterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerNoteTitlesMasters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerNoteTitlesMasters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerNoteTitlesMasters
+    **/
+    _count?: true | CustomerNoteTitlesMasterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerNoteTitlesMasterAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerNoteTitlesMasterSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerNoteTitlesMasterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerNoteTitlesMasterMaxAggregateInputType
+  }
+
+  export type GetCustomerNoteTitlesMasterAggregateType<T extends CustomerNoteTitlesMasterAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerNoteTitlesMaster]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerNoteTitlesMaster[P]>
+      : GetScalarType<T[P], AggregateCustomerNoteTitlesMaster[P]>
+  }
+
+
+
+
+  export type CustomerNoteTitlesMasterGroupByArgs = {
+    where?: CustomerNoteTitlesMasterWhereInput
+    orderBy?: Enumerable<CustomerNoteTitlesMasterOrderByWithAggregationInput>
+    by: CustomerNoteTitlesMasterScalarFieldEnum[]
+    having?: CustomerNoteTitlesMasterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerNoteTitlesMasterCountAggregateInputType | true
+    _avg?: CustomerNoteTitlesMasterAvgAggregateInputType
+    _sum?: CustomerNoteTitlesMasterSumAggregateInputType
+    _min?: CustomerNoteTitlesMasterMinAggregateInputType
+    _max?: CustomerNoteTitlesMasterMaxAggregateInputType
+  }
+
+
+  export type CustomerNoteTitlesMasterGroupByOutputType = {
+    id: number
+    title: string | null
+    created_by: number
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: CustomerNoteTitlesMasterCountAggregateOutputType | null
+    _avg: CustomerNoteTitlesMasterAvgAggregateOutputType | null
+    _sum: CustomerNoteTitlesMasterSumAggregateOutputType | null
+    _min: CustomerNoteTitlesMasterMinAggregateOutputType | null
+    _max: CustomerNoteTitlesMasterMaxAggregateOutputType | null
+  }
+
+  type GetCustomerNoteTitlesMasterGroupByPayload<T extends CustomerNoteTitlesMasterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<CustomerNoteTitlesMasterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerNoteTitlesMasterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerNoteTitlesMasterGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerNoteTitlesMasterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerNoteTitlesMasterSelect = {
+    id?: boolean
+    title?: boolean
+    created_by?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type CustomerNoteTitlesMasterGetPayload<S extends boolean | null | undefined | CustomerNoteTitlesMasterArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? CustomerNoteTitlesMaster :
+    S extends undefined ? never :
+    S extends { include: any } & (CustomerNoteTitlesMasterArgs | CustomerNoteTitlesMasterFindManyArgs)
+    ? CustomerNoteTitlesMaster 
+    : S extends { select: any } & (CustomerNoteTitlesMasterArgs | CustomerNoteTitlesMasterFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof CustomerNoteTitlesMaster ? CustomerNoteTitlesMaster[P] : never
+  } 
+      : CustomerNoteTitlesMaster
+
+
+  type CustomerNoteTitlesMasterCountArgs = 
+    Omit<CustomerNoteTitlesMasterFindManyArgs, 'select' | 'include'> & {
+      select?: CustomerNoteTitlesMasterCountAggregateInputType | true
+    }
+
+  export interface CustomerNoteTitlesMasterDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one CustomerNoteTitlesMaster that matches the filter.
+     * @param {CustomerNoteTitlesMasterFindUniqueArgs} args - Arguments to find a CustomerNoteTitlesMaster
+     * @example
+     * // Get one CustomerNoteTitlesMaster
+     * const customerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends CustomerNoteTitlesMasterFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, CustomerNoteTitlesMasterFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'CustomerNoteTitlesMaster'> extends True ? Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T>> : Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T> | null, null>
+
+    /**
+     * Find one CustomerNoteTitlesMaster that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {CustomerNoteTitlesMasterFindUniqueOrThrowArgs} args - Arguments to find a CustomerNoteTitlesMaster
+     * @example
+     * // Get one CustomerNoteTitlesMaster
+     * const customerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends CustomerNoteTitlesMasterFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, CustomerNoteTitlesMasterFindUniqueOrThrowArgs>
+    ): Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T>>
+
+    /**
+     * Find the first CustomerNoteTitlesMaster that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteTitlesMasterFindFirstArgs} args - Arguments to find a CustomerNoteTitlesMaster
+     * @example
+     * // Get one CustomerNoteTitlesMaster
+     * const customerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends CustomerNoteTitlesMasterFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, CustomerNoteTitlesMasterFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'CustomerNoteTitlesMaster'> extends True ? Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T>> : Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T> | null, null>
+
+    /**
+     * Find the first CustomerNoteTitlesMaster that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteTitlesMasterFindFirstOrThrowArgs} args - Arguments to find a CustomerNoteTitlesMaster
+     * @example
+     * // Get one CustomerNoteTitlesMaster
+     * const customerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends CustomerNoteTitlesMasterFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CustomerNoteTitlesMasterFindFirstOrThrowArgs>
+    ): Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T>>
+
+    /**
+     * Find zero or more CustomerNoteTitlesMasters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteTitlesMasterFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerNoteTitlesMasters
+     * const customerNoteTitlesMasters = await prisma.customerNoteTitlesMaster.findMany()
+     * 
+     * // Get first 10 CustomerNoteTitlesMasters
+     * const customerNoteTitlesMasters = await prisma.customerNoteTitlesMaster.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerNoteTitlesMasterWithIdOnly = await prisma.customerNoteTitlesMaster.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends CustomerNoteTitlesMasterFindManyArgs>(
+      args?: SelectSubset<T, CustomerNoteTitlesMasterFindManyArgs>
+    ): Prisma.PrismaPromise<Array<CustomerNoteTitlesMasterGetPayload<T>>>
+
+    /**
+     * Create a CustomerNoteTitlesMaster.
+     * @param {CustomerNoteTitlesMasterCreateArgs} args - Arguments to create a CustomerNoteTitlesMaster.
+     * @example
+     * // Create one CustomerNoteTitlesMaster
+     * const CustomerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.create({
+     *   data: {
+     *     // ... data to create a CustomerNoteTitlesMaster
+     *   }
+     * })
+     * 
+    **/
+    create<T extends CustomerNoteTitlesMasterCreateArgs>(
+      args: SelectSubset<T, CustomerNoteTitlesMasterCreateArgs>
+    ): Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T>>
+
+    /**
+     * Create many CustomerNoteTitlesMasters.
+     *     @param {CustomerNoteTitlesMasterCreateManyArgs} args - Arguments to create many CustomerNoteTitlesMasters.
+     *     @example
+     *     // Create many CustomerNoteTitlesMasters
+     *     const customerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends CustomerNoteTitlesMasterCreateManyArgs>(
+      args?: SelectSubset<T, CustomerNoteTitlesMasterCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a CustomerNoteTitlesMaster.
+     * @param {CustomerNoteTitlesMasterDeleteArgs} args - Arguments to delete one CustomerNoteTitlesMaster.
+     * @example
+     * // Delete one CustomerNoteTitlesMaster
+     * const CustomerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerNoteTitlesMaster
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends CustomerNoteTitlesMasterDeleteArgs>(
+      args: SelectSubset<T, CustomerNoteTitlesMasterDeleteArgs>
+    ): Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T>>
+
+    /**
+     * Update one CustomerNoteTitlesMaster.
+     * @param {CustomerNoteTitlesMasterUpdateArgs} args - Arguments to update one CustomerNoteTitlesMaster.
+     * @example
+     * // Update one CustomerNoteTitlesMaster
+     * const customerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends CustomerNoteTitlesMasterUpdateArgs>(
+      args: SelectSubset<T, CustomerNoteTitlesMasterUpdateArgs>
+    ): Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T>>
+
+    /**
+     * Delete zero or more CustomerNoteTitlesMasters.
+     * @param {CustomerNoteTitlesMasterDeleteManyArgs} args - Arguments to filter CustomerNoteTitlesMasters to delete.
+     * @example
+     * // Delete a few CustomerNoteTitlesMasters
+     * const { count } = await prisma.customerNoteTitlesMaster.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends CustomerNoteTitlesMasterDeleteManyArgs>(
+      args?: SelectSubset<T, CustomerNoteTitlesMasterDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerNoteTitlesMasters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteTitlesMasterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerNoteTitlesMasters
+     * const customerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends CustomerNoteTitlesMasterUpdateManyArgs>(
+      args: SelectSubset<T, CustomerNoteTitlesMasterUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerNoteTitlesMaster.
+     * @param {CustomerNoteTitlesMasterUpsertArgs} args - Arguments to update or create a CustomerNoteTitlesMaster.
+     * @example
+     * // Update or create a CustomerNoteTitlesMaster
+     * const customerNoteTitlesMaster = await prisma.customerNoteTitlesMaster.upsert({
+     *   create: {
+     *     // ... data to create a CustomerNoteTitlesMaster
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerNoteTitlesMaster we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends CustomerNoteTitlesMasterUpsertArgs>(
+      args: SelectSubset<T, CustomerNoteTitlesMasterUpsertArgs>
+    ): Prisma__CustomerNoteTitlesMasterClient<CustomerNoteTitlesMasterGetPayload<T>>
+
+    /**
+     * Count the number of CustomerNoteTitlesMasters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteTitlesMasterCountArgs} args - Arguments to filter CustomerNoteTitlesMasters to count.
+     * @example
+     * // Count the number of CustomerNoteTitlesMasters
+     * const count = await prisma.customerNoteTitlesMaster.count({
+     *   where: {
+     *     // ... the filter for the CustomerNoteTitlesMasters we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerNoteTitlesMasterCountArgs>(
+      args?: Subset<T, CustomerNoteTitlesMasterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerNoteTitlesMasterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerNoteTitlesMaster.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteTitlesMasterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerNoteTitlesMasterAggregateArgs>(args: Subset<T, CustomerNoteTitlesMasterAggregateArgs>): Prisma.PrismaPromise<GetCustomerNoteTitlesMasterAggregateType<T>>
+
+    /**
+     * Group by CustomerNoteTitlesMaster.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteTitlesMasterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerNoteTitlesMasterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerNoteTitlesMasterGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerNoteTitlesMasterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerNoteTitlesMasterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerNoteTitlesMasterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerNoteTitlesMaster.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__CustomerNoteTitlesMasterClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * CustomerNoteTitlesMaster base type for findUnique actions
+   */
+  export type CustomerNoteTitlesMasterFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * Filter, which CustomerNoteTitlesMaster to fetch.
+     */
+    where: CustomerNoteTitlesMasterWhereUniqueInput
+  }
+
+  /**
+   * CustomerNoteTitlesMaster findUnique
+   */
+  export interface CustomerNoteTitlesMasterFindUniqueArgs extends CustomerNoteTitlesMasterFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * CustomerNoteTitlesMaster findUniqueOrThrow
+   */
+  export type CustomerNoteTitlesMasterFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * Filter, which CustomerNoteTitlesMaster to fetch.
+     */
+    where: CustomerNoteTitlesMasterWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster base type for findFirst actions
+   */
+  export type CustomerNoteTitlesMasterFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * Filter, which CustomerNoteTitlesMaster to fetch.
+     */
+    where?: CustomerNoteTitlesMasterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerNoteTitlesMasters to fetch.
+     */
+    orderBy?: Enumerable<CustomerNoteTitlesMasterOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerNoteTitlesMasters.
+     */
+    cursor?: CustomerNoteTitlesMasterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerNoteTitlesMasters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerNoteTitlesMasters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerNoteTitlesMasters.
+     */
+    distinct?: Enumerable<CustomerNoteTitlesMasterScalarFieldEnum>
+  }
+
+  /**
+   * CustomerNoteTitlesMaster findFirst
+   */
+  export interface CustomerNoteTitlesMasterFindFirstArgs extends CustomerNoteTitlesMasterFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * CustomerNoteTitlesMaster findFirstOrThrow
+   */
+  export type CustomerNoteTitlesMasterFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * Filter, which CustomerNoteTitlesMaster to fetch.
+     */
+    where?: CustomerNoteTitlesMasterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerNoteTitlesMasters to fetch.
+     */
+    orderBy?: Enumerable<CustomerNoteTitlesMasterOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerNoteTitlesMasters.
+     */
+    cursor?: CustomerNoteTitlesMasterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerNoteTitlesMasters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerNoteTitlesMasters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerNoteTitlesMasters.
+     */
+    distinct?: Enumerable<CustomerNoteTitlesMasterScalarFieldEnum>
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster findMany
+   */
+  export type CustomerNoteTitlesMasterFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * Filter, which CustomerNoteTitlesMasters to fetch.
+     */
+    where?: CustomerNoteTitlesMasterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerNoteTitlesMasters to fetch.
+     */
+    orderBy?: Enumerable<CustomerNoteTitlesMasterOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerNoteTitlesMasters.
+     */
+    cursor?: CustomerNoteTitlesMasterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerNoteTitlesMasters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerNoteTitlesMasters.
+     */
+    skip?: number
+    distinct?: Enumerable<CustomerNoteTitlesMasterScalarFieldEnum>
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster create
+   */
+  export type CustomerNoteTitlesMasterCreateArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * The data needed to create a CustomerNoteTitlesMaster.
+     */
+    data: XOR<CustomerNoteTitlesMasterCreateInput, CustomerNoteTitlesMasterUncheckedCreateInput>
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster createMany
+   */
+  export type CustomerNoteTitlesMasterCreateManyArgs = {
+    /**
+     * The data used to create many CustomerNoteTitlesMasters.
+     */
+    data: Enumerable<CustomerNoteTitlesMasterCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster update
+   */
+  export type CustomerNoteTitlesMasterUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * The data needed to update a CustomerNoteTitlesMaster.
+     */
+    data: XOR<CustomerNoteTitlesMasterUpdateInput, CustomerNoteTitlesMasterUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerNoteTitlesMaster to update.
+     */
+    where: CustomerNoteTitlesMasterWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster updateMany
+   */
+  export type CustomerNoteTitlesMasterUpdateManyArgs = {
+    /**
+     * The data used to update CustomerNoteTitlesMasters.
+     */
+    data: XOR<CustomerNoteTitlesMasterUpdateManyMutationInput, CustomerNoteTitlesMasterUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerNoteTitlesMasters to update
+     */
+    where?: CustomerNoteTitlesMasterWhereInput
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster upsert
+   */
+  export type CustomerNoteTitlesMasterUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * The filter to search for the CustomerNoteTitlesMaster to update in case it exists.
+     */
+    where: CustomerNoteTitlesMasterWhereUniqueInput
+    /**
+     * In case the CustomerNoteTitlesMaster found by the `where` argument doesn't exist, create a new CustomerNoteTitlesMaster with this data.
+     */
+    create: XOR<CustomerNoteTitlesMasterCreateInput, CustomerNoteTitlesMasterUncheckedCreateInput>
+    /**
+     * In case the CustomerNoteTitlesMaster was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerNoteTitlesMasterUpdateInput, CustomerNoteTitlesMasterUncheckedUpdateInput>
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster delete
+   */
+  export type CustomerNoteTitlesMasterDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+    /**
+     * Filter which CustomerNoteTitlesMaster to delete.
+     */
+    where: CustomerNoteTitlesMasterWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster deleteMany
+   */
+  export type CustomerNoteTitlesMasterDeleteManyArgs = {
+    /**
+     * Filter which CustomerNoteTitlesMasters to delete
+     */
+    where?: CustomerNoteTitlesMasterWhereInput
+  }
+
+
+  /**
+   * CustomerNoteTitlesMaster without action
+   */
+  export type CustomerNoteTitlesMasterArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerNoteTitlesMaster
+     */
+    select?: CustomerNoteTitlesMasterSelect | null
+  }
+
+
+
+  /**
+   * Model CustomerStatusList
+   */
+
+
+  export type AggregateCustomerStatusList = {
+    _count: CustomerStatusListCountAggregateOutputType | null
+    _avg: CustomerStatusListAvgAggregateOutputType | null
+    _sum: CustomerStatusListSumAggregateOutputType | null
+    _min: CustomerStatusListMinAggregateOutputType | null
+    _max: CustomerStatusListMaxAggregateOutputType | null
+  }
+
+  export type CustomerStatusListAvgAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type CustomerStatusListSumAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type CustomerStatusListMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CustomerStatusListMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CustomerStatusListCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    created_by: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type CustomerStatusListAvgAggregateInputType = {
+    id?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type CustomerStatusListSumAggregateInputType = {
+    id?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type CustomerStatusListMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CustomerStatusListMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CustomerStatusListCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type CustomerStatusListAggregateArgs = {
+    /**
+     * Filter which CustomerStatusList to aggregate.
+     */
+    where?: CustomerStatusListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerStatusLists to fetch.
+     */
+    orderBy?: Enumerable<CustomerStatusListOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerStatusListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerStatusLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerStatusLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerStatusLists
+    **/
+    _count?: true | CustomerStatusListCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerStatusListAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerStatusListSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerStatusListMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerStatusListMaxAggregateInputType
+  }
+
+  export type GetCustomerStatusListAggregateType<T extends CustomerStatusListAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerStatusList]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerStatusList[P]>
+      : GetScalarType<T[P], AggregateCustomerStatusList[P]>
+  }
+
+
+
+
+  export type CustomerStatusListGroupByArgs = {
+    where?: CustomerStatusListWhereInput
+    orderBy?: Enumerable<CustomerStatusListOrderByWithAggregationInput>
+    by: CustomerStatusListScalarFieldEnum[]
+    having?: CustomerStatusListScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerStatusListCountAggregateInputType | true
+    _avg?: CustomerStatusListAvgAggregateInputType
+    _sum?: CustomerStatusListSumAggregateInputType
+    _min?: CustomerStatusListMinAggregateInputType
+    _max?: CustomerStatusListMaxAggregateInputType
+  }
+
+
+  export type CustomerStatusListGroupByOutputType = {
+    id: number
+    title: string | null
+    description: string | null
+    created_by: number
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: CustomerStatusListCountAggregateOutputType | null
+    _avg: CustomerStatusListAvgAggregateOutputType | null
+    _sum: CustomerStatusListSumAggregateOutputType | null
+    _min: CustomerStatusListMinAggregateOutputType | null
+    _max: CustomerStatusListMaxAggregateOutputType | null
+  }
+
+  type GetCustomerStatusListGroupByPayload<T extends CustomerStatusListGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<CustomerStatusListGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerStatusListGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerStatusListGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerStatusListGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerStatusListSelect = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    created_by?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type CustomerStatusListGetPayload<S extends boolean | null | undefined | CustomerStatusListArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? CustomerStatusList :
+    S extends undefined ? never :
+    S extends { include: any } & (CustomerStatusListArgs | CustomerStatusListFindManyArgs)
+    ? CustomerStatusList 
+    : S extends { select: any } & (CustomerStatusListArgs | CustomerStatusListFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof CustomerStatusList ? CustomerStatusList[P] : never
+  } 
+      : CustomerStatusList
+
+
+  type CustomerStatusListCountArgs = 
+    Omit<CustomerStatusListFindManyArgs, 'select' | 'include'> & {
+      select?: CustomerStatusListCountAggregateInputType | true
+    }
+
+  export interface CustomerStatusListDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one CustomerStatusList that matches the filter.
+     * @param {CustomerStatusListFindUniqueArgs} args - Arguments to find a CustomerStatusList
+     * @example
+     * // Get one CustomerStatusList
+     * const customerStatusList = await prisma.customerStatusList.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends CustomerStatusListFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, CustomerStatusListFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'CustomerStatusList'> extends True ? Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T>> : Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T> | null, null>
+
+    /**
+     * Find one CustomerStatusList that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {CustomerStatusListFindUniqueOrThrowArgs} args - Arguments to find a CustomerStatusList
+     * @example
+     * // Get one CustomerStatusList
+     * const customerStatusList = await prisma.customerStatusList.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends CustomerStatusListFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, CustomerStatusListFindUniqueOrThrowArgs>
+    ): Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T>>
+
+    /**
+     * Find the first CustomerStatusList that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerStatusListFindFirstArgs} args - Arguments to find a CustomerStatusList
+     * @example
+     * // Get one CustomerStatusList
+     * const customerStatusList = await prisma.customerStatusList.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends CustomerStatusListFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, CustomerStatusListFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'CustomerStatusList'> extends True ? Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T>> : Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T> | null, null>
+
+    /**
+     * Find the first CustomerStatusList that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerStatusListFindFirstOrThrowArgs} args - Arguments to find a CustomerStatusList
+     * @example
+     * // Get one CustomerStatusList
+     * const customerStatusList = await prisma.customerStatusList.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends CustomerStatusListFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CustomerStatusListFindFirstOrThrowArgs>
+    ): Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T>>
+
+    /**
+     * Find zero or more CustomerStatusLists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerStatusListFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerStatusLists
+     * const customerStatusLists = await prisma.customerStatusList.findMany()
+     * 
+     * // Get first 10 CustomerStatusLists
+     * const customerStatusLists = await prisma.customerStatusList.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerStatusListWithIdOnly = await prisma.customerStatusList.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends CustomerStatusListFindManyArgs>(
+      args?: SelectSubset<T, CustomerStatusListFindManyArgs>
+    ): Prisma.PrismaPromise<Array<CustomerStatusListGetPayload<T>>>
+
+    /**
+     * Create a CustomerStatusList.
+     * @param {CustomerStatusListCreateArgs} args - Arguments to create a CustomerStatusList.
+     * @example
+     * // Create one CustomerStatusList
+     * const CustomerStatusList = await prisma.customerStatusList.create({
+     *   data: {
+     *     // ... data to create a CustomerStatusList
+     *   }
+     * })
+     * 
+    **/
+    create<T extends CustomerStatusListCreateArgs>(
+      args: SelectSubset<T, CustomerStatusListCreateArgs>
+    ): Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T>>
+
+    /**
+     * Create many CustomerStatusLists.
+     *     @param {CustomerStatusListCreateManyArgs} args - Arguments to create many CustomerStatusLists.
+     *     @example
+     *     // Create many CustomerStatusLists
+     *     const customerStatusList = await prisma.customerStatusList.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends CustomerStatusListCreateManyArgs>(
+      args?: SelectSubset<T, CustomerStatusListCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a CustomerStatusList.
+     * @param {CustomerStatusListDeleteArgs} args - Arguments to delete one CustomerStatusList.
+     * @example
+     * // Delete one CustomerStatusList
+     * const CustomerStatusList = await prisma.customerStatusList.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerStatusList
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends CustomerStatusListDeleteArgs>(
+      args: SelectSubset<T, CustomerStatusListDeleteArgs>
+    ): Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T>>
+
+    /**
+     * Update one CustomerStatusList.
+     * @param {CustomerStatusListUpdateArgs} args - Arguments to update one CustomerStatusList.
+     * @example
+     * // Update one CustomerStatusList
+     * const customerStatusList = await prisma.customerStatusList.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends CustomerStatusListUpdateArgs>(
+      args: SelectSubset<T, CustomerStatusListUpdateArgs>
+    ): Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T>>
+
+    /**
+     * Delete zero or more CustomerStatusLists.
+     * @param {CustomerStatusListDeleteManyArgs} args - Arguments to filter CustomerStatusLists to delete.
+     * @example
+     * // Delete a few CustomerStatusLists
+     * const { count } = await prisma.customerStatusList.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends CustomerStatusListDeleteManyArgs>(
+      args?: SelectSubset<T, CustomerStatusListDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerStatusLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerStatusListUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerStatusLists
+     * const customerStatusList = await prisma.customerStatusList.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends CustomerStatusListUpdateManyArgs>(
+      args: SelectSubset<T, CustomerStatusListUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerStatusList.
+     * @param {CustomerStatusListUpsertArgs} args - Arguments to update or create a CustomerStatusList.
+     * @example
+     * // Update or create a CustomerStatusList
+     * const customerStatusList = await prisma.customerStatusList.upsert({
+     *   create: {
+     *     // ... data to create a CustomerStatusList
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerStatusList we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends CustomerStatusListUpsertArgs>(
+      args: SelectSubset<T, CustomerStatusListUpsertArgs>
+    ): Prisma__CustomerStatusListClient<CustomerStatusListGetPayload<T>>
+
+    /**
+     * Count the number of CustomerStatusLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerStatusListCountArgs} args - Arguments to filter CustomerStatusLists to count.
+     * @example
+     * // Count the number of CustomerStatusLists
+     * const count = await prisma.customerStatusList.count({
+     *   where: {
+     *     // ... the filter for the CustomerStatusLists we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerStatusListCountArgs>(
+      args?: Subset<T, CustomerStatusListCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerStatusListCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerStatusList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerStatusListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerStatusListAggregateArgs>(args: Subset<T, CustomerStatusListAggregateArgs>): Prisma.PrismaPromise<GetCustomerStatusListAggregateType<T>>
+
+    /**
+     * Group by CustomerStatusList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerStatusListGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerStatusListGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerStatusListGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerStatusListGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerStatusListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerStatusListGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerStatusList.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__CustomerStatusListClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * CustomerStatusList base type for findUnique actions
+   */
+  export type CustomerStatusListFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * Filter, which CustomerStatusList to fetch.
+     */
+    where: CustomerStatusListWhereUniqueInput
+  }
+
+  /**
+   * CustomerStatusList findUnique
+   */
+  export interface CustomerStatusListFindUniqueArgs extends CustomerStatusListFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * CustomerStatusList findUniqueOrThrow
+   */
+  export type CustomerStatusListFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * Filter, which CustomerStatusList to fetch.
+     */
+    where: CustomerStatusListWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerStatusList base type for findFirst actions
+   */
+  export type CustomerStatusListFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * Filter, which CustomerStatusList to fetch.
+     */
+    where?: CustomerStatusListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerStatusLists to fetch.
+     */
+    orderBy?: Enumerable<CustomerStatusListOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerStatusLists.
+     */
+    cursor?: CustomerStatusListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerStatusLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerStatusLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerStatusLists.
+     */
+    distinct?: Enumerable<CustomerStatusListScalarFieldEnum>
+  }
+
+  /**
+   * CustomerStatusList findFirst
+   */
+  export interface CustomerStatusListFindFirstArgs extends CustomerStatusListFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * CustomerStatusList findFirstOrThrow
+   */
+  export type CustomerStatusListFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * Filter, which CustomerStatusList to fetch.
+     */
+    where?: CustomerStatusListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerStatusLists to fetch.
+     */
+    orderBy?: Enumerable<CustomerStatusListOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerStatusLists.
+     */
+    cursor?: CustomerStatusListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerStatusLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerStatusLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerStatusLists.
+     */
+    distinct?: Enumerable<CustomerStatusListScalarFieldEnum>
+  }
+
+
+  /**
+   * CustomerStatusList findMany
+   */
+  export type CustomerStatusListFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * Filter, which CustomerStatusLists to fetch.
+     */
+    where?: CustomerStatusListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerStatusLists to fetch.
+     */
+    orderBy?: Enumerable<CustomerStatusListOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerStatusLists.
+     */
+    cursor?: CustomerStatusListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerStatusLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerStatusLists.
+     */
+    skip?: number
+    distinct?: Enumerable<CustomerStatusListScalarFieldEnum>
+  }
+
+
+  /**
+   * CustomerStatusList create
+   */
+  export type CustomerStatusListCreateArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * The data needed to create a CustomerStatusList.
+     */
+    data: XOR<CustomerStatusListCreateInput, CustomerStatusListUncheckedCreateInput>
+  }
+
+
+  /**
+   * CustomerStatusList createMany
+   */
+  export type CustomerStatusListCreateManyArgs = {
+    /**
+     * The data used to create many CustomerStatusLists.
+     */
+    data: Enumerable<CustomerStatusListCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * CustomerStatusList update
+   */
+  export type CustomerStatusListUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * The data needed to update a CustomerStatusList.
+     */
+    data: XOR<CustomerStatusListUpdateInput, CustomerStatusListUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerStatusList to update.
+     */
+    where: CustomerStatusListWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerStatusList updateMany
+   */
+  export type CustomerStatusListUpdateManyArgs = {
+    /**
+     * The data used to update CustomerStatusLists.
+     */
+    data: XOR<CustomerStatusListUpdateManyMutationInput, CustomerStatusListUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerStatusLists to update
+     */
+    where?: CustomerStatusListWhereInput
+  }
+
+
+  /**
+   * CustomerStatusList upsert
+   */
+  export type CustomerStatusListUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * The filter to search for the CustomerStatusList to update in case it exists.
+     */
+    where: CustomerStatusListWhereUniqueInput
+    /**
+     * In case the CustomerStatusList found by the `where` argument doesn't exist, create a new CustomerStatusList with this data.
+     */
+    create: XOR<CustomerStatusListCreateInput, CustomerStatusListUncheckedCreateInput>
+    /**
+     * In case the CustomerStatusList was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerStatusListUpdateInput, CustomerStatusListUncheckedUpdateInput>
+  }
+
+
+  /**
+   * CustomerStatusList delete
+   */
+  export type CustomerStatusListDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+    /**
+     * Filter which CustomerStatusList to delete.
+     */
+    where: CustomerStatusListWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerStatusList deleteMany
+   */
+  export type CustomerStatusListDeleteManyArgs = {
+    /**
+     * Filter which CustomerStatusLists to delete
+     */
+    where?: CustomerStatusListWhereInput
+  }
+
+
+  /**
+   * CustomerStatusList without action
+   */
+  export type CustomerStatusListArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerStatusList
+     */
+    select?: CustomerStatusListSelect | null
+  }
+
+
+
+  /**
+   * Model MiscConfiguration
+   */
+
+
+  export type AggregateMiscConfiguration = {
+    _count: MiscConfigurationCountAggregateOutputType | null
+    _avg: MiscConfigurationAvgAggregateOutputType | null
+    _sum: MiscConfigurationSumAggregateOutputType | null
+    _min: MiscConfigurationMinAggregateOutputType | null
+    _max: MiscConfigurationMaxAggregateOutputType | null
+  }
+
+  export type MiscConfigurationAvgAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type MiscConfigurationSumAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type MiscConfigurationMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MiscConfigurationMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    created_by: number | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MiscConfigurationCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    created_by: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type MiscConfigurationAvgAggregateInputType = {
+    id?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type MiscConfigurationSumAggregateInputType = {
+    id?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type MiscConfigurationMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MiscConfigurationMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MiscConfigurationCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    created_by?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type MiscConfigurationAggregateArgs = {
+    /**
+     * Filter which MiscConfiguration to aggregate.
+     */
+    where?: MiscConfigurationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MiscConfigurations to fetch.
+     */
+    orderBy?: Enumerable<MiscConfigurationOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MiscConfigurationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MiscConfigurations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MiscConfigurations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MiscConfigurations
+    **/
+    _count?: true | MiscConfigurationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MiscConfigurationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MiscConfigurationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MiscConfigurationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MiscConfigurationMaxAggregateInputType
+  }
+
+  export type GetMiscConfigurationAggregateType<T extends MiscConfigurationAggregateArgs> = {
+        [P in keyof T & keyof AggregateMiscConfiguration]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMiscConfiguration[P]>
+      : GetScalarType<T[P], AggregateMiscConfiguration[P]>
+  }
+
+
+
+
+  export type MiscConfigurationGroupByArgs = {
+    where?: MiscConfigurationWhereInput
+    orderBy?: Enumerable<MiscConfigurationOrderByWithAggregationInput>
+    by: MiscConfigurationScalarFieldEnum[]
+    having?: MiscConfigurationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MiscConfigurationCountAggregateInputType | true
+    _avg?: MiscConfigurationAvgAggregateInputType
+    _sum?: MiscConfigurationSumAggregateInputType
+    _min?: MiscConfigurationMinAggregateInputType
+    _max?: MiscConfigurationMaxAggregateInputType
+  }
+
+
+  export type MiscConfigurationGroupByOutputType = {
+    id: number
+    name: string | null
+    description: string | null
+    created_by: number
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: MiscConfigurationCountAggregateOutputType | null
+    _avg: MiscConfigurationAvgAggregateOutputType | null
+    _sum: MiscConfigurationSumAggregateOutputType | null
+    _min: MiscConfigurationMinAggregateOutputType | null
+    _max: MiscConfigurationMaxAggregateOutputType | null
+  }
+
+  type GetMiscConfigurationGroupByPayload<T extends MiscConfigurationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<MiscConfigurationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MiscConfigurationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MiscConfigurationGroupByOutputType[P]>
+            : GetScalarType<T[P], MiscConfigurationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MiscConfigurationSelect = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    created_by?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type MiscConfigurationGetPayload<S extends boolean | null | undefined | MiscConfigurationArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? MiscConfiguration :
+    S extends undefined ? never :
+    S extends { include: any } & (MiscConfigurationArgs | MiscConfigurationFindManyArgs)
+    ? MiscConfiguration 
+    : S extends { select: any } & (MiscConfigurationArgs | MiscConfigurationFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof MiscConfiguration ? MiscConfiguration[P] : never
+  } 
+      : MiscConfiguration
+
+
+  type MiscConfigurationCountArgs = 
+    Omit<MiscConfigurationFindManyArgs, 'select' | 'include'> & {
+      select?: MiscConfigurationCountAggregateInputType | true
+    }
+
+  export interface MiscConfigurationDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one MiscConfiguration that matches the filter.
+     * @param {MiscConfigurationFindUniqueArgs} args - Arguments to find a MiscConfiguration
+     * @example
+     * // Get one MiscConfiguration
+     * const miscConfiguration = await prisma.miscConfiguration.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MiscConfigurationFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, MiscConfigurationFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'MiscConfiguration'> extends True ? Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T>> : Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T> | null, null>
+
+    /**
+     * Find one MiscConfiguration that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MiscConfigurationFindUniqueOrThrowArgs} args - Arguments to find a MiscConfiguration
+     * @example
+     * // Get one MiscConfiguration
+     * const miscConfiguration = await prisma.miscConfiguration.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MiscConfigurationFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, MiscConfigurationFindUniqueOrThrowArgs>
+    ): Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T>>
+
+    /**
+     * Find the first MiscConfiguration that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MiscConfigurationFindFirstArgs} args - Arguments to find a MiscConfiguration
+     * @example
+     * // Get one MiscConfiguration
+     * const miscConfiguration = await prisma.miscConfiguration.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MiscConfigurationFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, MiscConfigurationFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'MiscConfiguration'> extends True ? Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T>> : Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T> | null, null>
+
+    /**
+     * Find the first MiscConfiguration that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MiscConfigurationFindFirstOrThrowArgs} args - Arguments to find a MiscConfiguration
+     * @example
+     * // Get one MiscConfiguration
+     * const miscConfiguration = await prisma.miscConfiguration.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MiscConfigurationFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, MiscConfigurationFindFirstOrThrowArgs>
+    ): Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T>>
+
+    /**
+     * Find zero or more MiscConfigurations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MiscConfigurationFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MiscConfigurations
+     * const miscConfigurations = await prisma.miscConfiguration.findMany()
+     * 
+     * // Get first 10 MiscConfigurations
+     * const miscConfigurations = await prisma.miscConfiguration.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const miscConfigurationWithIdOnly = await prisma.miscConfiguration.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MiscConfigurationFindManyArgs>(
+      args?: SelectSubset<T, MiscConfigurationFindManyArgs>
+    ): Prisma.PrismaPromise<Array<MiscConfigurationGetPayload<T>>>
+
+    /**
+     * Create a MiscConfiguration.
+     * @param {MiscConfigurationCreateArgs} args - Arguments to create a MiscConfiguration.
+     * @example
+     * // Create one MiscConfiguration
+     * const MiscConfiguration = await prisma.miscConfiguration.create({
+     *   data: {
+     *     // ... data to create a MiscConfiguration
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MiscConfigurationCreateArgs>(
+      args: SelectSubset<T, MiscConfigurationCreateArgs>
+    ): Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T>>
+
+    /**
+     * Create many MiscConfigurations.
+     *     @param {MiscConfigurationCreateManyArgs} args - Arguments to create many MiscConfigurations.
+     *     @example
+     *     // Create many MiscConfigurations
+     *     const miscConfiguration = await prisma.miscConfiguration.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MiscConfigurationCreateManyArgs>(
+      args?: SelectSubset<T, MiscConfigurationCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MiscConfiguration.
+     * @param {MiscConfigurationDeleteArgs} args - Arguments to delete one MiscConfiguration.
+     * @example
+     * // Delete one MiscConfiguration
+     * const MiscConfiguration = await prisma.miscConfiguration.delete({
+     *   where: {
+     *     // ... filter to delete one MiscConfiguration
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MiscConfigurationDeleteArgs>(
+      args: SelectSubset<T, MiscConfigurationDeleteArgs>
+    ): Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T>>
+
+    /**
+     * Update one MiscConfiguration.
+     * @param {MiscConfigurationUpdateArgs} args - Arguments to update one MiscConfiguration.
+     * @example
+     * // Update one MiscConfiguration
+     * const miscConfiguration = await prisma.miscConfiguration.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MiscConfigurationUpdateArgs>(
+      args: SelectSubset<T, MiscConfigurationUpdateArgs>
+    ): Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T>>
+
+    /**
+     * Delete zero or more MiscConfigurations.
+     * @param {MiscConfigurationDeleteManyArgs} args - Arguments to filter MiscConfigurations to delete.
+     * @example
+     * // Delete a few MiscConfigurations
+     * const { count } = await prisma.miscConfiguration.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MiscConfigurationDeleteManyArgs>(
+      args?: SelectSubset<T, MiscConfigurationDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MiscConfigurations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MiscConfigurationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MiscConfigurations
+     * const miscConfiguration = await prisma.miscConfiguration.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MiscConfigurationUpdateManyArgs>(
+      args: SelectSubset<T, MiscConfigurationUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MiscConfiguration.
+     * @param {MiscConfigurationUpsertArgs} args - Arguments to update or create a MiscConfiguration.
+     * @example
+     * // Update or create a MiscConfiguration
+     * const miscConfiguration = await prisma.miscConfiguration.upsert({
+     *   create: {
+     *     // ... data to create a MiscConfiguration
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MiscConfiguration we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MiscConfigurationUpsertArgs>(
+      args: SelectSubset<T, MiscConfigurationUpsertArgs>
+    ): Prisma__MiscConfigurationClient<MiscConfigurationGetPayload<T>>
+
+    /**
+     * Count the number of MiscConfigurations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MiscConfigurationCountArgs} args - Arguments to filter MiscConfigurations to count.
+     * @example
+     * // Count the number of MiscConfigurations
+     * const count = await prisma.miscConfiguration.count({
+     *   where: {
+     *     // ... the filter for the MiscConfigurations we want to count
+     *   }
+     * })
+    **/
+    count<T extends MiscConfigurationCountArgs>(
+      args?: Subset<T, MiscConfigurationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MiscConfigurationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MiscConfiguration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MiscConfigurationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MiscConfigurationAggregateArgs>(args: Subset<T, MiscConfigurationAggregateArgs>): Prisma.PrismaPromise<GetMiscConfigurationAggregateType<T>>
+
+    /**
+     * Group by MiscConfiguration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MiscConfigurationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MiscConfigurationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MiscConfigurationGroupByArgs['orderBy'] }
+        : { orderBy?: MiscConfigurationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MiscConfigurationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMiscConfigurationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MiscConfiguration.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__MiscConfigurationClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * MiscConfiguration base type for findUnique actions
+   */
+  export type MiscConfigurationFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * Filter, which MiscConfiguration to fetch.
+     */
+    where: MiscConfigurationWhereUniqueInput
+  }
+
+  /**
+   * MiscConfiguration findUnique
+   */
+  export interface MiscConfigurationFindUniqueArgs extends MiscConfigurationFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * MiscConfiguration findUniqueOrThrow
+   */
+  export type MiscConfigurationFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * Filter, which MiscConfiguration to fetch.
+     */
+    where: MiscConfigurationWhereUniqueInput
+  }
+
+
+  /**
+   * MiscConfiguration base type for findFirst actions
+   */
+  export type MiscConfigurationFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * Filter, which MiscConfiguration to fetch.
+     */
+    where?: MiscConfigurationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MiscConfigurations to fetch.
+     */
+    orderBy?: Enumerable<MiscConfigurationOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MiscConfigurations.
+     */
+    cursor?: MiscConfigurationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MiscConfigurations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MiscConfigurations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MiscConfigurations.
+     */
+    distinct?: Enumerable<MiscConfigurationScalarFieldEnum>
+  }
+
+  /**
+   * MiscConfiguration findFirst
+   */
+  export interface MiscConfigurationFindFirstArgs extends MiscConfigurationFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * MiscConfiguration findFirstOrThrow
+   */
+  export type MiscConfigurationFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * Filter, which MiscConfiguration to fetch.
+     */
+    where?: MiscConfigurationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MiscConfigurations to fetch.
+     */
+    orderBy?: Enumerable<MiscConfigurationOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MiscConfigurations.
+     */
+    cursor?: MiscConfigurationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MiscConfigurations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MiscConfigurations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MiscConfigurations.
+     */
+    distinct?: Enumerable<MiscConfigurationScalarFieldEnum>
+  }
+
+
+  /**
+   * MiscConfiguration findMany
+   */
+  export type MiscConfigurationFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * Filter, which MiscConfigurations to fetch.
+     */
+    where?: MiscConfigurationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MiscConfigurations to fetch.
+     */
+    orderBy?: Enumerable<MiscConfigurationOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MiscConfigurations.
+     */
+    cursor?: MiscConfigurationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MiscConfigurations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MiscConfigurations.
+     */
+    skip?: number
+    distinct?: Enumerable<MiscConfigurationScalarFieldEnum>
+  }
+
+
+  /**
+   * MiscConfiguration create
+   */
+  export type MiscConfigurationCreateArgs = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * The data needed to create a MiscConfiguration.
+     */
+    data: XOR<MiscConfigurationCreateInput, MiscConfigurationUncheckedCreateInput>
+  }
+
+
+  /**
+   * MiscConfiguration createMany
+   */
+  export type MiscConfigurationCreateManyArgs = {
+    /**
+     * The data used to create many MiscConfigurations.
+     */
+    data: Enumerable<MiscConfigurationCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * MiscConfiguration update
+   */
+  export type MiscConfigurationUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * The data needed to update a MiscConfiguration.
+     */
+    data: XOR<MiscConfigurationUpdateInput, MiscConfigurationUncheckedUpdateInput>
+    /**
+     * Choose, which MiscConfiguration to update.
+     */
+    where: MiscConfigurationWhereUniqueInput
+  }
+
+
+  /**
+   * MiscConfiguration updateMany
+   */
+  export type MiscConfigurationUpdateManyArgs = {
+    /**
+     * The data used to update MiscConfigurations.
+     */
+    data: XOR<MiscConfigurationUpdateManyMutationInput, MiscConfigurationUncheckedUpdateManyInput>
+    /**
+     * Filter which MiscConfigurations to update
+     */
+    where?: MiscConfigurationWhereInput
+  }
+
+
+  /**
+   * MiscConfiguration upsert
+   */
+  export type MiscConfigurationUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * The filter to search for the MiscConfiguration to update in case it exists.
+     */
+    where: MiscConfigurationWhereUniqueInput
+    /**
+     * In case the MiscConfiguration found by the `where` argument doesn't exist, create a new MiscConfiguration with this data.
+     */
+    create: XOR<MiscConfigurationCreateInput, MiscConfigurationUncheckedCreateInput>
+    /**
+     * In case the MiscConfiguration was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MiscConfigurationUpdateInput, MiscConfigurationUncheckedUpdateInput>
+  }
+
+
+  /**
+   * MiscConfiguration delete
+   */
+  export type MiscConfigurationDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+    /**
+     * Filter which MiscConfiguration to delete.
+     */
+    where: MiscConfigurationWhereUniqueInput
+  }
+
+
+  /**
+   * MiscConfiguration deleteMany
+   */
+  export type MiscConfigurationDeleteManyArgs = {
+    /**
+     * Filter which MiscConfigurations to delete
+     */
+    where?: MiscConfigurationWhereInput
+  }
+
+
+  /**
+   * MiscConfiguration without action
+   */
+  export type MiscConfigurationArgs = {
+    /**
+     * Select specific fields to fetch from the MiscConfiguration
+     */
+    select?: MiscConfigurationSelect | null
+  }
+
+
+
+  /**
+   * Model LoggingDetails
+   */
+
+
+  export type AggregateLoggingDetails = {
+    _count: LoggingDetailsCountAggregateOutputType | null
+    _avg: LoggingDetailsAvgAggregateOutputType | null
+    _sum: LoggingDetailsSumAggregateOutputType | null
+    _min: LoggingDetailsMinAggregateOutputType | null
+    _max: LoggingDetailsMaxAggregateOutputType | null
+  }
+
+  export type LoggingDetailsAvgAggregateOutputType = {
+    id: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type LoggingDetailsSumAggregateOutputType = {
+    id: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type LoggingDetailsMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    configuare_value: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type LoggingDetailsMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    configuare_value: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type LoggingDetailsCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    configuare_value: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type LoggingDetailsAvgAggregateInputType = {
+    id?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type LoggingDetailsSumAggregateInputType = {
+    id?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type LoggingDetailsMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    configuare_value?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type LoggingDetailsMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    configuare_value?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type LoggingDetailsCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    configuare_value?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type LoggingDetailsAggregateArgs = {
+    /**
+     * Filter which LoggingDetails to aggregate.
+     */
+    where?: LoggingDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LoggingDetails to fetch.
+     */
+    orderBy?: Enumerable<LoggingDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LoggingDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LoggingDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LoggingDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LoggingDetails
+    **/
+    _count?: true | LoggingDetailsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LoggingDetailsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LoggingDetailsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LoggingDetailsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LoggingDetailsMaxAggregateInputType
+  }
+
+  export type GetLoggingDetailsAggregateType<T extends LoggingDetailsAggregateArgs> = {
+        [P in keyof T & keyof AggregateLoggingDetails]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLoggingDetails[P]>
+      : GetScalarType<T[P], AggregateLoggingDetails[P]>
+  }
+
+
+
+
+  export type LoggingDetailsGroupByArgs = {
+    where?: LoggingDetailsWhereInput
+    orderBy?: Enumerable<LoggingDetailsOrderByWithAggregationInput>
+    by: LoggingDetailsScalarFieldEnum[]
+    having?: LoggingDetailsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LoggingDetailsCountAggregateInputType | true
+    _avg?: LoggingDetailsAvgAggregateInputType
+    _sum?: LoggingDetailsSumAggregateInputType
+    _min?: LoggingDetailsMinAggregateInputType
+    _max?: LoggingDetailsMaxAggregateInputType
+  }
+
+
+  export type LoggingDetailsGroupByOutputType = {
+    id: number
+    title: string | null
+    description: string | null
+    configuare_value: string | null
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: LoggingDetailsCountAggregateOutputType | null
+    _avg: LoggingDetailsAvgAggregateOutputType | null
+    _sum: LoggingDetailsSumAggregateOutputType | null
+    _min: LoggingDetailsMinAggregateOutputType | null
+    _max: LoggingDetailsMaxAggregateOutputType | null
+  }
+
+  type GetLoggingDetailsGroupByPayload<T extends LoggingDetailsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<LoggingDetailsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LoggingDetailsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LoggingDetailsGroupByOutputType[P]>
+            : GetScalarType<T[P], LoggingDetailsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LoggingDetailsSelect = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    configuare_value?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type LoggingDetailsGetPayload<S extends boolean | null | undefined | LoggingDetailsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? LoggingDetails :
+    S extends undefined ? never :
+    S extends { include: any } & (LoggingDetailsArgs | LoggingDetailsFindManyArgs)
+    ? LoggingDetails 
+    : S extends { select: any } & (LoggingDetailsArgs | LoggingDetailsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof LoggingDetails ? LoggingDetails[P] : never
+  } 
+      : LoggingDetails
+
+
+  type LoggingDetailsCountArgs = 
+    Omit<LoggingDetailsFindManyArgs, 'select' | 'include'> & {
+      select?: LoggingDetailsCountAggregateInputType | true
+    }
+
+  export interface LoggingDetailsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one LoggingDetails that matches the filter.
+     * @param {LoggingDetailsFindUniqueArgs} args - Arguments to find a LoggingDetails
+     * @example
+     * // Get one LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends LoggingDetailsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, LoggingDetailsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'LoggingDetails'> extends True ? Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T>> : Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T> | null, null>
+
+    /**
+     * Find one LoggingDetails that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {LoggingDetailsFindUniqueOrThrowArgs} args - Arguments to find a LoggingDetails
+     * @example
+     * // Get one LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends LoggingDetailsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, LoggingDetailsFindUniqueOrThrowArgs>
+    ): Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T>>
+
+    /**
+     * Find the first LoggingDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoggingDetailsFindFirstArgs} args - Arguments to find a LoggingDetails
+     * @example
+     * // Get one LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends LoggingDetailsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, LoggingDetailsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'LoggingDetails'> extends True ? Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T>> : Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T> | null, null>
+
+    /**
+     * Find the first LoggingDetails that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoggingDetailsFindFirstOrThrowArgs} args - Arguments to find a LoggingDetails
+     * @example
+     * // Get one LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends LoggingDetailsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, LoggingDetailsFindFirstOrThrowArgs>
+    ): Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T>>
+
+    /**
+     * Find zero or more LoggingDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoggingDetailsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.findMany()
+     * 
+     * // Get first 10 LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const loggingDetailsWithIdOnly = await prisma.loggingDetails.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends LoggingDetailsFindManyArgs>(
+      args?: SelectSubset<T, LoggingDetailsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<LoggingDetailsGetPayload<T>>>
+
+    /**
+     * Create a LoggingDetails.
+     * @param {LoggingDetailsCreateArgs} args - Arguments to create a LoggingDetails.
+     * @example
+     * // Create one LoggingDetails
+     * const LoggingDetails = await prisma.loggingDetails.create({
+     *   data: {
+     *     // ... data to create a LoggingDetails
+     *   }
+     * })
+     * 
+    **/
+    create<T extends LoggingDetailsCreateArgs>(
+      args: SelectSubset<T, LoggingDetailsCreateArgs>
+    ): Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T>>
+
+    /**
+     * Create many LoggingDetails.
+     *     @param {LoggingDetailsCreateManyArgs} args - Arguments to create many LoggingDetails.
+     *     @example
+     *     // Create many LoggingDetails
+     *     const loggingDetails = await prisma.loggingDetails.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends LoggingDetailsCreateManyArgs>(
+      args?: SelectSubset<T, LoggingDetailsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a LoggingDetails.
+     * @param {LoggingDetailsDeleteArgs} args - Arguments to delete one LoggingDetails.
+     * @example
+     * // Delete one LoggingDetails
+     * const LoggingDetails = await prisma.loggingDetails.delete({
+     *   where: {
+     *     // ... filter to delete one LoggingDetails
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends LoggingDetailsDeleteArgs>(
+      args: SelectSubset<T, LoggingDetailsDeleteArgs>
+    ): Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T>>
+
+    /**
+     * Update one LoggingDetails.
+     * @param {LoggingDetailsUpdateArgs} args - Arguments to update one LoggingDetails.
+     * @example
+     * // Update one LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends LoggingDetailsUpdateArgs>(
+      args: SelectSubset<T, LoggingDetailsUpdateArgs>
+    ): Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T>>
+
+    /**
+     * Delete zero or more LoggingDetails.
+     * @param {LoggingDetailsDeleteManyArgs} args - Arguments to filter LoggingDetails to delete.
+     * @example
+     * // Delete a few LoggingDetails
+     * const { count } = await prisma.loggingDetails.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends LoggingDetailsDeleteManyArgs>(
+      args?: SelectSubset<T, LoggingDetailsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LoggingDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoggingDetailsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends LoggingDetailsUpdateManyArgs>(
+      args: SelectSubset<T, LoggingDetailsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LoggingDetails.
+     * @param {LoggingDetailsUpsertArgs} args - Arguments to update or create a LoggingDetails.
+     * @example
+     * // Update or create a LoggingDetails
+     * const loggingDetails = await prisma.loggingDetails.upsert({
+     *   create: {
+     *     // ... data to create a LoggingDetails
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LoggingDetails we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends LoggingDetailsUpsertArgs>(
+      args: SelectSubset<T, LoggingDetailsUpsertArgs>
+    ): Prisma__LoggingDetailsClient<LoggingDetailsGetPayload<T>>
+
+    /**
+     * Count the number of LoggingDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoggingDetailsCountArgs} args - Arguments to filter LoggingDetails to count.
+     * @example
+     * // Count the number of LoggingDetails
+     * const count = await prisma.loggingDetails.count({
+     *   where: {
+     *     // ... the filter for the LoggingDetails we want to count
+     *   }
+     * })
+    **/
+    count<T extends LoggingDetailsCountArgs>(
+      args?: Subset<T, LoggingDetailsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LoggingDetailsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LoggingDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoggingDetailsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LoggingDetailsAggregateArgs>(args: Subset<T, LoggingDetailsAggregateArgs>): Prisma.PrismaPromise<GetLoggingDetailsAggregateType<T>>
+
+    /**
+     * Group by LoggingDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoggingDetailsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LoggingDetailsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LoggingDetailsGroupByArgs['orderBy'] }
+        : { orderBy?: LoggingDetailsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LoggingDetailsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLoggingDetailsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LoggingDetails.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__LoggingDetailsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * LoggingDetails base type for findUnique actions
+   */
+  export type LoggingDetailsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * Filter, which LoggingDetails to fetch.
+     */
+    where: LoggingDetailsWhereUniqueInput
+  }
+
+  /**
+   * LoggingDetails findUnique
+   */
+  export interface LoggingDetailsFindUniqueArgs extends LoggingDetailsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * LoggingDetails findUniqueOrThrow
+   */
+  export type LoggingDetailsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * Filter, which LoggingDetails to fetch.
+     */
+    where: LoggingDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * LoggingDetails base type for findFirst actions
+   */
+  export type LoggingDetailsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * Filter, which LoggingDetails to fetch.
+     */
+    where?: LoggingDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LoggingDetails to fetch.
+     */
+    orderBy?: Enumerable<LoggingDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LoggingDetails.
+     */
+    cursor?: LoggingDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LoggingDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LoggingDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LoggingDetails.
+     */
+    distinct?: Enumerable<LoggingDetailsScalarFieldEnum>
+  }
+
+  /**
+   * LoggingDetails findFirst
+   */
+  export interface LoggingDetailsFindFirstArgs extends LoggingDetailsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * LoggingDetails findFirstOrThrow
+   */
+  export type LoggingDetailsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * Filter, which LoggingDetails to fetch.
+     */
+    where?: LoggingDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LoggingDetails to fetch.
+     */
+    orderBy?: Enumerable<LoggingDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LoggingDetails.
+     */
+    cursor?: LoggingDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LoggingDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LoggingDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LoggingDetails.
+     */
+    distinct?: Enumerable<LoggingDetailsScalarFieldEnum>
+  }
+
+
+  /**
+   * LoggingDetails findMany
+   */
+  export type LoggingDetailsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * Filter, which LoggingDetails to fetch.
+     */
+    where?: LoggingDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LoggingDetails to fetch.
+     */
+    orderBy?: Enumerable<LoggingDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LoggingDetails.
+     */
+    cursor?: LoggingDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LoggingDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LoggingDetails.
+     */
+    skip?: number
+    distinct?: Enumerable<LoggingDetailsScalarFieldEnum>
+  }
+
+
+  /**
+   * LoggingDetails create
+   */
+  export type LoggingDetailsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * The data needed to create a LoggingDetails.
+     */
+    data: XOR<LoggingDetailsCreateInput, LoggingDetailsUncheckedCreateInput>
+  }
+
+
+  /**
+   * LoggingDetails createMany
+   */
+  export type LoggingDetailsCreateManyArgs = {
+    /**
+     * The data used to create many LoggingDetails.
+     */
+    data: Enumerable<LoggingDetailsCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * LoggingDetails update
+   */
+  export type LoggingDetailsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * The data needed to update a LoggingDetails.
+     */
+    data: XOR<LoggingDetailsUpdateInput, LoggingDetailsUncheckedUpdateInput>
+    /**
+     * Choose, which LoggingDetails to update.
+     */
+    where: LoggingDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * LoggingDetails updateMany
+   */
+  export type LoggingDetailsUpdateManyArgs = {
+    /**
+     * The data used to update LoggingDetails.
+     */
+    data: XOR<LoggingDetailsUpdateManyMutationInput, LoggingDetailsUncheckedUpdateManyInput>
+    /**
+     * Filter which LoggingDetails to update
+     */
+    where?: LoggingDetailsWhereInput
+  }
+
+
+  /**
+   * LoggingDetails upsert
+   */
+  export type LoggingDetailsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * The filter to search for the LoggingDetails to update in case it exists.
+     */
+    where: LoggingDetailsWhereUniqueInput
+    /**
+     * In case the LoggingDetails found by the `where` argument doesn't exist, create a new LoggingDetails with this data.
+     */
+    create: XOR<LoggingDetailsCreateInput, LoggingDetailsUncheckedCreateInput>
+    /**
+     * In case the LoggingDetails was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LoggingDetailsUpdateInput, LoggingDetailsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * LoggingDetails delete
+   */
+  export type LoggingDetailsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+    /**
+     * Filter which LoggingDetails to delete.
+     */
+    where: LoggingDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * LoggingDetails deleteMany
+   */
+  export type LoggingDetailsDeleteManyArgs = {
+    /**
+     * Filter which LoggingDetails to delete
+     */
+    where?: LoggingDetailsWhereInput
+  }
+
+
+  /**
+   * LoggingDetails without action
+   */
+  export type LoggingDetailsArgs = {
+    /**
+     * Select specific fields to fetch from the LoggingDetails
+     */
+    select?: LoggingDetailsSelect | null
+  }
+
+
+
+  /**
+   * Model SmtpDetails
+   */
+
+
+  export type AggregateSmtpDetails = {
+    _count: SmtpDetailsCountAggregateOutputType | null
+    _avg: SmtpDetailsAvgAggregateOutputType | null
+    _sum: SmtpDetailsSumAggregateOutputType | null
+    _min: SmtpDetailsMinAggregateOutputType | null
+    _max: SmtpDetailsMaxAggregateOutputType | null
+  }
+
+  export type SmtpDetailsAvgAggregateOutputType = {
+    id: number | null
+    port_no: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type SmtpDetailsSumAggregateOutputType = {
+    id: number | null
+    port_no: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type SmtpDetailsMinAggregateOutputType = {
+    id: number | null
+    host_name: string | null
+    port_no: number | null
+    user_name: string | null
+    password: string | null
+    encryption_type: string | null
+    sent_from: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type SmtpDetailsMaxAggregateOutputType = {
+    id: number | null
+    host_name: string | null
+    port_no: number | null
+    user_name: string | null
+    password: string | null
+    encryption_type: string | null
+    sent_from: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type SmtpDetailsCountAggregateOutputType = {
+    id: number
+    host_name: number
+    port_no: number
+    user_name: number
+    password: number
+    encryption_type: number
+    sent_from: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type SmtpDetailsAvgAggregateInputType = {
+    id?: true
+    port_no?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type SmtpDetailsSumAggregateInputType = {
+    id?: true
+    port_no?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type SmtpDetailsMinAggregateInputType = {
+    id?: true
+    host_name?: true
+    port_no?: true
+    user_name?: true
+    password?: true
+    encryption_type?: true
+    sent_from?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type SmtpDetailsMaxAggregateInputType = {
+    id?: true
+    host_name?: true
+    port_no?: true
+    user_name?: true
+    password?: true
+    encryption_type?: true
+    sent_from?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type SmtpDetailsCountAggregateInputType = {
+    id?: true
+    host_name?: true
+    port_no?: true
+    user_name?: true
+    password?: true
+    encryption_type?: true
+    sent_from?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type SmtpDetailsAggregateArgs = {
+    /**
+     * Filter which SmtpDetails to aggregate.
+     */
+    where?: SmtpDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmtpDetails to fetch.
+     */
+    orderBy?: Enumerable<SmtpDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SmtpDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmtpDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmtpDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SmtpDetails
+    **/
+    _count?: true | SmtpDetailsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SmtpDetailsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SmtpDetailsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SmtpDetailsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SmtpDetailsMaxAggregateInputType
+  }
+
+  export type GetSmtpDetailsAggregateType<T extends SmtpDetailsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSmtpDetails]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSmtpDetails[P]>
+      : GetScalarType<T[P], AggregateSmtpDetails[P]>
+  }
+
+
+
+
+  export type SmtpDetailsGroupByArgs = {
+    where?: SmtpDetailsWhereInput
+    orderBy?: Enumerable<SmtpDetailsOrderByWithAggregationInput>
+    by: SmtpDetailsScalarFieldEnum[]
+    having?: SmtpDetailsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SmtpDetailsCountAggregateInputType | true
+    _avg?: SmtpDetailsAvgAggregateInputType
+    _sum?: SmtpDetailsSumAggregateInputType
+    _min?: SmtpDetailsMinAggregateInputType
+    _max?: SmtpDetailsMaxAggregateInputType
+  }
+
+
+  export type SmtpDetailsGroupByOutputType = {
+    id: number
+    host_name: string | null
+    port_no: number
+    user_name: string | null
+    password: string | null
+    encryption_type: string | null
+    sent_from: string | null
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: SmtpDetailsCountAggregateOutputType | null
+    _avg: SmtpDetailsAvgAggregateOutputType | null
+    _sum: SmtpDetailsSumAggregateOutputType | null
+    _min: SmtpDetailsMinAggregateOutputType | null
+    _max: SmtpDetailsMaxAggregateOutputType | null
+  }
+
+  type GetSmtpDetailsGroupByPayload<T extends SmtpDetailsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<SmtpDetailsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SmtpDetailsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SmtpDetailsGroupByOutputType[P]>
+            : GetScalarType<T[P], SmtpDetailsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SmtpDetailsSelect = {
+    id?: boolean
+    host_name?: boolean
+    port_no?: boolean
+    user_name?: boolean
+    password?: boolean
+    encryption_type?: boolean
+    sent_from?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type SmtpDetailsGetPayload<S extends boolean | null | undefined | SmtpDetailsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? SmtpDetails :
+    S extends undefined ? never :
+    S extends { include: any } & (SmtpDetailsArgs | SmtpDetailsFindManyArgs)
+    ? SmtpDetails 
+    : S extends { select: any } & (SmtpDetailsArgs | SmtpDetailsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof SmtpDetails ? SmtpDetails[P] : never
+  } 
+      : SmtpDetails
+
+
+  type SmtpDetailsCountArgs = 
+    Omit<SmtpDetailsFindManyArgs, 'select' | 'include'> & {
+      select?: SmtpDetailsCountAggregateInputType | true
+    }
+
+  export interface SmtpDetailsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one SmtpDetails that matches the filter.
+     * @param {SmtpDetailsFindUniqueArgs} args - Arguments to find a SmtpDetails
+     * @example
+     * // Get one SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends SmtpDetailsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, SmtpDetailsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'SmtpDetails'> extends True ? Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T>> : Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T> | null, null>
+
+    /**
+     * Find one SmtpDetails that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {SmtpDetailsFindUniqueOrThrowArgs} args - Arguments to find a SmtpDetails
+     * @example
+     * // Get one SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends SmtpDetailsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, SmtpDetailsFindUniqueOrThrowArgs>
+    ): Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T>>
+
+    /**
+     * Find the first SmtpDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmtpDetailsFindFirstArgs} args - Arguments to find a SmtpDetails
+     * @example
+     * // Get one SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends SmtpDetailsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, SmtpDetailsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'SmtpDetails'> extends True ? Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T>> : Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T> | null, null>
+
+    /**
+     * Find the first SmtpDetails that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmtpDetailsFindFirstOrThrowArgs} args - Arguments to find a SmtpDetails
+     * @example
+     * // Get one SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends SmtpDetailsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, SmtpDetailsFindFirstOrThrowArgs>
+    ): Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T>>
+
+    /**
+     * Find zero or more SmtpDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmtpDetailsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.findMany()
+     * 
+     * // Get first 10 SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const smtpDetailsWithIdOnly = await prisma.smtpDetails.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends SmtpDetailsFindManyArgs>(
+      args?: SelectSubset<T, SmtpDetailsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<SmtpDetailsGetPayload<T>>>
+
+    /**
+     * Create a SmtpDetails.
+     * @param {SmtpDetailsCreateArgs} args - Arguments to create a SmtpDetails.
+     * @example
+     * // Create one SmtpDetails
+     * const SmtpDetails = await prisma.smtpDetails.create({
+     *   data: {
+     *     // ... data to create a SmtpDetails
+     *   }
+     * })
+     * 
+    **/
+    create<T extends SmtpDetailsCreateArgs>(
+      args: SelectSubset<T, SmtpDetailsCreateArgs>
+    ): Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T>>
+
+    /**
+     * Create many SmtpDetails.
+     *     @param {SmtpDetailsCreateManyArgs} args - Arguments to create many SmtpDetails.
+     *     @example
+     *     // Create many SmtpDetails
+     *     const smtpDetails = await prisma.smtpDetails.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends SmtpDetailsCreateManyArgs>(
+      args?: SelectSubset<T, SmtpDetailsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SmtpDetails.
+     * @param {SmtpDetailsDeleteArgs} args - Arguments to delete one SmtpDetails.
+     * @example
+     * // Delete one SmtpDetails
+     * const SmtpDetails = await prisma.smtpDetails.delete({
+     *   where: {
+     *     // ... filter to delete one SmtpDetails
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends SmtpDetailsDeleteArgs>(
+      args: SelectSubset<T, SmtpDetailsDeleteArgs>
+    ): Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T>>
+
+    /**
+     * Update one SmtpDetails.
+     * @param {SmtpDetailsUpdateArgs} args - Arguments to update one SmtpDetails.
+     * @example
+     * // Update one SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends SmtpDetailsUpdateArgs>(
+      args: SelectSubset<T, SmtpDetailsUpdateArgs>
+    ): Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T>>
+
+    /**
+     * Delete zero or more SmtpDetails.
+     * @param {SmtpDetailsDeleteManyArgs} args - Arguments to filter SmtpDetails to delete.
+     * @example
+     * // Delete a few SmtpDetails
+     * const { count } = await prisma.smtpDetails.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends SmtpDetailsDeleteManyArgs>(
+      args?: SelectSubset<T, SmtpDetailsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SmtpDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmtpDetailsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends SmtpDetailsUpdateManyArgs>(
+      args: SelectSubset<T, SmtpDetailsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SmtpDetails.
+     * @param {SmtpDetailsUpsertArgs} args - Arguments to update or create a SmtpDetails.
+     * @example
+     * // Update or create a SmtpDetails
+     * const smtpDetails = await prisma.smtpDetails.upsert({
+     *   create: {
+     *     // ... data to create a SmtpDetails
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SmtpDetails we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends SmtpDetailsUpsertArgs>(
+      args: SelectSubset<T, SmtpDetailsUpsertArgs>
+    ): Prisma__SmtpDetailsClient<SmtpDetailsGetPayload<T>>
+
+    /**
+     * Count the number of SmtpDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmtpDetailsCountArgs} args - Arguments to filter SmtpDetails to count.
+     * @example
+     * // Count the number of SmtpDetails
+     * const count = await prisma.smtpDetails.count({
+     *   where: {
+     *     // ... the filter for the SmtpDetails we want to count
+     *   }
+     * })
+    **/
+    count<T extends SmtpDetailsCountArgs>(
+      args?: Subset<T, SmtpDetailsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SmtpDetailsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SmtpDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmtpDetailsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SmtpDetailsAggregateArgs>(args: Subset<T, SmtpDetailsAggregateArgs>): Prisma.PrismaPromise<GetSmtpDetailsAggregateType<T>>
+
+    /**
+     * Group by SmtpDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmtpDetailsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SmtpDetailsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SmtpDetailsGroupByArgs['orderBy'] }
+        : { orderBy?: SmtpDetailsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SmtpDetailsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSmtpDetailsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SmtpDetails.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__SmtpDetailsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * SmtpDetails base type for findUnique actions
+   */
+  export type SmtpDetailsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * Filter, which SmtpDetails to fetch.
+     */
+    where: SmtpDetailsWhereUniqueInput
+  }
+
+  /**
+   * SmtpDetails findUnique
+   */
+  export interface SmtpDetailsFindUniqueArgs extends SmtpDetailsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * SmtpDetails findUniqueOrThrow
+   */
+  export type SmtpDetailsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * Filter, which SmtpDetails to fetch.
+     */
+    where: SmtpDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * SmtpDetails base type for findFirst actions
+   */
+  export type SmtpDetailsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * Filter, which SmtpDetails to fetch.
+     */
+    where?: SmtpDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmtpDetails to fetch.
+     */
+    orderBy?: Enumerable<SmtpDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SmtpDetails.
+     */
+    cursor?: SmtpDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmtpDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmtpDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SmtpDetails.
+     */
+    distinct?: Enumerable<SmtpDetailsScalarFieldEnum>
+  }
+
+  /**
+   * SmtpDetails findFirst
+   */
+  export interface SmtpDetailsFindFirstArgs extends SmtpDetailsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * SmtpDetails findFirstOrThrow
+   */
+  export type SmtpDetailsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * Filter, which SmtpDetails to fetch.
+     */
+    where?: SmtpDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmtpDetails to fetch.
+     */
+    orderBy?: Enumerable<SmtpDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SmtpDetails.
+     */
+    cursor?: SmtpDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmtpDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmtpDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SmtpDetails.
+     */
+    distinct?: Enumerable<SmtpDetailsScalarFieldEnum>
+  }
+
+
+  /**
+   * SmtpDetails findMany
+   */
+  export type SmtpDetailsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * Filter, which SmtpDetails to fetch.
+     */
+    where?: SmtpDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmtpDetails to fetch.
+     */
+    orderBy?: Enumerable<SmtpDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SmtpDetails.
+     */
+    cursor?: SmtpDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmtpDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmtpDetails.
+     */
+    skip?: number
+    distinct?: Enumerable<SmtpDetailsScalarFieldEnum>
+  }
+
+
+  /**
+   * SmtpDetails create
+   */
+  export type SmtpDetailsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * The data needed to create a SmtpDetails.
+     */
+    data: XOR<SmtpDetailsCreateInput, SmtpDetailsUncheckedCreateInput>
+  }
+
+
+  /**
+   * SmtpDetails createMany
+   */
+  export type SmtpDetailsCreateManyArgs = {
+    /**
+     * The data used to create many SmtpDetails.
+     */
+    data: Enumerable<SmtpDetailsCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * SmtpDetails update
+   */
+  export type SmtpDetailsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * The data needed to update a SmtpDetails.
+     */
+    data: XOR<SmtpDetailsUpdateInput, SmtpDetailsUncheckedUpdateInput>
+    /**
+     * Choose, which SmtpDetails to update.
+     */
+    where: SmtpDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * SmtpDetails updateMany
+   */
+  export type SmtpDetailsUpdateManyArgs = {
+    /**
+     * The data used to update SmtpDetails.
+     */
+    data: XOR<SmtpDetailsUpdateManyMutationInput, SmtpDetailsUncheckedUpdateManyInput>
+    /**
+     * Filter which SmtpDetails to update
+     */
+    where?: SmtpDetailsWhereInput
+  }
+
+
+  /**
+   * SmtpDetails upsert
+   */
+  export type SmtpDetailsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * The filter to search for the SmtpDetails to update in case it exists.
+     */
+    where: SmtpDetailsWhereUniqueInput
+    /**
+     * In case the SmtpDetails found by the `where` argument doesn't exist, create a new SmtpDetails with this data.
+     */
+    create: XOR<SmtpDetailsCreateInput, SmtpDetailsUncheckedCreateInput>
+    /**
+     * In case the SmtpDetails was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SmtpDetailsUpdateInput, SmtpDetailsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * SmtpDetails delete
+   */
+  export type SmtpDetailsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+    /**
+     * Filter which SmtpDetails to delete.
+     */
+    where: SmtpDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * SmtpDetails deleteMany
+   */
+  export type SmtpDetailsDeleteManyArgs = {
+    /**
+     * Filter which SmtpDetails to delete
+     */
+    where?: SmtpDetailsWhereInput
+  }
+
+
+  /**
+   * SmtpDetails without action
+   */
+  export type SmtpDetailsArgs = {
+    /**
+     * Select specific fields to fetch from the SmtpDetails
+     */
+    select?: SmtpDetailsSelect | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -13995,6 +20265,58 @@ export namespace Prisma {
   };
 
   export type Contract_typesScalarFieldEnum = (typeof Contract_typesScalarFieldEnum)[keyof typeof Contract_typesScalarFieldEnum]
+
+
+  export const CustomerContractsScalarFieldEnum: {
+    id: 'id',
+    customer_id: 'customer_id',
+    first_name: 'first_name',
+    last_name: 'last_name',
+    primary_email: 'primary_email',
+    secondary_email: 'secondary_email',
+    home_phone_number: 'home_phone_number',
+    work_phone_number: 'work_phone_number',
+    mobile: 'mobile',
+    fax_phone_number: 'fax_phone_number',
+    other_phone_number1: 'other_phone_number1',
+    other_phone_number2: 'other_phone_number2',
+    job_title: 'job_title',
+    is_primary: 'is_primary',
+    created_by: 'created_by',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CustomerContractsScalarFieldEnum = (typeof CustomerContractsScalarFieldEnum)[keyof typeof CustomerContractsScalarFieldEnum]
+
+
+  export const CustomerNoteTitlesMasterScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    created_by: 'created_by',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CustomerNoteTitlesMasterScalarFieldEnum = (typeof CustomerNoteTitlesMasterScalarFieldEnum)[keyof typeof CustomerNoteTitlesMasterScalarFieldEnum]
+
+
+  export const CustomerStatusListScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    created_by: 'created_by',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CustomerStatusListScalarFieldEnum = (typeof CustomerStatusListScalarFieldEnum)[keyof typeof CustomerStatusListScalarFieldEnum]
 
 
   export const Customer_typesScalarFieldEnum: {
@@ -14046,6 +20368,34 @@ export namespace Prisma {
   export type GeneratorPhaseTypesScalarFieldEnum = (typeof GeneratorPhaseTypesScalarFieldEnum)[keyof typeof GeneratorPhaseTypesScalarFieldEnum]
 
 
+  export const LoggingDetailsScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    configuare_value: 'configuare_value',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type LoggingDetailsScalarFieldEnum = (typeof LoggingDetailsScalarFieldEnum)[keyof typeof LoggingDetailsScalarFieldEnum]
+
+
+  export const MiscConfigurationScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    created_by: 'created_by',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type MiscConfigurationScalarFieldEnum = (typeof MiscConfigurationScalarFieldEnum)[keyof typeof MiscConfigurationScalarFieldEnum]
+
+
   export const ReminderThresoldDaysScalarFieldEnum: {
     id: 'id',
     thresold_day: 'thresold_day',
@@ -14074,6 +20424,7 @@ export namespace Prisma {
     id: 'id',
     service_name: 'service_name',
     service_limit: 'service_limit',
+    threshold_limit: 'threshold_limit',
     default_load_test_duration: 'default_load_test_duration',
     on_screen_color_code: 'on_screen_color_code',
     on_report_color_code: 'on_report_color_code',
@@ -14086,6 +20437,23 @@ export namespace Prisma {
   };
 
   export type Service_levelsScalarFieldEnum = (typeof Service_levelsScalarFieldEnum)[keyof typeof Service_levelsScalarFieldEnum]
+
+
+  export const SmtpDetailsScalarFieldEnum: {
+    id: 'id',
+    host_name: 'host_name',
+    port_no: 'port_no',
+    user_name: 'user_name',
+    password: 'password',
+    encryption_type: 'encryption_type',
+    sent_from: 'sent_from',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type SmtpDetailsScalarFieldEnum = (typeof SmtpDetailsScalarFieldEnum)[keyof typeof SmtpDetailsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14113,9 +20481,11 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     address: 'address',
+    billing_address: 'billing_address',
     contact: 'contact',
     customer_type_id: 'customer_type_id',
     user_type: 'user_type',
+    created_by: 'created_by',
     status: 'status',
     is_deleted: 'is_deleted',
     created_at: 'created_at',
@@ -14169,6 +20539,7 @@ export namespace Prisma {
     is_deleted?: IntFilter | number
     created_at?: DateTimeFilter | Date | string
     updated_at?: DateTimeFilter | Date | string
+    customer_type?: UsersListRelationFilter
   }
 
   export type Customer_typesOrderByWithRelationInput = {
@@ -14178,6 +20549,7 @@ export namespace Prisma {
     is_deleted?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    customer_type?: UsersOrderByRelationAggregateInput
   }
 
   export type Customer_typesWhereUniqueInput = {
@@ -14273,14 +20645,18 @@ export namespace Prisma {
     email?: StringNullableFilter | string | null
     password?: StringNullableFilter | string | null
     address?: StringNullableFilter | string | null
+    billing_address?: StringNullableFilter | string | null
     contact?: StringNullableFilter | string | null
     customer_type_id?: IntFilter | number
     user_type?: IntFilter | number
+    created_by?: IntFilter | number
     status?: IntFilter | number
     is_deleted?: IntFilter | number
     created_at?: DateTimeFilter | Date | string
     updated_at?: DateTimeFilter | Date | string
+    customer_type?: XOR<Customer_typesRelationFilter, Customer_typesWhereInput> | null
     role_type?: XOR<RolesRelationFilter, RolesWhereInput> | null
+    user_contacts?: CustomerContractsListRelationFilter
   }
 
   export type UsersOrderByWithRelationInput = {
@@ -14290,14 +20666,18 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     address?: SortOrder
+    billing_address?: SortOrder
     contact?: SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
+    created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    customer_type?: Customer_typesOrderByWithRelationInput
     role_type?: RolesOrderByWithRelationInput
+    user_contacts?: CustomerContractsOrderByRelationAggregateInput
   }
 
   export type UsersWhereUniqueInput = {
@@ -14311,9 +20691,11 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     address?: SortOrder
+    billing_address?: SortOrder
     contact?: SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
+    created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -14335,9 +20717,11 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter | string | null
     password?: StringNullableWithAggregatesFilter | string | null
     address?: StringNullableWithAggregatesFilter | string | null
+    billing_address?: StringNullableWithAggregatesFilter | string | null
     contact?: StringNullableWithAggregatesFilter | string | null
     customer_type_id?: IntWithAggregatesFilter | number
     user_type?: IntWithAggregatesFilter | number
+    created_by?: IntWithAggregatesFilter | number
     status?: IntWithAggregatesFilter | number
     is_deleted?: IntWithAggregatesFilter | number
     created_at?: DateTimeWithAggregatesFilter | Date | string
@@ -14685,6 +21069,7 @@ export namespace Prisma {
     id?: IntFilter | number
     service_name?: IntFilter | number
     service_limit?: IntFilter | number
+    threshold_limit?: IntFilter | number
     default_load_test_duration?: IntFilter | number
     on_screen_color_code?: StringFilter | string
     on_report_color_code?: StringFilter | string
@@ -14700,6 +21085,7 @@ export namespace Prisma {
     id?: SortOrder
     service_name?: SortOrder
     service_limit?: SortOrder
+    threshold_limit?: SortOrder
     default_load_test_duration?: SortOrder
     on_screen_color_code?: SortOrder
     on_report_color_code?: SortOrder
@@ -14720,6 +21106,7 @@ export namespace Prisma {
     id?: SortOrder
     service_name?: SortOrder
     service_limit?: SortOrder
+    threshold_limit?: SortOrder
     default_load_test_duration?: SortOrder
     on_screen_color_code?: SortOrder
     on_report_color_code?: SortOrder
@@ -14743,6 +21130,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter | number
     service_name?: IntWithAggregatesFilter | number
     service_limit?: IntWithAggregatesFilter | number
+    threshold_limit?: IntWithAggregatesFilter | number
     default_load_test_duration?: IntWithAggregatesFilter | number
     on_screen_color_code?: StringWithAggregatesFilter | string
     on_report_color_code?: StringWithAggregatesFilter | string
@@ -14933,12 +21321,423 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter | Date | string
   }
 
+  export type CustomerContractsWhereInput = {
+    AND?: Enumerable<CustomerContractsWhereInput>
+    OR?: Enumerable<CustomerContractsWhereInput>
+    NOT?: Enumerable<CustomerContractsWhereInput>
+    id?: IntFilter | number
+    customer_id?: IntFilter | number
+    first_name?: StringNullableFilter | string | null
+    last_name?: StringNullableFilter | string | null
+    primary_email?: StringNullableFilter | string | null
+    secondary_email?: StringNullableFilter | string | null
+    home_phone_number?: StringNullableFilter | string | null
+    work_phone_number?: StringNullableFilter | string | null
+    mobile?: StringNullableFilter | string | null
+    fax_phone_number?: StringNullableFilter | string | null
+    other_phone_number1?: StringNullableFilter | string | null
+    other_phone_number2?: StringNullableFilter | string | null
+    job_title?: StringNullableFilter | string | null
+    is_primary?: IntFilter | number
+    created_by?: IntFilter | number
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+    user_contacts?: XOR<UsersRelationFilter, UsersWhereInput> | null
+  }
+
+  export type CustomerContractsOrderByWithRelationInput = {
+    id?: SortOrder
+    customer_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    primary_email?: SortOrder
+    secondary_email?: SortOrder
+    home_phone_number?: SortOrder
+    work_phone_number?: SortOrder
+    mobile?: SortOrder
+    fax_phone_number?: SortOrder
+    other_phone_number1?: SortOrder
+    other_phone_number2?: SortOrder
+    job_title?: SortOrder
+    is_primary?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    user_contacts?: UsersOrderByWithRelationInput
+  }
+
+  export type CustomerContractsWhereUniqueInput = {
+    id?: number
+  }
+
+  export type CustomerContractsOrderByWithAggregationInput = {
+    id?: SortOrder
+    customer_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    primary_email?: SortOrder
+    secondary_email?: SortOrder
+    home_phone_number?: SortOrder
+    work_phone_number?: SortOrder
+    mobile?: SortOrder
+    fax_phone_number?: SortOrder
+    other_phone_number1?: SortOrder
+    other_phone_number2?: SortOrder
+    job_title?: SortOrder
+    is_primary?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: CustomerContractsCountOrderByAggregateInput
+    _avg?: CustomerContractsAvgOrderByAggregateInput
+    _max?: CustomerContractsMaxOrderByAggregateInput
+    _min?: CustomerContractsMinOrderByAggregateInput
+    _sum?: CustomerContractsSumOrderByAggregateInput
+  }
+
+  export type CustomerContractsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<CustomerContractsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<CustomerContractsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<CustomerContractsScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    customer_id?: IntWithAggregatesFilter | number
+    first_name?: StringNullableWithAggregatesFilter | string | null
+    last_name?: StringNullableWithAggregatesFilter | string | null
+    primary_email?: StringNullableWithAggregatesFilter | string | null
+    secondary_email?: StringNullableWithAggregatesFilter | string | null
+    home_phone_number?: StringNullableWithAggregatesFilter | string | null
+    work_phone_number?: StringNullableWithAggregatesFilter | string | null
+    mobile?: StringNullableWithAggregatesFilter | string | null
+    fax_phone_number?: StringNullableWithAggregatesFilter | string | null
+    other_phone_number1?: StringNullableWithAggregatesFilter | string | null
+    other_phone_number2?: StringNullableWithAggregatesFilter | string | null
+    job_title?: StringNullableWithAggregatesFilter | string | null
+    is_primary?: IntWithAggregatesFilter | number
+    created_by?: IntWithAggregatesFilter | number
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type CustomerNoteTitlesMasterWhereInput = {
+    AND?: Enumerable<CustomerNoteTitlesMasterWhereInput>
+    OR?: Enumerable<CustomerNoteTitlesMasterWhereInput>
+    NOT?: Enumerable<CustomerNoteTitlesMasterWhereInput>
+    id?: IntFilter | number
+    title?: StringNullableFilter | string | null
+    created_by?: IntFilter | number
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+  }
+
+  export type CustomerNoteTitlesMasterOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerNoteTitlesMasterWhereUniqueInput = {
+    id?: number
+    title?: string
+  }
+
+  export type CustomerNoteTitlesMasterOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: CustomerNoteTitlesMasterCountOrderByAggregateInput
+    _avg?: CustomerNoteTitlesMasterAvgOrderByAggregateInput
+    _max?: CustomerNoteTitlesMasterMaxOrderByAggregateInput
+    _min?: CustomerNoteTitlesMasterMinOrderByAggregateInput
+    _sum?: CustomerNoteTitlesMasterSumOrderByAggregateInput
+  }
+
+  export type CustomerNoteTitlesMasterScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<CustomerNoteTitlesMasterScalarWhereWithAggregatesInput>
+    OR?: Enumerable<CustomerNoteTitlesMasterScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<CustomerNoteTitlesMasterScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    title?: StringNullableWithAggregatesFilter | string | null
+    created_by?: IntWithAggregatesFilter | number
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type CustomerStatusListWhereInput = {
+    AND?: Enumerable<CustomerStatusListWhereInput>
+    OR?: Enumerable<CustomerStatusListWhereInput>
+    NOT?: Enumerable<CustomerStatusListWhereInput>
+    id?: IntFilter | number
+    title?: StringNullableFilter | string | null
+    description?: StringNullableFilter | string | null
+    created_by?: IntFilter | number
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+  }
+
+  export type CustomerStatusListOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerStatusListWhereUniqueInput = {
+    id?: number
+    title?: string
+  }
+
+  export type CustomerStatusListOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: CustomerStatusListCountOrderByAggregateInput
+    _avg?: CustomerStatusListAvgOrderByAggregateInput
+    _max?: CustomerStatusListMaxOrderByAggregateInput
+    _min?: CustomerStatusListMinOrderByAggregateInput
+    _sum?: CustomerStatusListSumOrderByAggregateInput
+  }
+
+  export type CustomerStatusListScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<CustomerStatusListScalarWhereWithAggregatesInput>
+    OR?: Enumerable<CustomerStatusListScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<CustomerStatusListScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    title?: StringNullableWithAggregatesFilter | string | null
+    description?: StringNullableWithAggregatesFilter | string | null
+    created_by?: IntWithAggregatesFilter | number
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type MiscConfigurationWhereInput = {
+    AND?: Enumerable<MiscConfigurationWhereInput>
+    OR?: Enumerable<MiscConfigurationWhereInput>
+    NOT?: Enumerable<MiscConfigurationWhereInput>
+    id?: IntFilter | number
+    name?: StringNullableFilter | string | null
+    description?: StringNullableFilter | string | null
+    created_by?: IntFilter | number
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+  }
+
+  export type MiscConfigurationOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MiscConfigurationWhereUniqueInput = {
+    id?: number
+  }
+
+  export type MiscConfigurationOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: MiscConfigurationCountOrderByAggregateInput
+    _avg?: MiscConfigurationAvgOrderByAggregateInput
+    _max?: MiscConfigurationMaxOrderByAggregateInput
+    _min?: MiscConfigurationMinOrderByAggregateInput
+    _sum?: MiscConfigurationSumOrderByAggregateInput
+  }
+
+  export type MiscConfigurationScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<MiscConfigurationScalarWhereWithAggregatesInput>
+    OR?: Enumerable<MiscConfigurationScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<MiscConfigurationScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    name?: StringNullableWithAggregatesFilter | string | null
+    description?: StringNullableWithAggregatesFilter | string | null
+    created_by?: IntWithAggregatesFilter | number
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type LoggingDetailsWhereInput = {
+    AND?: Enumerable<LoggingDetailsWhereInput>
+    OR?: Enumerable<LoggingDetailsWhereInput>
+    NOT?: Enumerable<LoggingDetailsWhereInput>
+    id?: IntFilter | number
+    title?: StringNullableFilter | string | null
+    description?: StringNullableFilter | string | null
+    configuare_value?: StringNullableFilter | string | null
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+  }
+
+  export type LoggingDetailsOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    configuare_value?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type LoggingDetailsWhereUniqueInput = {
+    id?: number
+  }
+
+  export type LoggingDetailsOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    configuare_value?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: LoggingDetailsCountOrderByAggregateInput
+    _avg?: LoggingDetailsAvgOrderByAggregateInput
+    _max?: LoggingDetailsMaxOrderByAggregateInput
+    _min?: LoggingDetailsMinOrderByAggregateInput
+    _sum?: LoggingDetailsSumOrderByAggregateInput
+  }
+
+  export type LoggingDetailsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<LoggingDetailsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<LoggingDetailsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<LoggingDetailsScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    title?: StringNullableWithAggregatesFilter | string | null
+    description?: StringNullableWithAggregatesFilter | string | null
+    configuare_value?: StringNullableWithAggregatesFilter | string | null
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type SmtpDetailsWhereInput = {
+    AND?: Enumerable<SmtpDetailsWhereInput>
+    OR?: Enumerable<SmtpDetailsWhereInput>
+    NOT?: Enumerable<SmtpDetailsWhereInput>
+    id?: IntFilter | number
+    host_name?: StringNullableFilter | string | null
+    port_no?: IntFilter | number
+    user_name?: StringNullableFilter | string | null
+    password?: StringNullableFilter | string | null
+    encryption_type?: StringNullableFilter | string | null
+    sent_from?: StringNullableFilter | string | null
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+  }
+
+  export type SmtpDetailsOrderByWithRelationInput = {
+    id?: SortOrder
+    host_name?: SortOrder
+    port_no?: SortOrder
+    user_name?: SortOrder
+    password?: SortOrder
+    encryption_type?: SortOrder
+    sent_from?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SmtpDetailsWhereUniqueInput = {
+    id?: number
+  }
+
+  export type SmtpDetailsOrderByWithAggregationInput = {
+    id?: SortOrder
+    host_name?: SortOrder
+    port_no?: SortOrder
+    user_name?: SortOrder
+    password?: SortOrder
+    encryption_type?: SortOrder
+    sent_from?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: SmtpDetailsCountOrderByAggregateInput
+    _avg?: SmtpDetailsAvgOrderByAggregateInput
+    _max?: SmtpDetailsMaxOrderByAggregateInput
+    _min?: SmtpDetailsMinOrderByAggregateInput
+    _sum?: SmtpDetailsSumOrderByAggregateInput
+  }
+
+  export type SmtpDetailsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<SmtpDetailsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<SmtpDetailsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<SmtpDetailsScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    host_name?: StringNullableWithAggregatesFilter | string | null
+    port_no?: IntWithAggregatesFilter | number
+    user_name?: StringNullableWithAggregatesFilter | string | null
+    password?: StringNullableWithAggregatesFilter | string | null
+    encryption_type?: StringNullableWithAggregatesFilter | string | null
+    sent_from?: StringNullableWithAggregatesFilter | string | null
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
   export type Customer_typesCreateInput = {
     type_name?: string | null
     status?: number
     is_deleted?: number
     created_at?: Date | string
     updated_at?: Date | string
+    customer_type?: UsersCreateNestedManyWithoutCustomer_typeInput
   }
 
   export type Customer_typesUncheckedCreateInput = {
@@ -14948,6 +21747,7 @@ export namespace Prisma {
     is_deleted?: number
     created_at?: Date | string
     updated_at?: Date | string
+    customer_type?: UsersUncheckedCreateNestedManyWithoutCustomer_typeInput
   }
 
   export type Customer_typesUpdateInput = {
@@ -14956,6 +21756,7 @@ export namespace Prisma {
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_type?: UsersUpdateManyWithoutCustomer_typeNestedInput
   }
 
   export type Customer_typesUncheckedUpdateInput = {
@@ -14965,6 +21766,7 @@ export namespace Prisma {
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_type?: UsersUncheckedUpdateManyWithoutCustomer_typeNestedInput
   }
 
   export type Customer_typesCreateManyInput = {
@@ -15063,13 +21865,16 @@ export namespace Prisma {
     email?: string | null
     password?: string | null
     address?: string | null
+    billing_address?: string | null
     contact?: string | null
-    customer_type_id?: number
+    created_by?: number
     status?: number
     is_deleted?: number
     created_at?: Date | string
     updated_at?: Date | string
+    customer_type?: Customer_typesCreateNestedOneWithoutCustomer_typeInput
     role_type?: RolesCreateNestedOneWithoutRole_typeInput
+    user_contacts?: CustomerContractsCreateNestedManyWithoutUser_contactsInput
   }
 
   export type UsersUncheckedCreateInput = {
@@ -15079,13 +21884,16 @@ export namespace Prisma {
     email?: string | null
     password?: string | null
     address?: string | null
+    billing_address?: string | null
     contact?: string | null
     customer_type_id?: number
     user_type?: number
+    created_by?: number
     status?: number
     is_deleted?: number
     created_at?: Date | string
     updated_at?: Date | string
+    user_contacts?: CustomerContractsUncheckedCreateNestedManyWithoutUser_contactsInput
   }
 
   export type UsersUpdateInput = {
@@ -15094,13 +21902,16 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: NullableStringFieldUpdateOperationsInput | string | null
-    customer_type_id?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
     status?: IntFieldUpdateOperationsInput | number
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_type?: Customer_typesUpdateOneWithoutCustomer_typeNestedInput
     role_type?: RolesUpdateOneWithoutRole_typeNestedInput
+    user_contacts?: CustomerContractsUpdateManyWithoutUser_contactsNestedInput
   }
 
   export type UsersUncheckedUpdateInput = {
@@ -15110,13 +21921,16 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: NullableStringFieldUpdateOperationsInput | string | null
     customer_type_id?: IntFieldUpdateOperationsInput | number
     user_type?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
     status?: IntFieldUpdateOperationsInput | number
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_contacts?: CustomerContractsUncheckedUpdateManyWithoutUser_contactsNestedInput
   }
 
   export type UsersCreateManyInput = {
@@ -15126,9 +21940,11 @@ export namespace Prisma {
     email?: string | null
     password?: string | null
     address?: string | null
+    billing_address?: string | null
     contact?: string | null
     customer_type_id?: number
     user_type?: number
+    created_by?: number
     status?: number
     is_deleted?: number
     created_at?: Date | string
@@ -15141,8 +21957,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: NullableStringFieldUpdateOperationsInput | string | null
-    customer_type_id?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
     status?: IntFieldUpdateOperationsInput | number
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15156,9 +21973,11 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: NullableStringFieldUpdateOperationsInput | string | null
     customer_type_id?: IntFieldUpdateOperationsInput | number
     user_type?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
     status?: IntFieldUpdateOperationsInput | number
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15573,6 +22392,7 @@ export namespace Prisma {
   export type service_levelsCreateInput = {
     service_name: number
     service_limit: number
+    threshold_limit?: number
     default_load_test_duration: number
     on_screen_color_code: string
     on_report_color_code: string
@@ -15588,6 +22408,7 @@ export namespace Prisma {
     id?: number
     service_name: number
     service_limit: number
+    threshold_limit?: number
     default_load_test_duration: number
     on_screen_color_code: string
     on_report_color_code: string
@@ -15602,6 +22423,7 @@ export namespace Prisma {
   export type service_levelsUpdateInput = {
     service_name?: IntFieldUpdateOperationsInput | number
     service_limit?: IntFieldUpdateOperationsInput | number
+    threshold_limit?: IntFieldUpdateOperationsInput | number
     default_load_test_duration?: IntFieldUpdateOperationsInput | number
     on_screen_color_code?: StringFieldUpdateOperationsInput | string
     on_report_color_code?: StringFieldUpdateOperationsInput | string
@@ -15617,6 +22439,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     service_name?: IntFieldUpdateOperationsInput | number
     service_limit?: IntFieldUpdateOperationsInput | number
+    threshold_limit?: IntFieldUpdateOperationsInput | number
     default_load_test_duration?: IntFieldUpdateOperationsInput | number
     on_screen_color_code?: StringFieldUpdateOperationsInput | string
     on_report_color_code?: StringFieldUpdateOperationsInput | string
@@ -15632,6 +22455,7 @@ export namespace Prisma {
     id?: number
     service_name: number
     service_limit: number
+    threshold_limit?: number
     default_load_test_duration: number
     on_screen_color_code: string
     on_report_color_code: string
@@ -15646,6 +22470,7 @@ export namespace Prisma {
   export type service_levelsUpdateManyMutationInput = {
     service_name?: IntFieldUpdateOperationsInput | number
     service_limit?: IntFieldUpdateOperationsInput | number
+    threshold_limit?: IntFieldUpdateOperationsInput | number
     default_load_test_duration?: IntFieldUpdateOperationsInput | number
     on_screen_color_code?: StringFieldUpdateOperationsInput | string
     on_report_color_code?: StringFieldUpdateOperationsInput | string
@@ -15661,6 +22486,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     service_name?: IntFieldUpdateOperationsInput | number
     service_limit?: IntFieldUpdateOperationsInput | number
+    threshold_limit?: IntFieldUpdateOperationsInput | number
     default_load_test_duration?: IntFieldUpdateOperationsInput | number
     on_screen_color_code?: StringFieldUpdateOperationsInput | string
     on_report_color_code?: StringFieldUpdateOperationsInput | string
@@ -15890,6 +22716,540 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CustomerContractsCreateInput = {
+    first_name?: string | null
+    last_name?: string | null
+    primary_email?: string | null
+    secondary_email?: string | null
+    home_phone_number?: string | null
+    work_phone_number?: string | null
+    mobile?: string | null
+    fax_phone_number?: string | null
+    other_phone_number1?: string | null
+    other_phone_number2?: string | null
+    job_title?: string | null
+    is_primary?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    user_contacts?: UsersCreateNestedOneWithoutUser_contactsInput
+  }
+
+  export type CustomerContractsUncheckedCreateInput = {
+    id?: number
+    customer_id: number
+    first_name?: string | null
+    last_name?: string | null
+    primary_email?: string | null
+    secondary_email?: string | null
+    home_phone_number?: string | null
+    work_phone_number?: string | null
+    mobile?: string | null
+    fax_phone_number?: string | null
+    other_phone_number1?: string | null
+    other_phone_number2?: string | null
+    job_title?: string | null
+    is_primary?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerContractsUpdateInput = {
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    primary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    secondary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    home_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    work_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    fax_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number1?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number2?: NullableStringFieldUpdateOperationsInput | string | null
+    job_title?: NullableStringFieldUpdateOperationsInput | string | null
+    is_primary?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_contacts?: UsersUpdateOneWithoutUser_contactsNestedInput
+  }
+
+  export type CustomerContractsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    customer_id?: IntFieldUpdateOperationsInput | number
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    primary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    secondary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    home_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    work_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    fax_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number1?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number2?: NullableStringFieldUpdateOperationsInput | string | null
+    job_title?: NullableStringFieldUpdateOperationsInput | string | null
+    is_primary?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerContractsCreateManyInput = {
+    id?: number
+    customer_id: number
+    first_name?: string | null
+    last_name?: string | null
+    primary_email?: string | null
+    secondary_email?: string | null
+    home_phone_number?: string | null
+    work_phone_number?: string | null
+    mobile?: string | null
+    fax_phone_number?: string | null
+    other_phone_number1?: string | null
+    other_phone_number2?: string | null
+    job_title?: string | null
+    is_primary?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerContractsUpdateManyMutationInput = {
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    primary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    secondary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    home_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    work_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    fax_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number1?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number2?: NullableStringFieldUpdateOperationsInput | string | null
+    job_title?: NullableStringFieldUpdateOperationsInput | string | null
+    is_primary?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerContractsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    customer_id?: IntFieldUpdateOperationsInput | number
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    primary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    secondary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    home_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    work_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    fax_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number1?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number2?: NullableStringFieldUpdateOperationsInput | string | null
+    job_title?: NullableStringFieldUpdateOperationsInput | string | null
+    is_primary?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteTitlesMasterCreateInput = {
+    title?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerNoteTitlesMasterUncheckedCreateInput = {
+    id?: number
+    title?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerNoteTitlesMasterUpdateInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteTitlesMasterUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteTitlesMasterCreateManyInput = {
+    id?: number
+    title?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerNoteTitlesMasterUpdateManyMutationInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteTitlesMasterUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerStatusListCreateInput = {
+    title?: string | null
+    description?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerStatusListUncheckedCreateInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerStatusListUpdateInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerStatusListUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerStatusListCreateManyInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerStatusListUpdateManyMutationInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerStatusListUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MiscConfigurationCreateInput = {
+    name?: string | null
+    description?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MiscConfigurationUncheckedCreateInput = {
+    id?: number
+    name?: string | null
+    description?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MiscConfigurationUpdateInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MiscConfigurationUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MiscConfigurationCreateManyInput = {
+    id?: number
+    name?: string | null
+    description?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MiscConfigurationUpdateManyMutationInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MiscConfigurationUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoggingDetailsCreateInput = {
+    title?: string | null
+    description?: string | null
+    configuare_value?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type LoggingDetailsUncheckedCreateInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    configuare_value?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type LoggingDetailsUpdateInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    configuare_value?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoggingDetailsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    configuare_value?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoggingDetailsCreateManyInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    configuare_value?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type LoggingDetailsUpdateManyMutationInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    configuare_value?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoggingDetailsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    configuare_value?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmtpDetailsCreateInput = {
+    host_name?: string | null
+    port_no?: number
+    user_name?: string | null
+    password?: string | null
+    encryption_type?: string | null
+    sent_from?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SmtpDetailsUncheckedCreateInput = {
+    id?: number
+    host_name?: string | null
+    port_no?: number
+    user_name?: string | null
+    password?: string | null
+    encryption_type?: string | null
+    sent_from?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SmtpDetailsUpdateInput = {
+    host_name?: NullableStringFieldUpdateOperationsInput | string | null
+    port_no?: IntFieldUpdateOperationsInput | number
+    user_name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    encryption_type?: NullableStringFieldUpdateOperationsInput | string | null
+    sent_from?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmtpDetailsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    host_name?: NullableStringFieldUpdateOperationsInput | string | null
+    port_no?: IntFieldUpdateOperationsInput | number
+    user_name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    encryption_type?: NullableStringFieldUpdateOperationsInput | string | null
+    sent_from?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmtpDetailsCreateManyInput = {
+    id?: number
+    host_name?: string | null
+    port_no?: number
+    user_name?: string | null
+    password?: string | null
+    encryption_type?: string | null
+    sent_from?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SmtpDetailsUpdateManyMutationInput = {
+    host_name?: NullableStringFieldUpdateOperationsInput | string | null
+    port_no?: IntFieldUpdateOperationsInput | number
+    user_name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    encryption_type?: NullableStringFieldUpdateOperationsInput | string | null
+    sent_from?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmtpDetailsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    host_name?: NullableStringFieldUpdateOperationsInput | string | null
+    port_no?: IntFieldUpdateOperationsInput | number
+    user_name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    encryption_type?: NullableStringFieldUpdateOperationsInput | string | null
+    sent_from?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter = {
     equals?: number
     in?: Enumerable<number> | number
@@ -15924,6 +23284,16 @@ export namespace Prisma {
     gt?: Date | string
     gte?: Date | string
     not?: NestedDateTimeFilter | Date | string
+  }
+
+  export type UsersListRelationFilter = {
+    every?: UsersWhereInput
+    some?: UsersWhereInput
+    none?: UsersWhereInput
+  }
+
+  export type UsersOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type Customer_typesCountOrderByAggregateInput = {
@@ -16012,16 +23382,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type UsersListRelationFilter = {
-    every?: UsersWhereInput
-    some?: UsersWhereInput
-    none?: UsersWhereInput
-  }
-
-  export type UsersOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type RolesCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -16061,9 +23421,24 @@ export namespace Prisma {
     is_deleted?: SortOrder
   }
 
+  export type Customer_typesRelationFilter = {
+    is?: Customer_typesWhereInput | null
+    isNot?: Customer_typesWhereInput | null
+  }
+
   export type RolesRelationFilter = {
     is?: RolesWhereInput | null
     isNot?: RolesWhereInput | null
+  }
+
+  export type CustomerContractsListRelationFilter = {
+    every?: CustomerContractsWhereInput
+    some?: CustomerContractsWhereInput
+    none?: CustomerContractsWhereInput
+  }
+
+  export type CustomerContractsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UsersCountOrderByAggregateInput = {
@@ -16073,9 +23448,11 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     address?: SortOrder
+    billing_address?: SortOrder
     contact?: SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
+    created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -16086,6 +23463,7 @@ export namespace Prisma {
     id?: SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
+    created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
   }
@@ -16097,9 +23475,11 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     address?: SortOrder
+    billing_address?: SortOrder
     contact?: SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
+    created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -16113,9 +23493,11 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     address?: SortOrder
+    billing_address?: SortOrder
     contact?: SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
+    created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -16126,6 +23508,7 @@ export namespace Prisma {
     id?: SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
+    created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
   }
@@ -16419,6 +23802,7 @@ export namespace Prisma {
     id?: SortOrder
     service_name?: SortOrder
     service_limit?: SortOrder
+    threshold_limit?: SortOrder
     default_load_test_duration?: SortOrder
     on_screen_color_code?: SortOrder
     on_report_color_code?: SortOrder
@@ -16434,6 +23818,7 @@ export namespace Prisma {
     id?: SortOrder
     service_name?: SortOrder
     service_limit?: SortOrder
+    threshold_limit?: SortOrder
     default_load_test_duration?: SortOrder
     default_duration?: SortOrder
     status?: SortOrder
@@ -16445,6 +23830,7 @@ export namespace Prisma {
     id?: SortOrder
     service_name?: SortOrder
     service_limit?: SortOrder
+    threshold_limit?: SortOrder
     default_load_test_duration?: SortOrder
     on_screen_color_code?: SortOrder
     on_report_color_code?: SortOrder
@@ -16460,6 +23846,7 @@ export namespace Prisma {
     id?: SortOrder
     service_name?: SortOrder
     service_limit?: SortOrder
+    threshold_limit?: SortOrder
     default_load_test_duration?: SortOrder
     on_screen_color_code?: SortOrder
     on_report_color_code?: SortOrder
@@ -16475,6 +23862,7 @@ export namespace Prisma {
     id?: SortOrder
     service_name?: SortOrder
     service_limit?: SortOrder
+    threshold_limit?: SortOrder
     default_load_test_duration?: SortOrder
     default_duration?: SortOrder
     status?: SortOrder
@@ -16652,6 +24040,348 @@ export namespace Prisma {
     is_deleted?: SortOrder
   }
 
+  export type UsersRelationFilter = {
+    is?: UsersWhereInput | null
+    isNot?: UsersWhereInput | null
+  }
+
+  export type CustomerContractsCountOrderByAggregateInput = {
+    id?: SortOrder
+    customer_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    primary_email?: SortOrder
+    secondary_email?: SortOrder
+    home_phone_number?: SortOrder
+    work_phone_number?: SortOrder
+    mobile?: SortOrder
+    fax_phone_number?: SortOrder
+    other_phone_number1?: SortOrder
+    other_phone_number2?: SortOrder
+    job_title?: SortOrder
+    is_primary?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerContractsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    customer_id?: SortOrder
+    is_primary?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type CustomerContractsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    customer_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    primary_email?: SortOrder
+    secondary_email?: SortOrder
+    home_phone_number?: SortOrder
+    work_phone_number?: SortOrder
+    mobile?: SortOrder
+    fax_phone_number?: SortOrder
+    other_phone_number1?: SortOrder
+    other_phone_number2?: SortOrder
+    job_title?: SortOrder
+    is_primary?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerContractsMinOrderByAggregateInput = {
+    id?: SortOrder
+    customer_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    primary_email?: SortOrder
+    secondary_email?: SortOrder
+    home_phone_number?: SortOrder
+    work_phone_number?: SortOrder
+    mobile?: SortOrder
+    fax_phone_number?: SortOrder
+    other_phone_number1?: SortOrder
+    other_phone_number2?: SortOrder
+    job_title?: SortOrder
+    is_primary?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerContractsSumOrderByAggregateInput = {
+    id?: SortOrder
+    customer_id?: SortOrder
+    is_primary?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type CustomerNoteTitlesMasterCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerNoteTitlesMasterAvgOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type CustomerNoteTitlesMasterMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerNoteTitlesMasterMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerNoteTitlesMasterSumOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type CustomerStatusListCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerStatusListAvgOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type CustomerStatusListMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerStatusListMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerStatusListSumOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type MiscConfigurationCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MiscConfigurationAvgOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type MiscConfigurationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MiscConfigurationMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MiscConfigurationSumOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type LoggingDetailsCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    configuare_value?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type LoggingDetailsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type LoggingDetailsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    configuare_value?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type LoggingDetailsMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    configuare_value?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type LoggingDetailsSumOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type SmtpDetailsCountOrderByAggregateInput = {
+    id?: SortOrder
+    host_name?: SortOrder
+    port_no?: SortOrder
+    user_name?: SortOrder
+    password?: SortOrder
+    encryption_type?: SortOrder
+    sent_from?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SmtpDetailsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    port_no?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type SmtpDetailsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    host_name?: SortOrder
+    port_no?: SortOrder
+    user_name?: SortOrder
+    password?: SortOrder
+    encryption_type?: SortOrder
+    sent_from?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SmtpDetailsMinOrderByAggregateInput = {
+    id?: SortOrder
+    host_name?: SortOrder
+    port_no?: SortOrder
+    user_name?: SortOrder
+    password?: SortOrder
+    encryption_type?: SortOrder
+    sent_from?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SmtpDetailsSumOrderByAggregateInput = {
+    id?: SortOrder
+    port_no?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type UsersCreateNestedManyWithoutCustomer_typeInput = {
+    create?: XOR<Enumerable<UsersCreateWithoutCustomer_typeInput>, Enumerable<UsersUncheckedCreateWithoutCustomer_typeInput>>
+    connectOrCreate?: Enumerable<UsersCreateOrConnectWithoutCustomer_typeInput>
+    createMany?: UsersCreateManyCustomer_typeInputEnvelope
+    connect?: Enumerable<UsersWhereUniqueInput>
+  }
+
+  export type UsersUncheckedCreateNestedManyWithoutCustomer_typeInput = {
+    create?: XOR<Enumerable<UsersCreateWithoutCustomer_typeInput>, Enumerable<UsersUncheckedCreateWithoutCustomer_typeInput>>
+    connectOrCreate?: Enumerable<UsersCreateOrConnectWithoutCustomer_typeInput>
+    createMany?: UsersCreateManyCustomer_typeInputEnvelope
+    connect?: Enumerable<UsersWhereUniqueInput>
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -16666,6 +24396,34 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type UsersUpdateManyWithoutCustomer_typeNestedInput = {
+    create?: XOR<Enumerable<UsersCreateWithoutCustomer_typeInput>, Enumerable<UsersUncheckedCreateWithoutCustomer_typeInput>>
+    connectOrCreate?: Enumerable<UsersCreateOrConnectWithoutCustomer_typeInput>
+    upsert?: Enumerable<UsersUpsertWithWhereUniqueWithoutCustomer_typeInput>
+    createMany?: UsersCreateManyCustomer_typeInputEnvelope
+    set?: Enumerable<UsersWhereUniqueInput>
+    disconnect?: Enumerable<UsersWhereUniqueInput>
+    delete?: Enumerable<UsersWhereUniqueInput>
+    connect?: Enumerable<UsersWhereUniqueInput>
+    update?: Enumerable<UsersUpdateWithWhereUniqueWithoutCustomer_typeInput>
+    updateMany?: Enumerable<UsersUpdateManyWithWhereWithoutCustomer_typeInput>
+    deleteMany?: Enumerable<UsersScalarWhereInput>
+  }
+
+  export type UsersUncheckedUpdateManyWithoutCustomer_typeNestedInput = {
+    create?: XOR<Enumerable<UsersCreateWithoutCustomer_typeInput>, Enumerable<UsersUncheckedCreateWithoutCustomer_typeInput>>
+    connectOrCreate?: Enumerable<UsersCreateOrConnectWithoutCustomer_typeInput>
+    upsert?: Enumerable<UsersUpsertWithWhereUniqueWithoutCustomer_typeInput>
+    createMany?: UsersCreateManyCustomer_typeInputEnvelope
+    set?: Enumerable<UsersWhereUniqueInput>
+    disconnect?: Enumerable<UsersWhereUniqueInput>
+    delete?: Enumerable<UsersWhereUniqueInput>
+    connect?: Enumerable<UsersWhereUniqueInput>
+    update?: Enumerable<UsersUpdateWithWhereUniqueWithoutCustomer_typeInput>
+    updateMany?: Enumerable<UsersUpdateManyWithWhereWithoutCustomer_typeInput>
+    deleteMany?: Enumerable<UsersScalarWhereInput>
   }
 
   export type UsersCreateNestedManyWithoutRole_typeInput = {
@@ -16710,10 +24468,40 @@ export namespace Prisma {
     deleteMany?: Enumerable<UsersScalarWhereInput>
   }
 
+  export type Customer_typesCreateNestedOneWithoutCustomer_typeInput = {
+    create?: XOR<Customer_typesCreateWithoutCustomer_typeInput, Customer_typesUncheckedCreateWithoutCustomer_typeInput>
+    connectOrCreate?: Customer_typesCreateOrConnectWithoutCustomer_typeInput
+    connect?: Customer_typesWhereUniqueInput
+  }
+
   export type RolesCreateNestedOneWithoutRole_typeInput = {
     create?: XOR<RolesCreateWithoutRole_typeInput, RolesUncheckedCreateWithoutRole_typeInput>
     connectOrCreate?: RolesCreateOrConnectWithoutRole_typeInput
     connect?: RolesWhereUniqueInput
+  }
+
+  export type CustomerContractsCreateNestedManyWithoutUser_contactsInput = {
+    create?: XOR<Enumerable<CustomerContractsCreateWithoutUser_contactsInput>, Enumerable<CustomerContractsUncheckedCreateWithoutUser_contactsInput>>
+    connectOrCreate?: Enumerable<CustomerContractsCreateOrConnectWithoutUser_contactsInput>
+    createMany?: CustomerContractsCreateManyUser_contactsInputEnvelope
+    connect?: Enumerable<CustomerContractsWhereUniqueInput>
+  }
+
+  export type CustomerContractsUncheckedCreateNestedManyWithoutUser_contactsInput = {
+    create?: XOR<Enumerable<CustomerContractsCreateWithoutUser_contactsInput>, Enumerable<CustomerContractsUncheckedCreateWithoutUser_contactsInput>>
+    connectOrCreate?: Enumerable<CustomerContractsCreateOrConnectWithoutUser_contactsInput>
+    createMany?: CustomerContractsCreateManyUser_contactsInputEnvelope
+    connect?: Enumerable<CustomerContractsWhereUniqueInput>
+  }
+
+  export type Customer_typesUpdateOneWithoutCustomer_typeNestedInput = {
+    create?: XOR<Customer_typesCreateWithoutCustomer_typeInput, Customer_typesUncheckedCreateWithoutCustomer_typeInput>
+    connectOrCreate?: Customer_typesCreateOrConnectWithoutCustomer_typeInput
+    upsert?: Customer_typesUpsertWithoutCustomer_typeInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: Customer_typesWhereUniqueInput
+    update?: XOR<Customer_typesUpdateWithoutCustomer_typeInput, Customer_typesUncheckedUpdateWithoutCustomer_typeInput>
   }
 
   export type RolesUpdateOneWithoutRole_typeNestedInput = {
@@ -16724,6 +24512,34 @@ export namespace Prisma {
     delete?: boolean
     connect?: RolesWhereUniqueInput
     update?: XOR<RolesUpdateWithoutRole_typeInput, RolesUncheckedUpdateWithoutRole_typeInput>
+  }
+
+  export type CustomerContractsUpdateManyWithoutUser_contactsNestedInput = {
+    create?: XOR<Enumerable<CustomerContractsCreateWithoutUser_contactsInput>, Enumerable<CustomerContractsUncheckedCreateWithoutUser_contactsInput>>
+    connectOrCreate?: Enumerable<CustomerContractsCreateOrConnectWithoutUser_contactsInput>
+    upsert?: Enumerable<CustomerContractsUpsertWithWhereUniqueWithoutUser_contactsInput>
+    createMany?: CustomerContractsCreateManyUser_contactsInputEnvelope
+    set?: Enumerable<CustomerContractsWhereUniqueInput>
+    disconnect?: Enumerable<CustomerContractsWhereUniqueInput>
+    delete?: Enumerable<CustomerContractsWhereUniqueInput>
+    connect?: Enumerable<CustomerContractsWhereUniqueInput>
+    update?: Enumerable<CustomerContractsUpdateWithWhereUniqueWithoutUser_contactsInput>
+    updateMany?: Enumerable<CustomerContractsUpdateManyWithWhereWithoutUser_contactsInput>
+    deleteMany?: Enumerable<CustomerContractsScalarWhereInput>
+  }
+
+  export type CustomerContractsUncheckedUpdateManyWithoutUser_contactsNestedInput = {
+    create?: XOR<Enumerable<CustomerContractsCreateWithoutUser_contactsInput>, Enumerable<CustomerContractsUncheckedCreateWithoutUser_contactsInput>>
+    connectOrCreate?: Enumerable<CustomerContractsCreateOrConnectWithoutUser_contactsInput>
+    upsert?: Enumerable<CustomerContractsUpsertWithWhereUniqueWithoutUser_contactsInput>
+    createMany?: CustomerContractsCreateManyUser_contactsInputEnvelope
+    set?: Enumerable<CustomerContractsWhereUniqueInput>
+    disconnect?: Enumerable<CustomerContractsWhereUniqueInput>
+    delete?: Enumerable<CustomerContractsWhereUniqueInput>
+    connect?: Enumerable<CustomerContractsWhereUniqueInput>
+    update?: Enumerable<CustomerContractsUpdateWithWhereUniqueWithoutUser_contactsInput>
+    updateMany?: Enumerable<CustomerContractsUpdateManyWithWhereWithoutUser_contactsInput>
+    deleteMany?: Enumerable<CustomerContractsScalarWhereInput>
   }
 
   export type GeneratorModelsCreateNestedManyWithoutBrand_typeInput = {
@@ -16844,6 +24660,22 @@ export namespace Prisma {
     delete?: boolean
     connect?: BlackOutDayTypesWhereUniqueInput
     update?: XOR<BlackOutDayTypesUpdateWithoutBlackout_day_typeInput, BlackOutDayTypesUncheckedUpdateWithoutBlackout_day_typeInput>
+  }
+
+  export type UsersCreateNestedOneWithoutUser_contactsInput = {
+    create?: XOR<UsersCreateWithoutUser_contactsInput, UsersUncheckedCreateWithoutUser_contactsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutUser_contactsInput
+    connect?: UsersWhereUniqueInput
+  }
+
+  export type UsersUpdateOneWithoutUser_contactsNestedInput = {
+    create?: XOR<UsersCreateWithoutUser_contactsInput, UsersUncheckedCreateWithoutUser_contactsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutUser_contactsInput
+    upsert?: UsersUpsertWithoutUser_contactsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: UsersWhereUniqueInput
+    update?: XOR<UsersUpdateWithoutUser_contactsInput, UsersUncheckedUpdateWithoutUser_contactsInput>
   }
 
   export type NestedIntFilter = {
@@ -16982,18 +24814,103 @@ export namespace Prisma {
     _max?: NestedStringFilter
   }
 
+  export type UsersCreateWithoutCustomer_typeInput = {
+    name?: string | null
+    contact_name?: string | null
+    email?: string | null
+    password?: string | null
+    address?: string | null
+    billing_address?: string | null
+    contact?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    role_type?: RolesCreateNestedOneWithoutRole_typeInput
+    user_contacts?: CustomerContractsCreateNestedManyWithoutUser_contactsInput
+  }
+
+  export type UsersUncheckedCreateWithoutCustomer_typeInput = {
+    id?: number
+    name?: string | null
+    contact_name?: string | null
+    email?: string | null
+    password?: string | null
+    address?: string | null
+    billing_address?: string | null
+    contact?: string | null
+    user_type?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    user_contacts?: CustomerContractsUncheckedCreateNestedManyWithoutUser_contactsInput
+  }
+
+  export type UsersCreateOrConnectWithoutCustomer_typeInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutCustomer_typeInput, UsersUncheckedCreateWithoutCustomer_typeInput>
+  }
+
+  export type UsersCreateManyCustomer_typeInputEnvelope = {
+    data: Enumerable<UsersCreateManyCustomer_typeInput>
+    skipDuplicates?: boolean
+  }
+
+  export type UsersUpsertWithWhereUniqueWithoutCustomer_typeInput = {
+    where: UsersWhereUniqueInput
+    update: XOR<UsersUpdateWithoutCustomer_typeInput, UsersUncheckedUpdateWithoutCustomer_typeInput>
+    create: XOR<UsersCreateWithoutCustomer_typeInput, UsersUncheckedCreateWithoutCustomer_typeInput>
+  }
+
+  export type UsersUpdateWithWhereUniqueWithoutCustomer_typeInput = {
+    where: UsersWhereUniqueInput
+    data: XOR<UsersUpdateWithoutCustomer_typeInput, UsersUncheckedUpdateWithoutCustomer_typeInput>
+  }
+
+  export type UsersUpdateManyWithWhereWithoutCustomer_typeInput = {
+    where: UsersScalarWhereInput
+    data: XOR<UsersUpdateManyMutationInput, UsersUncheckedUpdateManyWithoutCustomer_typeInput>
+  }
+
+  export type UsersScalarWhereInput = {
+    AND?: Enumerable<UsersScalarWhereInput>
+    OR?: Enumerable<UsersScalarWhereInput>
+    NOT?: Enumerable<UsersScalarWhereInput>
+    id?: IntFilter | number
+    name?: StringNullableFilter | string | null
+    contact_name?: StringNullableFilter | string | null
+    email?: StringNullableFilter | string | null
+    password?: StringNullableFilter | string | null
+    address?: StringNullableFilter | string | null
+    billing_address?: StringNullableFilter | string | null
+    contact?: StringNullableFilter | string | null
+    customer_type_id?: IntFilter | number
+    user_type?: IntFilter | number
+    created_by?: IntFilter | number
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+  }
+
   export type UsersCreateWithoutRole_typeInput = {
     name?: string | null
     contact_name?: string | null
     email?: string | null
     password?: string | null
     address?: string | null
+    billing_address?: string | null
     contact?: string | null
-    customer_type_id?: number
+    created_by?: number
     status?: number
     is_deleted?: number
     created_at?: Date | string
     updated_at?: Date | string
+    customer_type?: Customer_typesCreateNestedOneWithoutCustomer_typeInput
+    user_contacts?: CustomerContractsCreateNestedManyWithoutUser_contactsInput
   }
 
   export type UsersUncheckedCreateWithoutRole_typeInput = {
@@ -17003,12 +24920,15 @@ export namespace Prisma {
     email?: string | null
     password?: string | null
     address?: string | null
+    billing_address?: string | null
     contact?: string | null
     customer_type_id?: number
+    created_by?: number
     status?: number
     is_deleted?: number
     created_at?: Date | string
     updated_at?: Date | string
+    user_contacts?: CustomerContractsUncheckedCreateNestedManyWithoutUser_contactsInput
   }
 
   export type UsersCreateOrConnectWithoutRole_typeInput = {
@@ -17037,23 +24957,26 @@ export namespace Prisma {
     data: XOR<UsersUpdateManyMutationInput, UsersUncheckedUpdateManyWithoutRole_typeInput>
   }
 
-  export type UsersScalarWhereInput = {
-    AND?: Enumerable<UsersScalarWhereInput>
-    OR?: Enumerable<UsersScalarWhereInput>
-    NOT?: Enumerable<UsersScalarWhereInput>
-    id?: IntFilter | number
-    name?: StringNullableFilter | string | null
-    contact_name?: StringNullableFilter | string | null
-    email?: StringNullableFilter | string | null
-    password?: StringNullableFilter | string | null
-    address?: StringNullableFilter | string | null
-    contact?: StringNullableFilter | string | null
-    customer_type_id?: IntFilter | number
-    user_type?: IntFilter | number
-    status?: IntFilter | number
-    is_deleted?: IntFilter | number
-    created_at?: DateTimeFilter | Date | string
-    updated_at?: DateTimeFilter | Date | string
+  export type Customer_typesCreateWithoutCustomer_typeInput = {
+    type_name?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type Customer_typesUncheckedCreateWithoutCustomer_typeInput = {
+    id?: number
+    type_name?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type Customer_typesCreateOrConnectWithoutCustomer_typeInput = {
+    where: Customer_typesWhereUniqueInput
+    create: XOR<Customer_typesCreateWithoutCustomer_typeInput, Customer_typesUncheckedCreateWithoutCustomer_typeInput>
   }
 
   export type RolesCreateWithoutRole_typeInput = {
@@ -17078,6 +25001,79 @@ export namespace Prisma {
     create: XOR<RolesCreateWithoutRole_typeInput, RolesUncheckedCreateWithoutRole_typeInput>
   }
 
+  export type CustomerContractsCreateWithoutUser_contactsInput = {
+    first_name?: string | null
+    last_name?: string | null
+    primary_email?: string | null
+    secondary_email?: string | null
+    home_phone_number?: string | null
+    work_phone_number?: string | null
+    mobile?: string | null
+    fax_phone_number?: string | null
+    other_phone_number1?: string | null
+    other_phone_number2?: string | null
+    job_title?: string | null
+    is_primary?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerContractsUncheckedCreateWithoutUser_contactsInput = {
+    id?: number
+    first_name?: string | null
+    last_name?: string | null
+    primary_email?: string | null
+    secondary_email?: string | null
+    home_phone_number?: string | null
+    work_phone_number?: string | null
+    mobile?: string | null
+    fax_phone_number?: string | null
+    other_phone_number1?: string | null
+    other_phone_number2?: string | null
+    job_title?: string | null
+    is_primary?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerContractsCreateOrConnectWithoutUser_contactsInput = {
+    where: CustomerContractsWhereUniqueInput
+    create: XOR<CustomerContractsCreateWithoutUser_contactsInput, CustomerContractsUncheckedCreateWithoutUser_contactsInput>
+  }
+
+  export type CustomerContractsCreateManyUser_contactsInputEnvelope = {
+    data: Enumerable<CustomerContractsCreateManyUser_contactsInput>
+    skipDuplicates?: boolean
+  }
+
+  export type Customer_typesUpsertWithoutCustomer_typeInput = {
+    update: XOR<Customer_typesUpdateWithoutCustomer_typeInput, Customer_typesUncheckedUpdateWithoutCustomer_typeInput>
+    create: XOR<Customer_typesCreateWithoutCustomer_typeInput, Customer_typesUncheckedCreateWithoutCustomer_typeInput>
+  }
+
+  export type Customer_typesUpdateWithoutCustomer_typeInput = {
+    type_name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type Customer_typesUncheckedUpdateWithoutCustomer_typeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type_name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type RolesUpsertWithoutRole_typeInput = {
     update: XOR<RolesUpdateWithoutRole_typeInput, RolesUncheckedUpdateWithoutRole_typeInput>
     create: XOR<RolesCreateWithoutRole_typeInput, RolesUncheckedCreateWithoutRole_typeInput>
@@ -17098,6 +25094,47 @@ export namespace Prisma {
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerContractsUpsertWithWhereUniqueWithoutUser_contactsInput = {
+    where: CustomerContractsWhereUniqueInput
+    update: XOR<CustomerContractsUpdateWithoutUser_contactsInput, CustomerContractsUncheckedUpdateWithoutUser_contactsInput>
+    create: XOR<CustomerContractsCreateWithoutUser_contactsInput, CustomerContractsUncheckedCreateWithoutUser_contactsInput>
+  }
+
+  export type CustomerContractsUpdateWithWhereUniqueWithoutUser_contactsInput = {
+    where: CustomerContractsWhereUniqueInput
+    data: XOR<CustomerContractsUpdateWithoutUser_contactsInput, CustomerContractsUncheckedUpdateWithoutUser_contactsInput>
+  }
+
+  export type CustomerContractsUpdateManyWithWhereWithoutUser_contactsInput = {
+    where: CustomerContractsScalarWhereInput
+    data: XOR<CustomerContractsUpdateManyMutationInput, CustomerContractsUncheckedUpdateManyWithoutUser_contactsInput>
+  }
+
+  export type CustomerContractsScalarWhereInput = {
+    AND?: Enumerable<CustomerContractsScalarWhereInput>
+    OR?: Enumerable<CustomerContractsScalarWhereInput>
+    NOT?: Enumerable<CustomerContractsScalarWhereInput>
+    id?: IntFilter | number
+    customer_id?: IntFilter | number
+    first_name?: StringNullableFilter | string | null
+    last_name?: StringNullableFilter | string | null
+    primary_email?: StringNullableFilter | string | null
+    secondary_email?: StringNullableFilter | string | null
+    home_phone_number?: StringNullableFilter | string | null
+    work_phone_number?: StringNullableFilter | string | null
+    mobile?: StringNullableFilter | string | null
+    fax_phone_number?: StringNullableFilter | string | null
+    other_phone_number1?: StringNullableFilter | string | null
+    other_phone_number2?: StringNullableFilter | string | null
+    job_title?: StringNullableFilter | string | null
+    is_primary?: IntFilter | number
+    created_by?: IntFilter | number
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
   }
 
   export type GeneratorModelsCreateWithoutBrand_typeInput = {
@@ -17312,6 +25349,155 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UsersCreateWithoutUser_contactsInput = {
+    name?: string | null
+    contact_name?: string | null
+    email?: string | null
+    password?: string | null
+    address?: string | null
+    billing_address?: string | null
+    contact?: string | null
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    customer_type?: Customer_typesCreateNestedOneWithoutCustomer_typeInput
+    role_type?: RolesCreateNestedOneWithoutRole_typeInput
+  }
+
+  export type UsersUncheckedCreateWithoutUser_contactsInput = {
+    id?: number
+    name?: string | null
+    contact_name?: string | null
+    email?: string | null
+    password?: string | null
+    address?: string | null
+    billing_address?: string | null
+    contact?: string | null
+    customer_type_id?: number
+    user_type?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UsersCreateOrConnectWithoutUser_contactsInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutUser_contactsInput, UsersUncheckedCreateWithoutUser_contactsInput>
+  }
+
+  export type UsersUpsertWithoutUser_contactsInput = {
+    update: XOR<UsersUpdateWithoutUser_contactsInput, UsersUncheckedUpdateWithoutUser_contactsInput>
+    create: XOR<UsersCreateWithoutUser_contactsInput, UsersUncheckedCreateWithoutUser_contactsInput>
+  }
+
+  export type UsersUpdateWithoutUser_contactsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_type?: Customer_typesUpdateOneWithoutCustomer_typeNestedInput
+    role_type?: RolesUpdateOneWithoutRole_typeNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutUser_contactsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    customer_type_id?: IntFieldUpdateOperationsInput | number
+    user_type?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsersCreateManyCustomer_typeInput = {
+    id?: number
+    name?: string | null
+    contact_name?: string | null
+    email?: string | null
+    password?: string | null
+    address?: string | null
+    billing_address?: string | null
+    contact?: string | null
+    user_type?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UsersUpdateWithoutCustomer_typeInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    role_type?: RolesUpdateOneWithoutRole_typeNestedInput
+    user_contacts?: CustomerContractsUpdateManyWithoutUser_contactsNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutCustomer_typeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_contacts?: CustomerContractsUncheckedUpdateManyWithoutUser_contactsNestedInput
+  }
+
+  export type UsersUncheckedUpdateManyWithoutCustomer_typeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UsersCreateManyRole_typeInput = {
     id?: number
     name?: string | null
@@ -17319,8 +25505,10 @@ export namespace Prisma {
     email?: string | null
     password?: string | null
     address?: string | null
+    billing_address?: string | null
     contact?: string | null
     customer_type_id?: number
+    created_by?: number
     status?: number
     is_deleted?: number
     created_at?: Date | string
@@ -17333,12 +25521,15 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: NullableStringFieldUpdateOperationsInput | string | null
-    customer_type_id?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
     status?: IntFieldUpdateOperationsInput | number
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_type?: Customer_typesUpdateOneWithoutCustomer_typeNestedInput
+    user_contacts?: CustomerContractsUpdateManyWithoutUser_contactsNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutRole_typeInput = {
@@ -17348,12 +25539,15 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: NullableStringFieldUpdateOperationsInput | string | null
     customer_type_id?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
     status?: IntFieldUpdateOperationsInput | number
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_contacts?: CustomerContractsUncheckedUpdateManyWithoutUser_contactsNestedInput
   }
 
   export type UsersUncheckedUpdateManyWithoutRole_typeInput = {
@@ -17363,8 +25557,93 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    billing_address?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: NullableStringFieldUpdateOperationsInput | string | null
     customer_type_id?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerContractsCreateManyUser_contactsInput = {
+    id?: number
+    first_name?: string | null
+    last_name?: string | null
+    primary_email?: string | null
+    secondary_email?: string | null
+    home_phone_number?: string | null
+    work_phone_number?: string | null
+    mobile?: string | null
+    fax_phone_number?: string | null
+    other_phone_number1?: string | null
+    other_phone_number2?: string | null
+    job_title?: string | null
+    is_primary?: number
+    created_by?: number
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerContractsUpdateWithoutUser_contactsInput = {
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    primary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    secondary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    home_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    work_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    fax_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number1?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number2?: NullableStringFieldUpdateOperationsInput | string | null
+    job_title?: NullableStringFieldUpdateOperationsInput | string | null
+    is_primary?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerContractsUncheckedUpdateWithoutUser_contactsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    primary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    secondary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    home_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    work_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    fax_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number1?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number2?: NullableStringFieldUpdateOperationsInput | string | null
+    job_title?: NullableStringFieldUpdateOperationsInput | string | null
+    is_primary?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerContractsUncheckedUpdateManyWithoutUser_contactsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    primary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    secondary_email?: NullableStringFieldUpdateOperationsInput | string | null
+    home_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    work_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    fax_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number1?: NullableStringFieldUpdateOperationsInput | string | null
+    other_phone_number2?: NullableStringFieldUpdateOperationsInput | string | null
+    job_title?: NullableStringFieldUpdateOperationsInput | string | null
+    is_primary?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
     status?: IntFieldUpdateOperationsInput | number
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -32,6 +32,7 @@ const store = async (data, authUser) => {
                     data: {
                         service_name: data.service_name,
                         service_limit: data.service_limit,
+                        threshold_limit: data.threshold_limit,
                         default_load_test_duration: data.default_load_test_duration,
                         on_screen_color_code: data.on_screen_color_code,
                         on_report_color_code: data.on_report_color_code,
@@ -70,6 +71,7 @@ const update = async (data, authUser) => {
                     data: {
                         service_name: data.service_name,
                         service_limit: data.service_limit,
+                        threshold_limit: data.threshold_limit,
                         default_load_test_duration: data.default_load_test_duration,
                         on_screen_color_code: data.on_screen_color_code,
                         on_report_color_code: data.on_report_color_code,

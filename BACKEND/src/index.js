@@ -14,6 +14,10 @@ const serviceLevel = require("../routes/serviceLevels");
 const blackoutDayTypes = require("../routes/blackoutDayTypes");
 const blackoutDay = require("../routes/blackoutDays");
 const reminderThresoldDays = require("../routes/reminderThresoldDays");
+const customerNoteTitlesMaster = require("../routes/customerNoteTitlesMaster");
+const customerStatusList = require("../routes/customerStatusList");
+const miscConfiguration = require("../routes/miscConfiguration");
+const customers = require("../routes/customers");
 
 app.use(cors());
 app.use(express.json())
@@ -35,6 +39,10 @@ app.use('/api/servicelevel', serviceLevel);
 app.use('/api/blackoutdaytype', blackoutDayTypes);
 app.use('/api/blackoutday', blackoutDay);
 app.use('/api/reminderthresolddays', reminderThresoldDays);
+app.use('/api/customernotetitlesmaster', customerNoteTitlesMaster);
+app.use('/api/customerstatuslist', customerStatusList);
+app.use('/api/miscconfiguration', miscConfiguration);
+app.use('/api/customers', customers);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => 
