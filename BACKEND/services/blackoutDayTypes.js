@@ -1,15 +1,17 @@
 const { PrismaClient } = require("../prisma/src/generated/client");
 const prisma = new PrismaClient();
 
-const list = async () => {
+const list = async (data) => {
     let status = 200;
     let response = {};
+    const searchType = data.searchType ? { type: { contains: data.searchType } } : {}
     await prisma.blackOutDayTypes.findMany({
         orderBy: {
             id: 'desc'
         },
         where: {
-            is_deleted: 0
+            is_deleted: 0,
+            ...searchType
         }
     }).then(result => {
         response = {status: status, msg: "Fetched blackout day type list.", data: result};

@@ -7,7 +7,7 @@ const list = async (data) => {
     const pageNo = data.page_no;
     const offSet = helper.getOffset(pageNo);
 
-    const searchDayType = data.dayType ? { blackout_day_type: {type: { contains: data.dayType } } } : {}
+    const searchDayType = data.dayType ? { blackout_day_type: { type: { contains: data.dayType } } } : {}
     const searchTitle = data.searchTitle ? { title: { contains: data.searchTitle } } : {}
     const searchStartDate = data.startDate && data.endDate ? { start_date: { gte: new Date(data.startDate) } } : {}
     const searchEndDate = data.startDate && data.endDate ? { end_date: { lte: new Date(data.endDate) } } : {}
@@ -24,7 +24,7 @@ const list = async (data) => {
             ...searchEndDate,
             ...searchDayType
         }
-        
+
     });
     const total_page_number = Math.ceil(total_record / perPage);
     if (total_record > 0) {
@@ -42,12 +42,12 @@ const list = async (data) => {
                 ...searchEndDate,
                 ...searchDayType
             },
-            include: { 
-                blackout_day_type: { 
-                    select: { 
-                        type: true 
-                    } 
-                } 
+            include: {
+                blackout_day_type: {
+                    select: {
+                        type: true
+                    }
+                }
             }
         }).then(result => {
             response = { status: status, msg: "Fetched blackout day list.", data: result, total_page: total_page_number, total_record: total_record };
@@ -67,22 +67,57 @@ const store = async (data) => {
     let response = {};
     await prisma.blackOutDays.findFirst({ where: { title: data.title, is_deleted: 0 } }).then(duplicate => {
         if (duplicate == null) {
+            let day_type_id = 0;
             var promiseResult = new Promise(function (resolve, reject) {
-                prisma.blackOutDays.create({
-                    data: {
-                        day_type_id: data.day_type_id,
-                        title: data.title,
-                        start_date: new Date(data.start_date),
-                        end_date: new Date(data.end_date),
-                        applies_to: data.applies_to,
-                        color_code: data.color_code
+                prisma.blackOutDayTypes.findFirst({ where: { type: data.day_type, is_deleted: 0 } }).then(dayTypeDetails => {
+                    if (dayTypeDetails == null) {
+                        prisma.blackOutDayTypes.create({
+                            data: {
+                                type: data.day_type
+                            }
+                        }).then(newInsertedType => {
+                            day_type_id = newInsertedType.id;
+                            prisma.blackOutDays.create({
+                                data: {
+                                    day_type_id: day_type_id,
+                                    title: data.title,
+                                    start_date: new Date(data.start_date),
+                                    end_date: new Date(data.end_date),
+                                    applies_to: data.applies_to,
+                                    color_code: data.color_code
+                                }
+                            }).then(result => {
+                                response = { status: status, msg: "Blackout day added successfully.", data: result };
+                                resolve(response);
+                            }).catch(error => {
+                                console.log("@1");
+                                response = { status: 400, msg: "An error occured.", data: error };
+                                reject(response);
+                            });
+                        });
                     }
-                }).then(result => {
-                    response = { status: status, msg: "Blackout day added successfully.", data: result };
-                    resolve(response);
-                }).catch(error => {
-                    response = { status: 400, msg: "An error occured.", data: error };
-                    reject(response);
+                    else {
+                        day_type_id = dayTypeDetails.id;
+
+                        prisma.blackOutDays.create({
+                            data: {
+                                day_type_id: day_type_id,
+                                title: data.title,
+                                start_date: new Date(data.start_date),
+                                end_date: new Date(data.end_date),
+                                applies_to: data.applies_to,
+                                color_code: data.color_code
+                            }
+                        }).then(result => {
+                            response = { status: status, msg: "Blackout day added successfully.", data: result };
+                            resolve(response);
+                        }).catch(error => {
+                            console.log("@1");
+                            response = { status: 400, msg: "An error occured.", data: error };
+                            reject(response);
+                        });
+
+                    }
                 });
             });
             return promiseResult;
@@ -90,8 +125,6 @@ const store = async (data) => {
         else {
             response = { status: 400, msg: "Sorry! this day is already exist." };
         }
-    }).catch(error => {
-        response = { status: 400, msg: "An error occured.", data: error };
     });
     return response;
 }

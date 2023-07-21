@@ -1,7 +1,7 @@
 const blackoutDayTypes = require('../services/blackoutDayTypes');
 const index = async (req, res, next) => {
     try{
-		res.json(await blackoutDayTypes.list());
+		res.json(await blackoutDayTypes.list(req.body));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
