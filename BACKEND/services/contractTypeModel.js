@@ -26,7 +26,7 @@ const store = async (data) => {
     let status = 200;
     let response = {};
     const { type_name } = data;
-    await prisma.contract_types.findFirst({ where: {type_name: type_name} }).then(duplicate => {
+    await prisma.contract_types.findFirst({ where: {type_name: type_name, is_deleted: 0} }).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
                 prisma.contract_types.create({
@@ -55,7 +55,7 @@ const store = async (data) => {
 const update = async (data) => {
     let status = 200;
     let response = {};
-    await prisma.contract_types.findFirst({ where: { type_name: data.type_name, NOT: { id: data.type_id } }}).then(duplicate => {
+    await prisma.contract_types.findFirst({ where: { type_name: data.type_name, is_deleted: 0, NOT: { id: data.type_id } }}).then(duplicate => {
         if(duplicate == null){
             var promiseResult = new Promise(function(resolve, reject){
                 prisma.contract_types.update({

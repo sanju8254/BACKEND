@@ -7,8 +7,25 @@ const users = require("../routes/users");
 const contractTypes = require("../routes/contractTypes");
 const generatorBrands = require("../routes/generatorBrands");
 const generatorModels = require("../routes/generatorModels");
+<<<<<<< HEAD
 const serviceLevels = require("../routes/serviceLevels");
 const customerNoteTitle = require("../routes/customerNoteTitle");
+=======
+const generatorPhaseType = require("../routes/generatorPhaseType");
+const workOrderStatus = require("../routes/workOrderStatus");
+const workOrderType = require("../routes/workOrderTypes");
+const serviceLevel = require("../routes/serviceLevels");
+const blackoutDayTypes = require("../routes/blackoutDayTypes");
+const blackoutDay = require("../routes/blackoutDays");
+const reminderThresoldDays = require("../routes/reminderThresoldDays");
+const customerNoteTitlesMaster = require("../routes/customerNoteTitlesMaster");
+const customerStatusList = require("../routes/customerStatusList");
+const miscConfiguration = require("../routes/miscConfiguration");
+const customers = require("../routes/customers");
+const permissions = require("../routes/permissions");
+const appearances = require("../routes/appearances");
+const groups = require("../routes/groups");
+>>>>>>> 5ff6ee5c834ec61767c63f40c527220acfb9ea59
 
 app.use(cors());
 app.use(express.json())
@@ -23,8 +40,26 @@ app.use('/api/users', users);
 app.use('/api/contracttypes', contractTypes);
 app.use('/api/generatorbrands', generatorBrands);
 app.use('/api/generatormodels', generatorModels);
+<<<<<<< HEAD
 app.use('/api/servicelevels', serviceLevels);
 app.use('/api/customerNoteTitle', customerNoteTitle);
+=======
+app.use('/api/generatorphasetype', generatorPhaseType);
+app.use('/api/workorderstatus', workOrderStatus);
+app.use('/api/workordertype', workOrderType);
+app.use('/api/servicelevel', serviceLevel);
+app.use('/api/blackoutdaytype', blackoutDayTypes);
+app.use('/api/blackoutday', blackoutDay);
+app.use('/api/reminderthresolddays', reminderThresoldDays);
+app.use('/api/customernotetitlesmaster', customerNoteTitlesMaster);
+app.use('/api/customerstatuslist', customerStatusList);
+app.use('/api/miscconfiguration', miscConfiguration);
+app.use('/api/customers', customers);
+app.use('/api/permissions', permissions);
+app.use('/api/appearances', appearances);
+app.use('/api/groups', groups);
+
+>>>>>>> 5ff6ee5c834ec61767c63f40c527220acfb9ea59
 /* Error handler middleware */
 app.use((err, req, res, next) => 
 {

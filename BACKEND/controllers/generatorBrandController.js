@@ -39,9 +39,20 @@ const remove_record = async (req, res, next) => {
 	}
 }
 
+const all_brands = async (req, res, next) => {
+	try{
+		res.json(await generatorBrandModel.all_list());
+	}
+	catch(err){
+		console.error(`Error while getting programming languages `, err.message);
+    	next(err);
+	}
+}
+
 module.exports = {
     index,
     create,
 	update,
-	remove_record
+	remove_record,
+	all_brands
 }

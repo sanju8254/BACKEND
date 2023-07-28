@@ -11,7 +11,7 @@ const index = async (req, res, next) => {
 
 const create = async (req, res, next) => {
     try{
-		res.json(await serviceLevelsModel.store(req.body));
+		res.json(await serviceLevelsModel.store(req.body, req.user));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
@@ -21,7 +21,7 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
 	try{
-		res.json(await serviceLevelsModel.update(req.body));
+		res.json(await serviceLevelsModel.update(req.body, req.user));
 	}
 	catch(err){
 		console.error(`Error while getting programming languages `, err.message);
