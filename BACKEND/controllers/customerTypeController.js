@@ -1,6 +1,7 @@
 const { PrismaClient } = require("../prisma/src/generated/client");
 const prisma = new PrismaClient();
 
+const customerTypes = require("../services/customerTypes");
 const index = async (req, res, next) => {
     const { searchString } = req.body;
     const or = searchString ? { type_name: { contains: searchString } } : {}
@@ -22,6 +23,13 @@ const index = async (req, res, next) => {
 		response = {status: 400, msg: "An error occured."};
 		res.json(response);
 	});
+    try{
+		res.json(await customerTypes.list(req.body));
+	}
+	catch(err){
+		console.error(`Error while getting programming languages `, err.message);
+    	next(err);
+	}
 }
 
 const store = async (req, res, next) => {
@@ -50,12 +58,19 @@ const store = async (req, res, next) => {
         response = {status: 400, msg: "An error occured."};
         res.json(response);
     });
+    try{
+		res.json(await customerTypes.store(req.body));
+	}
+	catch(err){
+		console.error(`Error while getting programming languages `, err.message);
+    	next(err);
+	}
 }
 
 const update = async (req, res, next) => {
     let status = 200;
     let response = {};
-    
+
     await prisma.customer_types.findFirst({ where: { type_name: req.body.type_name, NOT: { id: req.body.type_id } }}).then(duplicate => {
         if(duplicate == null){
             prisma.customer_types.update({
@@ -81,6 +96,13 @@ const update = async (req, res, next) => {
         response = {status: 400, msg: "An error occured."};
         res.json(response);
     });
+    try{
+		res.json(await customerTypes.update(req.body));
+	}
+	catch(err){
+		console.error(`Error while getting programming languages `, err.message);
+    	next(err);
+	}
 }
 
 const remove_record = async (req, res, next) => {
@@ -100,6 +122,13 @@ const remove_record = async (req, res, next) => {
         response = {status: 400, msg: "An error occured."};
         res.json(response);
     });
+    try{
+		res.json(await customerTypes.remove_record(req.body));
+	}
+	catch(err){
+		console.error(`Error while getting programming languages `, err.message);
+    	next(err);
+	}
 }
 
 module.exports = {
@@ -108,4 +137,3 @@ module.exports = {
     update,
     remove_record
 }
-
