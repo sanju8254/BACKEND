@@ -7,6 +7,8 @@ const users = require("../routes/users");
 const contractTypes = require("../routes/contractTypes");
 const generatorBrands = require("../routes/generatorBrands");
 const generatorModels = require("../routes/generatorModels");
+const serviceLevels = require("../routes/serviceLevels");
+const customerNoteTitle = require("../routes/customerNoteTitle");
 
 app.use(cors());
 app.use(express.json())
@@ -21,6 +23,8 @@ app.use('/api/users', users);
 app.use('/api/contracttypes', contractTypes);
 app.use('/api/generatorbrands', generatorBrands);
 app.use('/api/generatormodels', generatorModels);
+app.use('/api/servicelevels', serviceLevels);
+app.use('/api/customerNoteTitle', customerNoteTitle);
 /* Error handler middleware */
 app.use((err, req, res, next) => 
 {

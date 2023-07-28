@@ -9,10 +9,10 @@ datasource db {
 }
 
 model Customer_types {
-  id    Int     @id @default(autoincrement())
-  type_name String?
-  status Int @default(1) // 1=active,0=inactive
-  is_deleted Int @default(0) // 0=not deleted,1=deleted
+  id         Int      @id @default(autoincrement())
+  type_name  String?
+  status     Int      @default(1) // 1=active,0=inactive
+  is_deleted Int      @default(0) // 0=not deleted,1=deleted
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -20,40 +20,42 @@ model Customer_types {
 }
 
 model Roles {
-  id Int @id @default(autoincrement())
-  title String?
-  status Int @default(1) // 1=active,0=inactive
-  is_deleted Int @default(0) // 0=not deleted,1=deleted
+  id         Int      @id @default(autoincrement())
+  title      String?
+  status     Int      @default(1) // 1=active,0=inactive
+  is_deleted Int      @default(0) // 0=not deleted,1=deleted
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  role_type Users[]
+  role_type  Users[]
+
   @@map("roles")
 }
 
 model Users {
-  id Int @id @default(autoincrement())
-  name String?
-  contact_name String?
-  email String?
-  password String? @db.VarChar(255)
-  address String?
-  contact String?
-  customer_type_id Int @default(0)
-  role_type Roles? @relation(fields: [user_type], references: [id])
-  user_type Int @default(0)
-  status Int @default(1) // 1=active,0=inactive
-  is_deleted Int @default(0) // 0=not deleted,1=deleted
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id               Int                 @id @default(autoincrement())
+  name             String?
+  contact_name     String?
+  email            String?
+  password         String?             @db.VarChar(255)
+  address          String?
+  contact          String?
+  customer_type_id Int                 @default(0)
+  role_type        Roles?              @relation(fields: [user_type], references: [id])
+  user_type        Int                 @default(0)
+  status           Int                 @default(1) // 1=active,0=inactive
+  is_deleted       Int                 @default(0) // 0=not deleted,1=deleted
+  created_at       DateTime            @default(now())
+  updated_at       DateTime            @updatedAt
+  customerid       CustomerNoteTitle[]
 
   @@map("users")
 }
 
 model Contract_types {
-  id  Int @id @default(autoincrement())
-  type_name String?
-  status Int @default(1) // 1=active,0=inactive
-  is_deleted Int @default(0) // 0=not deleted,1=deleted
+  id         Int      @id @default(autoincrement())
+  type_name  String?
+  status     Int      @default(1) // 1=active,0=inactive
+  is_deleted Int      @default(0) // 0=not deleted,1=deleted
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -61,26 +63,58 @@ model Contract_types {
 }
 
 model GeneratorBrands {
-  id Int @id @default(autoincrement())
+  id         Int               @id @default(autoincrement())
   brand_name String?
-  status Int @default(1) //1=active,0=inactive
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  status     Int               @default(1) //1=active,0=inactive
+  is_deleted Int               @default(0)
+  created_at DateTime          @default(now())
+  updated_at DateTime          @updatedAt
   brand_type GeneratorModels[]
 
   @@map("generator_brands")
 }
 
 model GeneratorModels {
-  id Int @id @default(autoincrement())
+  id         Int              @id @default(autoincrement())
   model_name String?
   brand_type GeneratorBrands? @relation(fields: [brand_id], references: [id])
-  brand_id Int @default(0)
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  brand_id   Int              @default(0)
+  status     Int              @default(1)
+  is_deleted Int              @default(0)
+  created_at DateTime         @default(now())
+  updated_at DateTime         @updatedAt
 
   @@map("generator_models")
+}
+
+model service_levels {
+  id                         Int      @id @default(autoincrement())
+  service_name               Int      @unique
+  service_limit              Int
+  default_load_test_duration Int
+  on_screen_color_code       String   @db.VarChar(15)
+  on_report_color_code       String   @db.VarChar(15)
+  default_duration           Int
+  status                     Int      @default(1)
+  is_deleted                 Int      @default(0)
+  created_by                 String   @db.VarChar(15)
+  created_date               DateTime @default(now()) @db.Timestamp()
+  updated_date               DateTime @updatedAt() @db.Timestamp()
+}
+
+model CustomerNoteTitle {
+  customer_note_id Int      @id @default(autoincrement())
+  customerid       Users?   @relation(fields: [customer_id], references: [id])
+  customer_id      Int
+  note_timestamp   DateTime @db.Timestamp()
+  title            String   @db.VarChar(255)
+  body             String   @db.Text
+
+  status       Int      @default(1)
+  is_deleted   Int      @default(0)
+  created_by   String   @db.VarChar(15)
+  created_date DateTime @default(now()) @db.Timestamp()
+  updated_date DateTime @updatedAt() @db.Timestamp()
+
+  @@map("customer_note")
 }

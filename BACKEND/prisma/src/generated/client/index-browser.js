@@ -14,11 +14,11 @@ exports.Prisma = Prisma
 
 /**
  * Prisma Client JS version: 4.15.0
- * Query Engine version: 8fbc245156db7124f997f4cecdd8d1219e360944
+ * Query Engine version: 46285f314e200f5f1afc2baea86e3e40ff7fb309
  */
 Prisma.prismaVersion = {
   client: "4.15.0",
-  engine: "8fbc245156db7124f997f4cecdd8d1219e360944"
+  engine: "46285f314e200f5f1afc2baea86e3e40ff7fb309"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -86,7 +86,14 @@ Prisma.NullTypes = {
  * Enums
  */
 
-exports.Prisma.Contract_typesScalarFieldEnum = {
+exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
+  Serializable: 'Serializable'
+});
+
+exports.Prisma.Customer_typesScalarFieldEnum = {
   id: 'id',
   type_name: 'type_name',
   status: 'status',
@@ -95,7 +102,32 @@ exports.Prisma.Contract_typesScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Customer_typesScalarFieldEnum = {
+exports.Prisma.RolesScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.UsersScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  contact_name: 'contact_name',
+  email: 'email',
+  password: 'password',
+  address: 'address',
+  contact: 'contact',
+  customer_type_id: 'customer_type_id',
+  user_type: 'user_type',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Contract_typesScalarFieldEnum = {
   id: 'id',
   type_name: 'type_name',
   status: 'status',
@@ -123,13 +155,32 @@ exports.Prisma.GeneratorModelsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.RolesScalarFieldEnum = {
+exports.Prisma.Service_levelsScalarFieldEnum = {
   id: 'id',
-  title: 'title',
+  service_name: 'service_name',
+  service_limit: 'service_limit',
+  default_load_test_duration: 'default_load_test_duration',
+  on_screen_color_code: 'on_screen_color_code',
+  on_report_color_code: 'on_report_color_code',
+  default_duration: 'default_duration',
   status: 'status',
   is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_by: 'created_by',
+  created_date: 'created_date',
+  updated_date: 'updated_date'
+};
+
+exports.Prisma.CustomerNoteTitleScalarFieldEnum = {
+  customer_note_id: 'customer_note_id',
+  customer_id: 'customer_id',
+  note_timestamp: 'note_timestamp',
+  title: 'title',
+  body: 'body',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_by: 'created_by',
+  created_date: 'created_date',
+  updated_date: 'updated_date'
 };
 
 exports.Prisma.SortOrder = {
@@ -137,27 +188,9 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
-  Serializable: 'Serializable'
-});
-
-exports.Prisma.UsersScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  contact_name: 'contact_name',
-  email: 'email',
-  password: 'password',
-  address: 'address',
-  contact: 'contact',
-  customer_type_id: 'customer_type_id',
-  user_type: 'user_type',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 
@@ -167,7 +200,9 @@ exports.Prisma.ModelName = {
   Users: 'Users',
   Contract_types: 'Contract_types',
   GeneratorBrands: 'GeneratorBrands',
-  GeneratorModels: 'GeneratorModels'
+  GeneratorModels: 'GeneratorModels',
+  service_levels: 'service_levels',
+  CustomerNoteTitle: 'CustomerNoteTitle'
 };
 
 /**
