@@ -134,25 +134,62 @@ const update = async (data) => {
     let response = {};
     await prisma.blackOutDays.findFirst({ where: { title: data.title, is_deleted: 0, NOT: { id: data.id } } }).then(duplicate => {
         if (duplicate == null) {
+            let day_type_id = 0;
             var promiseResult = new Promise(function (resolve, reject) {
-                prisma.blackOutDays.update({
-                    where: {
-                        id: data.id
-                    },
-                    data: {
-                        day_type_id: data.day_type_id,
-                        title: data.title,
-                        start_date: new Date(data.start_date),
-                        end_date: new Date(data.end_date),
-                        applies_to: data.applies_to,
-                        color_code: data.color_code
+                prisma.blackOutDayTypes.findFirst({ where: { type: data.day_type, is_deleted: 0 } }).then(dayTypeDetails => {
+                    if (dayTypeDetails == null) {
+                        prisma.blackOutDayTypes.create({
+                            data: {
+                                type: data.day_type
+                            }
+                        }).then(newInsertedType => {
+                            day_type_id = newInsertedType.id;
+                            prisma.blackOutDays.update({
+                                where: {
+                                    id: data.id
+                                },
+                                data: {
+                                    day_type_id: day_type_id,
+                                    title: data.title,
+                                    start_date: new Date(data.start_date),
+                                    end_date: new Date(data.end_date),
+                                    applies_to: data.applies_to,
+                                    color_code: data.color_code
+                                }
+                            }).then(result => {
+                                response = { status: status, msg: "Blackout day updated successfully.", data: result };
+                                resolve(response);
+                            }).catch(error => {
+                                console.log("@1");
+                                response = { status: 400, msg: "An error occured.", data: error };
+                                reject(response);
+                            });
+                        });
                     }
-                }).then(result => {
-                    response = { status: status, msg: "Record updated successfully.", data: result };
-                    resolve(response);
-                }).catch(error => {
-                    response = { status: 400, msg: "An error occured." };
-                    reject(response);
+                    else {
+                        day_type_id = dayTypeDetails.id;
+                        prisma.blackOutDays.update({
+                            where: {
+                                id: data.id
+                            },
+                            data: {
+                                day_type_id: day_type_id,
+                                title: data.title,
+                                start_date: new Date(data.start_date),
+                                end_date: new Date(data.end_date),
+                                applies_to: data.applies_to,
+                                color_code: data.color_code
+                            }
+                        }).then(result => {
+                            response = { status: status, msg: "Blackout day updated successfully.", data: result };
+                            resolve(response);
+                        }).catch(error => {
+                            console.log("@1");
+                            response = { status: 400, msg: "An error occured.", data: error };
+                            reject(response);
+                        });
+
+                    }
                 });
             });
             return promiseResult;

@@ -18,6 +18,9 @@ const customerNoteTitlesMaster = require("../routes/customerNoteTitlesMaster");
 const customerStatusList = require("../routes/customerStatusList");
 const miscConfiguration = require("../routes/miscConfiguration");
 const customers = require("../routes/customers");
+const permissions = require("../routes/permissions");
+const appearances = require("../routes/appearances");
+const groups = require("../routes/groups");
 
 app.use(cors());
 app.use(express.json())
@@ -43,6 +46,9 @@ app.use('/api/customernotetitlesmaster', customerNoteTitlesMaster);
 app.use('/api/customerstatuslist', customerStatusList);
 app.use('/api/miscconfiguration', miscConfiguration);
 app.use('/api/customers', customers);
+app.use('/api/permissions', permissions);
+app.use('/api/appearances', appearances);
+app.use('/api/groups', groups);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => 

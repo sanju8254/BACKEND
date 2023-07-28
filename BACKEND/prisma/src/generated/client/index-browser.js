@@ -86,6 +86,22 @@ Prisma.NullTypes = {
  * Enums
  */
 
+exports.Prisma.AppearancePermissionsScalarFieldEnum = {
+  id: 'id',
+  appearance_id: 'appearance_id',
+  permission_id: 'permission_id'
+};
+
+exports.Prisma.AppearancesScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  description: 'description',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.BlackOutDayTypesScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -198,6 +214,22 @@ exports.Prisma.GeneratorPhaseTypesScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.GroupsAppearanceScalarFieldEnum = {
+  id: 'id',
+  group_id: 'group_id',
+  appearance_id: 'appearance_id'
+};
+
+exports.Prisma.GroupsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.LoggingDetailsScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -214,6 +246,16 @@ exports.Prisma.MiscConfigurationScalarFieldEnum = {
   name: 'name',
   description: 'description',
   created_by: 'created_by',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PermissionsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
   status: 'status',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
@@ -341,7 +383,12 @@ exports.Prisma.ModelName = {
   CustomerStatusList: 'CustomerStatusList',
   MiscConfiguration: 'MiscConfiguration',
   LoggingDetails: 'LoggingDetails',
-  SmtpDetails: 'SmtpDetails'
+  SmtpDetails: 'SmtpDetails',
+  Permissions: 'Permissions',
+  Appearances: 'Appearances',
+  AppearancePermissions: 'AppearancePermissions',
+  Groups: 'Groups',
+  GroupsAppearance: 'GroupsAppearance'
 };
 
 /**

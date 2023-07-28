@@ -311,6 +311,68 @@ export type SmtpDetails = {
   updated_at: Date
 }
 
+/**
+ * Model Permissions
+ * 
+ */
+export type Permissions = {
+  id: number
+  title: string | null
+  description: string | null
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model Appearances
+ * 
+ */
+export type Appearances = {
+  id: number
+  role: string | null
+  description: string | null
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model AppearancePermissions
+ * 
+ */
+export type AppearancePermissions = {
+  id: number
+  appearance_id: number
+  permission_id: number
+}
+
+/**
+ * Model Groups
+ * 
+ */
+export type Groups = {
+  id: number
+  title: string | null
+  description: string | null
+  status: number
+  is_deleted: number
+  created_at: Date
+  updated_at: Date
+}
+
+/**
+ * Model GroupsAppearance
+ * 
+ */
+export type GroupsAppearance = {
+  id: number
+  group_id: number
+  appearance_id: number
+}
+
 
 /**
  * ##  Prisma Client ʲˢ
@@ -618,6 +680,56 @@ export class PrismaClient<
     * ```
     */
   get smtpDetails(): Prisma.SmtpDetailsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.permissions`: Exposes CRUD operations for the **Permissions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Permissions
+    * const permissions = await prisma.permissions.findMany()
+    * ```
+    */
+  get permissions(): Prisma.PermissionsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.appearances`: Exposes CRUD operations for the **Appearances** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Appearances
+    * const appearances = await prisma.appearances.findMany()
+    * ```
+    */
+  get appearances(): Prisma.AppearancesDelegate<GlobalReject>;
+
+  /**
+   * `prisma.appearancePermissions`: Exposes CRUD operations for the **AppearancePermissions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AppearancePermissions
+    * const appearancePermissions = await prisma.appearancePermissions.findMany()
+    * ```
+    */
+  get appearancePermissions(): Prisma.AppearancePermissionsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.groups`: Exposes CRUD operations for the **Groups** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Groups
+    * const groups = await prisma.groups.findMany()
+    * ```
+    */
+  get groups(): Prisma.GroupsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.groupsAppearance`: Exposes CRUD operations for the **GroupsAppearance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GroupsAppearances
+    * const groupsAppearances = await prisma.groupsAppearance.findMany()
+    * ```
+    */
+  get groupsAppearance(): Prisma.GroupsAppearanceDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -1105,7 +1217,12 @@ export namespace Prisma {
     CustomerStatusList: 'CustomerStatusList',
     MiscConfiguration: 'MiscConfiguration',
     LoggingDetails: 'LoggingDetails',
-    SmtpDetails: 'SmtpDetails'
+    SmtpDetails: 'SmtpDetails',
+    Permissions: 'Permissions',
+    Appearances: 'Appearances',
+    AppearancePermissions: 'AppearancePermissions',
+    Groups: 'Groups',
+    GroupsAppearance: 'GroupsAppearance'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1477,6 +1594,137 @@ export namespace Prisma {
      * Select specific fields to fetch from the BlackOutDayTypesCountOutputType
      */
     select?: BlackOutDayTypesCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type PermissionsCountOutputType
+   */
+
+
+  export type PermissionsCountOutputType = {
+    permission: number
+  }
+
+  export type PermissionsCountOutputTypeSelect = {
+    permission?: boolean
+  }
+
+  export type PermissionsCountOutputTypeGetPayload<S extends boolean | null | undefined | PermissionsCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? PermissionsCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (PermissionsCountOutputTypeArgs)
+    ? PermissionsCountOutputType 
+    : S extends { select: any } & (PermissionsCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof PermissionsCountOutputType ? PermissionsCountOutputType[P] : never
+  } 
+      : PermissionsCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * PermissionsCountOutputType without action
+   */
+  export type PermissionsCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the PermissionsCountOutputType
+     */
+    select?: PermissionsCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type AppearancesCountOutputType
+   */
+
+
+  export type AppearancesCountOutputType = {
+    appearance: number
+    group_appearance: number
+  }
+
+  export type AppearancesCountOutputTypeSelect = {
+    appearance?: boolean
+    group_appearance?: boolean
+  }
+
+  export type AppearancesCountOutputTypeGetPayload<S extends boolean | null | undefined | AppearancesCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? AppearancesCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (AppearancesCountOutputTypeArgs)
+    ? AppearancesCountOutputType 
+    : S extends { select: any } & (AppearancesCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof AppearancesCountOutputType ? AppearancesCountOutputType[P] : never
+  } 
+      : AppearancesCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * AppearancesCountOutputType without action
+   */
+  export type AppearancesCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancesCountOutputType
+     */
+    select?: AppearancesCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type GroupsCountOutputType
+   */
+
+
+  export type GroupsCountOutputType = {
+    group: number
+  }
+
+  export type GroupsCountOutputTypeSelect = {
+    group?: boolean
+  }
+
+  export type GroupsCountOutputTypeGetPayload<S extends boolean | null | undefined | GroupsCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? GroupsCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (GroupsCountOutputTypeArgs)
+    ? GroupsCountOutputType 
+    : S extends { select: any } & (GroupsCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof GroupsCountOutputType ? GroupsCountOutputType[P] : never
+  } 
+      : GroupsCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * GroupsCountOutputType without action
+   */
+  export type GroupsCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsCountOutputType
+     */
+    select?: GroupsCountOutputTypeSelect | null
   }
 
 
@@ -20223,8 +20471,5025 @@ export namespace Prisma {
 
 
   /**
+   * Model Permissions
+   */
+
+
+  export type AggregatePermissions = {
+    _count: PermissionsCountAggregateOutputType | null
+    _avg: PermissionsAvgAggregateOutputType | null
+    _sum: PermissionsSumAggregateOutputType | null
+    _min: PermissionsMinAggregateOutputType | null
+    _max: PermissionsMaxAggregateOutputType | null
+  }
+
+  export type PermissionsAvgAggregateOutputType = {
+    id: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type PermissionsSumAggregateOutputType = {
+    id: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type PermissionsMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type PermissionsMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type PermissionsCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type PermissionsAvgAggregateInputType = {
+    id?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type PermissionsSumAggregateInputType = {
+    id?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type PermissionsMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type PermissionsMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type PermissionsCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type PermissionsAggregateArgs = {
+    /**
+     * Filter which Permissions to aggregate.
+     */
+    where?: PermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: Enumerable<PermissionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Permissions
+    **/
+    _count?: true | PermissionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PermissionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PermissionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PermissionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PermissionsMaxAggregateInputType
+  }
+
+  export type GetPermissionsAggregateType<T extends PermissionsAggregateArgs> = {
+        [P in keyof T & keyof AggregatePermissions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePermissions[P]>
+      : GetScalarType<T[P], AggregatePermissions[P]>
+  }
+
+
+
+
+  export type PermissionsGroupByArgs = {
+    where?: PermissionsWhereInput
+    orderBy?: Enumerable<PermissionsOrderByWithAggregationInput>
+    by: PermissionsScalarFieldEnum[]
+    having?: PermissionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PermissionsCountAggregateInputType | true
+    _avg?: PermissionsAvgAggregateInputType
+    _sum?: PermissionsSumAggregateInputType
+    _min?: PermissionsMinAggregateInputType
+    _max?: PermissionsMaxAggregateInputType
+  }
+
+
+  export type PermissionsGroupByOutputType = {
+    id: number
+    title: string | null
+    description: string | null
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: PermissionsCountAggregateOutputType | null
+    _avg: PermissionsAvgAggregateOutputType | null
+    _sum: PermissionsSumAggregateOutputType | null
+    _min: PermissionsMinAggregateOutputType | null
+    _max: PermissionsMaxAggregateOutputType | null
+  }
+
+  type GetPermissionsGroupByPayload<T extends PermissionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<PermissionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PermissionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PermissionsGroupByOutputType[P]>
+            : GetScalarType<T[P], PermissionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PermissionsSelect = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    permission?: boolean | Permissions$permissionArgs
+    _count?: boolean | PermissionsCountOutputTypeArgs
+  }
+
+
+  export type PermissionsInclude = {
+    permission?: boolean | Permissions$permissionArgs
+    _count?: boolean | PermissionsCountOutputTypeArgs
+  }
+
+  export type PermissionsGetPayload<S extends boolean | null | undefined | PermissionsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Permissions :
+    S extends undefined ? never :
+    S extends { include: any } & (PermissionsArgs | PermissionsFindManyArgs)
+    ? Permissions  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'permission' ? Array < AppearancePermissionsGetPayload<S['include'][P]>>  :
+        P extends '_count' ? PermissionsCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (PermissionsArgs | PermissionsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'permission' ? Array < AppearancePermissionsGetPayload<S['select'][P]>>  :
+        P extends '_count' ? PermissionsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Permissions ? Permissions[P] : never
+  } 
+      : Permissions
+
+
+  type PermissionsCountArgs = 
+    Omit<PermissionsFindManyArgs, 'select' | 'include'> & {
+      select?: PermissionsCountAggregateInputType | true
+    }
+
+  export interface PermissionsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Permissions that matches the filter.
+     * @param {PermissionsFindUniqueArgs} args - Arguments to find a Permissions
+     * @example
+     * // Get one Permissions
+     * const permissions = await prisma.permissions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends PermissionsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, PermissionsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Permissions'> extends True ? Prisma__PermissionsClient<PermissionsGetPayload<T>> : Prisma__PermissionsClient<PermissionsGetPayload<T> | null, null>
+
+    /**
+     * Find one Permissions that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {PermissionsFindUniqueOrThrowArgs} args - Arguments to find a Permissions
+     * @example
+     * // Get one Permissions
+     * const permissions = await prisma.permissions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends PermissionsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, PermissionsFindUniqueOrThrowArgs>
+    ): Prisma__PermissionsClient<PermissionsGetPayload<T>>
+
+    /**
+     * Find the first Permissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionsFindFirstArgs} args - Arguments to find a Permissions
+     * @example
+     * // Get one Permissions
+     * const permissions = await prisma.permissions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends PermissionsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, PermissionsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Permissions'> extends True ? Prisma__PermissionsClient<PermissionsGetPayload<T>> : Prisma__PermissionsClient<PermissionsGetPayload<T> | null, null>
+
+    /**
+     * Find the first Permissions that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionsFindFirstOrThrowArgs} args - Arguments to find a Permissions
+     * @example
+     * // Get one Permissions
+     * const permissions = await prisma.permissions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends PermissionsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PermissionsFindFirstOrThrowArgs>
+    ): Prisma__PermissionsClient<PermissionsGetPayload<T>>
+
+    /**
+     * Find zero or more Permissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Permissions
+     * const permissions = await prisma.permissions.findMany()
+     * 
+     * // Get first 10 Permissions
+     * const permissions = await prisma.permissions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const permissionsWithIdOnly = await prisma.permissions.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends PermissionsFindManyArgs>(
+      args?: SelectSubset<T, PermissionsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<PermissionsGetPayload<T>>>
+
+    /**
+     * Create a Permissions.
+     * @param {PermissionsCreateArgs} args - Arguments to create a Permissions.
+     * @example
+     * // Create one Permissions
+     * const Permissions = await prisma.permissions.create({
+     *   data: {
+     *     // ... data to create a Permissions
+     *   }
+     * })
+     * 
+    **/
+    create<T extends PermissionsCreateArgs>(
+      args: SelectSubset<T, PermissionsCreateArgs>
+    ): Prisma__PermissionsClient<PermissionsGetPayload<T>>
+
+    /**
+     * Create many Permissions.
+     *     @param {PermissionsCreateManyArgs} args - Arguments to create many Permissions.
+     *     @example
+     *     // Create many Permissions
+     *     const permissions = await prisma.permissions.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends PermissionsCreateManyArgs>(
+      args?: SelectSubset<T, PermissionsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Permissions.
+     * @param {PermissionsDeleteArgs} args - Arguments to delete one Permissions.
+     * @example
+     * // Delete one Permissions
+     * const Permissions = await prisma.permissions.delete({
+     *   where: {
+     *     // ... filter to delete one Permissions
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends PermissionsDeleteArgs>(
+      args: SelectSubset<T, PermissionsDeleteArgs>
+    ): Prisma__PermissionsClient<PermissionsGetPayload<T>>
+
+    /**
+     * Update one Permissions.
+     * @param {PermissionsUpdateArgs} args - Arguments to update one Permissions.
+     * @example
+     * // Update one Permissions
+     * const permissions = await prisma.permissions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends PermissionsUpdateArgs>(
+      args: SelectSubset<T, PermissionsUpdateArgs>
+    ): Prisma__PermissionsClient<PermissionsGetPayload<T>>
+
+    /**
+     * Delete zero or more Permissions.
+     * @param {PermissionsDeleteManyArgs} args - Arguments to filter Permissions to delete.
+     * @example
+     * // Delete a few Permissions
+     * const { count } = await prisma.permissions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends PermissionsDeleteManyArgs>(
+      args?: SelectSubset<T, PermissionsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Permissions
+     * const permissions = await prisma.permissions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends PermissionsUpdateManyArgs>(
+      args: SelectSubset<T, PermissionsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Permissions.
+     * @param {PermissionsUpsertArgs} args - Arguments to update or create a Permissions.
+     * @example
+     * // Update or create a Permissions
+     * const permissions = await prisma.permissions.upsert({
+     *   create: {
+     *     // ... data to create a Permissions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Permissions we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends PermissionsUpsertArgs>(
+      args: SelectSubset<T, PermissionsUpsertArgs>
+    ): Prisma__PermissionsClient<PermissionsGetPayload<T>>
+
+    /**
+     * Count the number of Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionsCountArgs} args - Arguments to filter Permissions to count.
+     * @example
+     * // Count the number of Permissions
+     * const count = await prisma.permissions.count({
+     *   where: {
+     *     // ... the filter for the Permissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PermissionsCountArgs>(
+      args?: Subset<T, PermissionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PermissionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PermissionsAggregateArgs>(args: Subset<T, PermissionsAggregateArgs>): Prisma.PrismaPromise<GetPermissionsAggregateType<T>>
+
+    /**
+     * Group by Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PermissionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PermissionsGroupByArgs['orderBy'] }
+        : { orderBy?: PermissionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PermissionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPermissionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Permissions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__PermissionsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    permission<T extends Permissions$permissionArgs= {}>(args?: Subset<T, Permissions$permissionArgs>): Prisma.PrismaPromise<Array<AppearancePermissionsGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Permissions base type for findUnique actions
+   */
+  export type PermissionsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * Filter, which Permissions to fetch.
+     */
+    where: PermissionsWhereUniqueInput
+  }
+
+  /**
+   * Permissions findUnique
+   */
+  export interface PermissionsFindUniqueArgs extends PermissionsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Permissions findUniqueOrThrow
+   */
+  export type PermissionsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * Filter, which Permissions to fetch.
+     */
+    where: PermissionsWhereUniqueInput
+  }
+
+
+  /**
+   * Permissions base type for findFirst actions
+   */
+  export type PermissionsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * Filter, which Permissions to fetch.
+     */
+    where?: PermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: Enumerable<PermissionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Permissions.
+     */
+    cursor?: PermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: Enumerable<PermissionsScalarFieldEnum>
+  }
+
+  /**
+   * Permissions findFirst
+   */
+  export interface PermissionsFindFirstArgs extends PermissionsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Permissions findFirstOrThrow
+   */
+  export type PermissionsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * Filter, which Permissions to fetch.
+     */
+    where?: PermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: Enumerable<PermissionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Permissions.
+     */
+    cursor?: PermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: Enumerable<PermissionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Permissions findMany
+   */
+  export type PermissionsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * Filter, which Permissions to fetch.
+     */
+    where?: PermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: Enumerable<PermissionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Permissions.
+     */
+    cursor?: PermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    distinct?: Enumerable<PermissionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Permissions create
+   */
+  export type PermissionsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * The data needed to create a Permissions.
+     */
+    data: XOR<PermissionsCreateInput, PermissionsUncheckedCreateInput>
+  }
+
+
+  /**
+   * Permissions createMany
+   */
+  export type PermissionsCreateManyArgs = {
+    /**
+     * The data used to create many Permissions.
+     */
+    data: Enumerable<PermissionsCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Permissions update
+   */
+  export type PermissionsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * The data needed to update a Permissions.
+     */
+    data: XOR<PermissionsUpdateInput, PermissionsUncheckedUpdateInput>
+    /**
+     * Choose, which Permissions to update.
+     */
+    where: PermissionsWhereUniqueInput
+  }
+
+
+  /**
+   * Permissions updateMany
+   */
+  export type PermissionsUpdateManyArgs = {
+    /**
+     * The data used to update Permissions.
+     */
+    data: XOR<PermissionsUpdateManyMutationInput, PermissionsUncheckedUpdateManyInput>
+    /**
+     * Filter which Permissions to update
+     */
+    where?: PermissionsWhereInput
+  }
+
+
+  /**
+   * Permissions upsert
+   */
+  export type PermissionsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * The filter to search for the Permissions to update in case it exists.
+     */
+    where: PermissionsWhereUniqueInput
+    /**
+     * In case the Permissions found by the `where` argument doesn't exist, create a new Permissions with this data.
+     */
+    create: XOR<PermissionsCreateInput, PermissionsUncheckedCreateInput>
+    /**
+     * In case the Permissions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PermissionsUpdateInput, PermissionsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Permissions delete
+   */
+  export type PermissionsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+    /**
+     * Filter which Permissions to delete.
+     */
+    where: PermissionsWhereUniqueInput
+  }
+
+
+  /**
+   * Permissions deleteMany
+   */
+  export type PermissionsDeleteManyArgs = {
+    /**
+     * Filter which Permissions to delete
+     */
+    where?: PermissionsWhereInput
+  }
+
+
+  /**
+   * Permissions.permission
+   */
+  export type Permissions$permissionArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    where?: AppearancePermissionsWhereInput
+    orderBy?: Enumerable<AppearancePermissionsOrderByWithRelationInput>
+    cursor?: AppearancePermissionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AppearancePermissionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Permissions without action
+   */
+  export type PermissionsArgs = {
+    /**
+     * Select specific fields to fetch from the Permissions
+     */
+    select?: PermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionsInclude | null
+  }
+
+
+
+  /**
+   * Model Appearances
+   */
+
+
+  export type AggregateAppearances = {
+    _count: AppearancesCountAggregateOutputType | null
+    _avg: AppearancesAvgAggregateOutputType | null
+    _sum: AppearancesSumAggregateOutputType | null
+    _min: AppearancesMinAggregateOutputType | null
+    _max: AppearancesMaxAggregateOutputType | null
+  }
+
+  export type AppearancesAvgAggregateOutputType = {
+    id: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type AppearancesSumAggregateOutputType = {
+    id: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type AppearancesMinAggregateOutputType = {
+    id: number | null
+    role: string | null
+    description: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AppearancesMaxAggregateOutputType = {
+    id: number | null
+    role: string | null
+    description: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AppearancesCountAggregateOutputType = {
+    id: number
+    role: number
+    description: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type AppearancesAvgAggregateInputType = {
+    id?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type AppearancesSumAggregateInputType = {
+    id?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type AppearancesMinAggregateInputType = {
+    id?: true
+    role?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AppearancesMaxAggregateInputType = {
+    id?: true
+    role?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AppearancesCountAggregateInputType = {
+    id?: true
+    role?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type AppearancesAggregateArgs = {
+    /**
+     * Filter which Appearances to aggregate.
+     */
+    where?: AppearancesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Appearances to fetch.
+     */
+    orderBy?: Enumerable<AppearancesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AppearancesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Appearances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Appearances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Appearances
+    **/
+    _count?: true | AppearancesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AppearancesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AppearancesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AppearancesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AppearancesMaxAggregateInputType
+  }
+
+  export type GetAppearancesAggregateType<T extends AppearancesAggregateArgs> = {
+        [P in keyof T & keyof AggregateAppearances]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAppearances[P]>
+      : GetScalarType<T[P], AggregateAppearances[P]>
+  }
+
+
+
+
+  export type AppearancesGroupByArgs = {
+    where?: AppearancesWhereInput
+    orderBy?: Enumerable<AppearancesOrderByWithAggregationInput>
+    by: AppearancesScalarFieldEnum[]
+    having?: AppearancesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AppearancesCountAggregateInputType | true
+    _avg?: AppearancesAvgAggregateInputType
+    _sum?: AppearancesSumAggregateInputType
+    _min?: AppearancesMinAggregateInputType
+    _max?: AppearancesMaxAggregateInputType
+  }
+
+
+  export type AppearancesGroupByOutputType = {
+    id: number
+    role: string | null
+    description: string | null
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: AppearancesCountAggregateOutputType | null
+    _avg: AppearancesAvgAggregateOutputType | null
+    _sum: AppearancesSumAggregateOutputType | null
+    _min: AppearancesMinAggregateOutputType | null
+    _max: AppearancesMaxAggregateOutputType | null
+  }
+
+  type GetAppearancesGroupByPayload<T extends AppearancesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<AppearancesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AppearancesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AppearancesGroupByOutputType[P]>
+            : GetScalarType<T[P], AppearancesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AppearancesSelect = {
+    id?: boolean
+    role?: boolean
+    description?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    appearance?: boolean | Appearances$appearanceArgs
+    group_appearance?: boolean | Appearances$group_appearanceArgs
+    _count?: boolean | AppearancesCountOutputTypeArgs
+  }
+
+
+  export type AppearancesInclude = {
+    appearance?: boolean | Appearances$appearanceArgs
+    group_appearance?: boolean | Appearances$group_appearanceArgs
+    _count?: boolean | AppearancesCountOutputTypeArgs
+  }
+
+  export type AppearancesGetPayload<S extends boolean | null | undefined | AppearancesArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Appearances :
+    S extends undefined ? never :
+    S extends { include: any } & (AppearancesArgs | AppearancesFindManyArgs)
+    ? Appearances  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'appearance' ? Array < AppearancePermissionsGetPayload<S['include'][P]>>  :
+        P extends 'group_appearance' ? Array < GroupsAppearanceGetPayload<S['include'][P]>>  :
+        P extends '_count' ? AppearancesCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (AppearancesArgs | AppearancesFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'appearance' ? Array < AppearancePermissionsGetPayload<S['select'][P]>>  :
+        P extends 'group_appearance' ? Array < GroupsAppearanceGetPayload<S['select'][P]>>  :
+        P extends '_count' ? AppearancesCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Appearances ? Appearances[P] : never
+  } 
+      : Appearances
+
+
+  type AppearancesCountArgs = 
+    Omit<AppearancesFindManyArgs, 'select' | 'include'> & {
+      select?: AppearancesCountAggregateInputType | true
+    }
+
+  export interface AppearancesDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Appearances that matches the filter.
+     * @param {AppearancesFindUniqueArgs} args - Arguments to find a Appearances
+     * @example
+     * // Get one Appearances
+     * const appearances = await prisma.appearances.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AppearancesFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, AppearancesFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Appearances'> extends True ? Prisma__AppearancesClient<AppearancesGetPayload<T>> : Prisma__AppearancesClient<AppearancesGetPayload<T> | null, null>
+
+    /**
+     * Find one Appearances that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AppearancesFindUniqueOrThrowArgs} args - Arguments to find a Appearances
+     * @example
+     * // Get one Appearances
+     * const appearances = await prisma.appearances.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AppearancesFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, AppearancesFindUniqueOrThrowArgs>
+    ): Prisma__AppearancesClient<AppearancesGetPayload<T>>
+
+    /**
+     * Find the first Appearances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancesFindFirstArgs} args - Arguments to find a Appearances
+     * @example
+     * // Get one Appearances
+     * const appearances = await prisma.appearances.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AppearancesFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, AppearancesFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Appearances'> extends True ? Prisma__AppearancesClient<AppearancesGetPayload<T>> : Prisma__AppearancesClient<AppearancesGetPayload<T> | null, null>
+
+    /**
+     * Find the first Appearances that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancesFindFirstOrThrowArgs} args - Arguments to find a Appearances
+     * @example
+     * // Get one Appearances
+     * const appearances = await prisma.appearances.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AppearancesFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, AppearancesFindFirstOrThrowArgs>
+    ): Prisma__AppearancesClient<AppearancesGetPayload<T>>
+
+    /**
+     * Find zero or more Appearances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancesFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Appearances
+     * const appearances = await prisma.appearances.findMany()
+     * 
+     * // Get first 10 Appearances
+     * const appearances = await prisma.appearances.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const appearancesWithIdOnly = await prisma.appearances.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AppearancesFindManyArgs>(
+      args?: SelectSubset<T, AppearancesFindManyArgs>
+    ): Prisma.PrismaPromise<Array<AppearancesGetPayload<T>>>
+
+    /**
+     * Create a Appearances.
+     * @param {AppearancesCreateArgs} args - Arguments to create a Appearances.
+     * @example
+     * // Create one Appearances
+     * const Appearances = await prisma.appearances.create({
+     *   data: {
+     *     // ... data to create a Appearances
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AppearancesCreateArgs>(
+      args: SelectSubset<T, AppearancesCreateArgs>
+    ): Prisma__AppearancesClient<AppearancesGetPayload<T>>
+
+    /**
+     * Create many Appearances.
+     *     @param {AppearancesCreateManyArgs} args - Arguments to create many Appearances.
+     *     @example
+     *     // Create many Appearances
+     *     const appearances = await prisma.appearances.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AppearancesCreateManyArgs>(
+      args?: SelectSubset<T, AppearancesCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Appearances.
+     * @param {AppearancesDeleteArgs} args - Arguments to delete one Appearances.
+     * @example
+     * // Delete one Appearances
+     * const Appearances = await prisma.appearances.delete({
+     *   where: {
+     *     // ... filter to delete one Appearances
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AppearancesDeleteArgs>(
+      args: SelectSubset<T, AppearancesDeleteArgs>
+    ): Prisma__AppearancesClient<AppearancesGetPayload<T>>
+
+    /**
+     * Update one Appearances.
+     * @param {AppearancesUpdateArgs} args - Arguments to update one Appearances.
+     * @example
+     * // Update one Appearances
+     * const appearances = await prisma.appearances.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AppearancesUpdateArgs>(
+      args: SelectSubset<T, AppearancesUpdateArgs>
+    ): Prisma__AppearancesClient<AppearancesGetPayload<T>>
+
+    /**
+     * Delete zero or more Appearances.
+     * @param {AppearancesDeleteManyArgs} args - Arguments to filter Appearances to delete.
+     * @example
+     * // Delete a few Appearances
+     * const { count } = await prisma.appearances.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AppearancesDeleteManyArgs>(
+      args?: SelectSubset<T, AppearancesDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Appearances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Appearances
+     * const appearances = await prisma.appearances.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AppearancesUpdateManyArgs>(
+      args: SelectSubset<T, AppearancesUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Appearances.
+     * @param {AppearancesUpsertArgs} args - Arguments to update or create a Appearances.
+     * @example
+     * // Update or create a Appearances
+     * const appearances = await prisma.appearances.upsert({
+     *   create: {
+     *     // ... data to create a Appearances
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Appearances we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AppearancesUpsertArgs>(
+      args: SelectSubset<T, AppearancesUpsertArgs>
+    ): Prisma__AppearancesClient<AppearancesGetPayload<T>>
+
+    /**
+     * Count the number of Appearances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancesCountArgs} args - Arguments to filter Appearances to count.
+     * @example
+     * // Count the number of Appearances
+     * const count = await prisma.appearances.count({
+     *   where: {
+     *     // ... the filter for the Appearances we want to count
+     *   }
+     * })
+    **/
+    count<T extends AppearancesCountArgs>(
+      args?: Subset<T, AppearancesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AppearancesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Appearances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AppearancesAggregateArgs>(args: Subset<T, AppearancesAggregateArgs>): Prisma.PrismaPromise<GetAppearancesAggregateType<T>>
+
+    /**
+     * Group by Appearances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AppearancesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AppearancesGroupByArgs['orderBy'] }
+        : { orderBy?: AppearancesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AppearancesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAppearancesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Appearances.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__AppearancesClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    appearance<T extends Appearances$appearanceArgs= {}>(args?: Subset<T, Appearances$appearanceArgs>): Prisma.PrismaPromise<Array<AppearancePermissionsGetPayload<T>>| Null>;
+
+    group_appearance<T extends Appearances$group_appearanceArgs= {}>(args?: Subset<T, Appearances$group_appearanceArgs>): Prisma.PrismaPromise<Array<GroupsAppearanceGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Appearances base type for findUnique actions
+   */
+  export type AppearancesFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * Filter, which Appearances to fetch.
+     */
+    where: AppearancesWhereUniqueInput
+  }
+
+  /**
+   * Appearances findUnique
+   */
+  export interface AppearancesFindUniqueArgs extends AppearancesFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Appearances findUniqueOrThrow
+   */
+  export type AppearancesFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * Filter, which Appearances to fetch.
+     */
+    where: AppearancesWhereUniqueInput
+  }
+
+
+  /**
+   * Appearances base type for findFirst actions
+   */
+  export type AppearancesFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * Filter, which Appearances to fetch.
+     */
+    where?: AppearancesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Appearances to fetch.
+     */
+    orderBy?: Enumerable<AppearancesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Appearances.
+     */
+    cursor?: AppearancesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Appearances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Appearances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Appearances.
+     */
+    distinct?: Enumerable<AppearancesScalarFieldEnum>
+  }
+
+  /**
+   * Appearances findFirst
+   */
+  export interface AppearancesFindFirstArgs extends AppearancesFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Appearances findFirstOrThrow
+   */
+  export type AppearancesFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * Filter, which Appearances to fetch.
+     */
+    where?: AppearancesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Appearances to fetch.
+     */
+    orderBy?: Enumerable<AppearancesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Appearances.
+     */
+    cursor?: AppearancesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Appearances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Appearances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Appearances.
+     */
+    distinct?: Enumerable<AppearancesScalarFieldEnum>
+  }
+
+
+  /**
+   * Appearances findMany
+   */
+  export type AppearancesFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * Filter, which Appearances to fetch.
+     */
+    where?: AppearancesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Appearances to fetch.
+     */
+    orderBy?: Enumerable<AppearancesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Appearances.
+     */
+    cursor?: AppearancesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Appearances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Appearances.
+     */
+    skip?: number
+    distinct?: Enumerable<AppearancesScalarFieldEnum>
+  }
+
+
+  /**
+   * Appearances create
+   */
+  export type AppearancesCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * The data needed to create a Appearances.
+     */
+    data: XOR<AppearancesCreateInput, AppearancesUncheckedCreateInput>
+  }
+
+
+  /**
+   * Appearances createMany
+   */
+  export type AppearancesCreateManyArgs = {
+    /**
+     * The data used to create many Appearances.
+     */
+    data: Enumerable<AppearancesCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Appearances update
+   */
+  export type AppearancesUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * The data needed to update a Appearances.
+     */
+    data: XOR<AppearancesUpdateInput, AppearancesUncheckedUpdateInput>
+    /**
+     * Choose, which Appearances to update.
+     */
+    where: AppearancesWhereUniqueInput
+  }
+
+
+  /**
+   * Appearances updateMany
+   */
+  export type AppearancesUpdateManyArgs = {
+    /**
+     * The data used to update Appearances.
+     */
+    data: XOR<AppearancesUpdateManyMutationInput, AppearancesUncheckedUpdateManyInput>
+    /**
+     * Filter which Appearances to update
+     */
+    where?: AppearancesWhereInput
+  }
+
+
+  /**
+   * Appearances upsert
+   */
+  export type AppearancesUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * The filter to search for the Appearances to update in case it exists.
+     */
+    where: AppearancesWhereUniqueInput
+    /**
+     * In case the Appearances found by the `where` argument doesn't exist, create a new Appearances with this data.
+     */
+    create: XOR<AppearancesCreateInput, AppearancesUncheckedCreateInput>
+    /**
+     * In case the Appearances was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AppearancesUpdateInput, AppearancesUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Appearances delete
+   */
+  export type AppearancesDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+    /**
+     * Filter which Appearances to delete.
+     */
+    where: AppearancesWhereUniqueInput
+  }
+
+
+  /**
+   * Appearances deleteMany
+   */
+  export type AppearancesDeleteManyArgs = {
+    /**
+     * Filter which Appearances to delete
+     */
+    where?: AppearancesWhereInput
+  }
+
+
+  /**
+   * Appearances.appearance
+   */
+  export type Appearances$appearanceArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    where?: AppearancePermissionsWhereInput
+    orderBy?: Enumerable<AppearancePermissionsOrderByWithRelationInput>
+    cursor?: AppearancePermissionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AppearancePermissionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Appearances.group_appearance
+   */
+  export type Appearances$group_appearanceArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    where?: GroupsAppearanceWhereInput
+    orderBy?: Enumerable<GroupsAppearanceOrderByWithRelationInput>
+    cursor?: GroupsAppearanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<GroupsAppearanceScalarFieldEnum>
+  }
+
+
+  /**
+   * Appearances without action
+   */
+  export type AppearancesArgs = {
+    /**
+     * Select specific fields to fetch from the Appearances
+     */
+    select?: AppearancesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancesInclude | null
+  }
+
+
+
+  /**
+   * Model AppearancePermissions
+   */
+
+
+  export type AggregateAppearancePermissions = {
+    _count: AppearancePermissionsCountAggregateOutputType | null
+    _avg: AppearancePermissionsAvgAggregateOutputType | null
+    _sum: AppearancePermissionsSumAggregateOutputType | null
+    _min: AppearancePermissionsMinAggregateOutputType | null
+    _max: AppearancePermissionsMaxAggregateOutputType | null
+  }
+
+  export type AppearancePermissionsAvgAggregateOutputType = {
+    id: number | null
+    appearance_id: number | null
+    permission_id: number | null
+  }
+
+  export type AppearancePermissionsSumAggregateOutputType = {
+    id: number | null
+    appearance_id: number | null
+    permission_id: number | null
+  }
+
+  export type AppearancePermissionsMinAggregateOutputType = {
+    id: number | null
+    appearance_id: number | null
+    permission_id: number | null
+  }
+
+  export type AppearancePermissionsMaxAggregateOutputType = {
+    id: number | null
+    appearance_id: number | null
+    permission_id: number | null
+  }
+
+  export type AppearancePermissionsCountAggregateOutputType = {
+    id: number
+    appearance_id: number
+    permission_id: number
+    _all: number
+  }
+
+
+  export type AppearancePermissionsAvgAggregateInputType = {
+    id?: true
+    appearance_id?: true
+    permission_id?: true
+  }
+
+  export type AppearancePermissionsSumAggregateInputType = {
+    id?: true
+    appearance_id?: true
+    permission_id?: true
+  }
+
+  export type AppearancePermissionsMinAggregateInputType = {
+    id?: true
+    appearance_id?: true
+    permission_id?: true
+  }
+
+  export type AppearancePermissionsMaxAggregateInputType = {
+    id?: true
+    appearance_id?: true
+    permission_id?: true
+  }
+
+  export type AppearancePermissionsCountAggregateInputType = {
+    id?: true
+    appearance_id?: true
+    permission_id?: true
+    _all?: true
+  }
+
+  export type AppearancePermissionsAggregateArgs = {
+    /**
+     * Filter which AppearancePermissions to aggregate.
+     */
+    where?: AppearancePermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppearancePermissions to fetch.
+     */
+    orderBy?: Enumerable<AppearancePermissionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AppearancePermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppearancePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppearancePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AppearancePermissions
+    **/
+    _count?: true | AppearancePermissionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AppearancePermissionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AppearancePermissionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AppearancePermissionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AppearancePermissionsMaxAggregateInputType
+  }
+
+  export type GetAppearancePermissionsAggregateType<T extends AppearancePermissionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateAppearancePermissions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAppearancePermissions[P]>
+      : GetScalarType<T[P], AggregateAppearancePermissions[P]>
+  }
+
+
+
+
+  export type AppearancePermissionsGroupByArgs = {
+    where?: AppearancePermissionsWhereInput
+    orderBy?: Enumerable<AppearancePermissionsOrderByWithAggregationInput>
+    by: AppearancePermissionsScalarFieldEnum[]
+    having?: AppearancePermissionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AppearancePermissionsCountAggregateInputType | true
+    _avg?: AppearancePermissionsAvgAggregateInputType
+    _sum?: AppearancePermissionsSumAggregateInputType
+    _min?: AppearancePermissionsMinAggregateInputType
+    _max?: AppearancePermissionsMaxAggregateInputType
+  }
+
+
+  export type AppearancePermissionsGroupByOutputType = {
+    id: number
+    appearance_id: number
+    permission_id: number
+    _count: AppearancePermissionsCountAggregateOutputType | null
+    _avg: AppearancePermissionsAvgAggregateOutputType | null
+    _sum: AppearancePermissionsSumAggregateOutputType | null
+    _min: AppearancePermissionsMinAggregateOutputType | null
+    _max: AppearancePermissionsMaxAggregateOutputType | null
+  }
+
+  type GetAppearancePermissionsGroupByPayload<T extends AppearancePermissionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<AppearancePermissionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AppearancePermissionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AppearancePermissionsGroupByOutputType[P]>
+            : GetScalarType<T[P], AppearancePermissionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AppearancePermissionsSelect = {
+    id?: boolean
+    appearance_id?: boolean
+    permission_id?: boolean
+    appearance?: boolean | AppearancesArgs
+    permission?: boolean | PermissionsArgs
+  }
+
+
+  export type AppearancePermissionsInclude = {
+    appearance?: boolean | AppearancesArgs
+    permission?: boolean | PermissionsArgs
+  }
+
+  export type AppearancePermissionsGetPayload<S extends boolean | null | undefined | AppearancePermissionsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? AppearancePermissions :
+    S extends undefined ? never :
+    S extends { include: any } & (AppearancePermissionsArgs | AppearancePermissionsFindManyArgs)
+    ? AppearancePermissions  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'appearance' ? AppearancesGetPayload<S['include'][P]> | null :
+        P extends 'permission' ? PermissionsGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (AppearancePermissionsArgs | AppearancePermissionsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'appearance' ? AppearancesGetPayload<S['select'][P]> | null :
+        P extends 'permission' ? PermissionsGetPayload<S['select'][P]> | null :  P extends keyof AppearancePermissions ? AppearancePermissions[P] : never
+  } 
+      : AppearancePermissions
+
+
+  type AppearancePermissionsCountArgs = 
+    Omit<AppearancePermissionsFindManyArgs, 'select' | 'include'> & {
+      select?: AppearancePermissionsCountAggregateInputType | true
+    }
+
+  export interface AppearancePermissionsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one AppearancePermissions that matches the filter.
+     * @param {AppearancePermissionsFindUniqueArgs} args - Arguments to find a AppearancePermissions
+     * @example
+     * // Get one AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AppearancePermissionsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, AppearancePermissionsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'AppearancePermissions'> extends True ? Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T>> : Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T> | null, null>
+
+    /**
+     * Find one AppearancePermissions that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AppearancePermissionsFindUniqueOrThrowArgs} args - Arguments to find a AppearancePermissions
+     * @example
+     * // Get one AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AppearancePermissionsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, AppearancePermissionsFindUniqueOrThrowArgs>
+    ): Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T>>
+
+    /**
+     * Find the first AppearancePermissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancePermissionsFindFirstArgs} args - Arguments to find a AppearancePermissions
+     * @example
+     * // Get one AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AppearancePermissionsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, AppearancePermissionsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'AppearancePermissions'> extends True ? Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T>> : Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T> | null, null>
+
+    /**
+     * Find the first AppearancePermissions that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancePermissionsFindFirstOrThrowArgs} args - Arguments to find a AppearancePermissions
+     * @example
+     * // Get one AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AppearancePermissionsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, AppearancePermissionsFindFirstOrThrowArgs>
+    ): Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T>>
+
+    /**
+     * Find zero or more AppearancePermissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancePermissionsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.findMany()
+     * 
+     * // Get first 10 AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const appearancePermissionsWithIdOnly = await prisma.appearancePermissions.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AppearancePermissionsFindManyArgs>(
+      args?: SelectSubset<T, AppearancePermissionsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<AppearancePermissionsGetPayload<T>>>
+
+    /**
+     * Create a AppearancePermissions.
+     * @param {AppearancePermissionsCreateArgs} args - Arguments to create a AppearancePermissions.
+     * @example
+     * // Create one AppearancePermissions
+     * const AppearancePermissions = await prisma.appearancePermissions.create({
+     *   data: {
+     *     // ... data to create a AppearancePermissions
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AppearancePermissionsCreateArgs>(
+      args: SelectSubset<T, AppearancePermissionsCreateArgs>
+    ): Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T>>
+
+    /**
+     * Create many AppearancePermissions.
+     *     @param {AppearancePermissionsCreateManyArgs} args - Arguments to create many AppearancePermissions.
+     *     @example
+     *     // Create many AppearancePermissions
+     *     const appearancePermissions = await prisma.appearancePermissions.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AppearancePermissionsCreateManyArgs>(
+      args?: SelectSubset<T, AppearancePermissionsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a AppearancePermissions.
+     * @param {AppearancePermissionsDeleteArgs} args - Arguments to delete one AppearancePermissions.
+     * @example
+     * // Delete one AppearancePermissions
+     * const AppearancePermissions = await prisma.appearancePermissions.delete({
+     *   where: {
+     *     // ... filter to delete one AppearancePermissions
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AppearancePermissionsDeleteArgs>(
+      args: SelectSubset<T, AppearancePermissionsDeleteArgs>
+    ): Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T>>
+
+    /**
+     * Update one AppearancePermissions.
+     * @param {AppearancePermissionsUpdateArgs} args - Arguments to update one AppearancePermissions.
+     * @example
+     * // Update one AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AppearancePermissionsUpdateArgs>(
+      args: SelectSubset<T, AppearancePermissionsUpdateArgs>
+    ): Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T>>
+
+    /**
+     * Delete zero or more AppearancePermissions.
+     * @param {AppearancePermissionsDeleteManyArgs} args - Arguments to filter AppearancePermissions to delete.
+     * @example
+     * // Delete a few AppearancePermissions
+     * const { count } = await prisma.appearancePermissions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AppearancePermissionsDeleteManyArgs>(
+      args?: SelectSubset<T, AppearancePermissionsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AppearancePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancePermissionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AppearancePermissionsUpdateManyArgs>(
+      args: SelectSubset<T, AppearancePermissionsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AppearancePermissions.
+     * @param {AppearancePermissionsUpsertArgs} args - Arguments to update or create a AppearancePermissions.
+     * @example
+     * // Update or create a AppearancePermissions
+     * const appearancePermissions = await prisma.appearancePermissions.upsert({
+     *   create: {
+     *     // ... data to create a AppearancePermissions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AppearancePermissions we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AppearancePermissionsUpsertArgs>(
+      args: SelectSubset<T, AppearancePermissionsUpsertArgs>
+    ): Prisma__AppearancePermissionsClient<AppearancePermissionsGetPayload<T>>
+
+    /**
+     * Count the number of AppearancePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancePermissionsCountArgs} args - Arguments to filter AppearancePermissions to count.
+     * @example
+     * // Count the number of AppearancePermissions
+     * const count = await prisma.appearancePermissions.count({
+     *   where: {
+     *     // ... the filter for the AppearancePermissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends AppearancePermissionsCountArgs>(
+      args?: Subset<T, AppearancePermissionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AppearancePermissionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AppearancePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancePermissionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AppearancePermissionsAggregateArgs>(args: Subset<T, AppearancePermissionsAggregateArgs>): Prisma.PrismaPromise<GetAppearancePermissionsAggregateType<T>>
+
+    /**
+     * Group by AppearancePermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppearancePermissionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AppearancePermissionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AppearancePermissionsGroupByArgs['orderBy'] }
+        : { orderBy?: AppearancePermissionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AppearancePermissionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAppearancePermissionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AppearancePermissions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__AppearancePermissionsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    appearance<T extends AppearancesArgs= {}>(args?: Subset<T, AppearancesArgs>): Prisma__AppearancesClient<AppearancesGetPayload<T> | Null>;
+
+    permission<T extends PermissionsArgs= {}>(args?: Subset<T, PermissionsArgs>): Prisma__PermissionsClient<PermissionsGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * AppearancePermissions base type for findUnique actions
+   */
+  export type AppearancePermissionsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * Filter, which AppearancePermissions to fetch.
+     */
+    where: AppearancePermissionsWhereUniqueInput
+  }
+
+  /**
+   * AppearancePermissions findUnique
+   */
+  export interface AppearancePermissionsFindUniqueArgs extends AppearancePermissionsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * AppearancePermissions findUniqueOrThrow
+   */
+  export type AppearancePermissionsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * Filter, which AppearancePermissions to fetch.
+     */
+    where: AppearancePermissionsWhereUniqueInput
+  }
+
+
+  /**
+   * AppearancePermissions base type for findFirst actions
+   */
+  export type AppearancePermissionsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * Filter, which AppearancePermissions to fetch.
+     */
+    where?: AppearancePermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppearancePermissions to fetch.
+     */
+    orderBy?: Enumerable<AppearancePermissionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppearancePermissions.
+     */
+    cursor?: AppearancePermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppearancePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppearancePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppearancePermissions.
+     */
+    distinct?: Enumerable<AppearancePermissionsScalarFieldEnum>
+  }
+
+  /**
+   * AppearancePermissions findFirst
+   */
+  export interface AppearancePermissionsFindFirstArgs extends AppearancePermissionsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * AppearancePermissions findFirstOrThrow
+   */
+  export type AppearancePermissionsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * Filter, which AppearancePermissions to fetch.
+     */
+    where?: AppearancePermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppearancePermissions to fetch.
+     */
+    orderBy?: Enumerable<AppearancePermissionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppearancePermissions.
+     */
+    cursor?: AppearancePermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppearancePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppearancePermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppearancePermissions.
+     */
+    distinct?: Enumerable<AppearancePermissionsScalarFieldEnum>
+  }
+
+
+  /**
+   * AppearancePermissions findMany
+   */
+  export type AppearancePermissionsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * Filter, which AppearancePermissions to fetch.
+     */
+    where?: AppearancePermissionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppearancePermissions to fetch.
+     */
+    orderBy?: Enumerable<AppearancePermissionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AppearancePermissions.
+     */
+    cursor?: AppearancePermissionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppearancePermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppearancePermissions.
+     */
+    skip?: number
+    distinct?: Enumerable<AppearancePermissionsScalarFieldEnum>
+  }
+
+
+  /**
+   * AppearancePermissions create
+   */
+  export type AppearancePermissionsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * The data needed to create a AppearancePermissions.
+     */
+    data: XOR<AppearancePermissionsCreateInput, AppearancePermissionsUncheckedCreateInput>
+  }
+
+
+  /**
+   * AppearancePermissions createMany
+   */
+  export type AppearancePermissionsCreateManyArgs = {
+    /**
+     * The data used to create many AppearancePermissions.
+     */
+    data: Enumerable<AppearancePermissionsCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * AppearancePermissions update
+   */
+  export type AppearancePermissionsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * The data needed to update a AppearancePermissions.
+     */
+    data: XOR<AppearancePermissionsUpdateInput, AppearancePermissionsUncheckedUpdateInput>
+    /**
+     * Choose, which AppearancePermissions to update.
+     */
+    where: AppearancePermissionsWhereUniqueInput
+  }
+
+
+  /**
+   * AppearancePermissions updateMany
+   */
+  export type AppearancePermissionsUpdateManyArgs = {
+    /**
+     * The data used to update AppearancePermissions.
+     */
+    data: XOR<AppearancePermissionsUpdateManyMutationInput, AppearancePermissionsUncheckedUpdateManyInput>
+    /**
+     * Filter which AppearancePermissions to update
+     */
+    where?: AppearancePermissionsWhereInput
+  }
+
+
+  /**
+   * AppearancePermissions upsert
+   */
+  export type AppearancePermissionsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * The filter to search for the AppearancePermissions to update in case it exists.
+     */
+    where: AppearancePermissionsWhereUniqueInput
+    /**
+     * In case the AppearancePermissions found by the `where` argument doesn't exist, create a new AppearancePermissions with this data.
+     */
+    create: XOR<AppearancePermissionsCreateInput, AppearancePermissionsUncheckedCreateInput>
+    /**
+     * In case the AppearancePermissions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AppearancePermissionsUpdateInput, AppearancePermissionsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * AppearancePermissions delete
+   */
+  export type AppearancePermissionsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+    /**
+     * Filter which AppearancePermissions to delete.
+     */
+    where: AppearancePermissionsWhereUniqueInput
+  }
+
+
+  /**
+   * AppearancePermissions deleteMany
+   */
+  export type AppearancePermissionsDeleteManyArgs = {
+    /**
+     * Filter which AppearancePermissions to delete
+     */
+    where?: AppearancePermissionsWhereInput
+  }
+
+
+  /**
+   * AppearancePermissions without action
+   */
+  export type AppearancePermissionsArgs = {
+    /**
+     * Select specific fields to fetch from the AppearancePermissions
+     */
+    select?: AppearancePermissionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppearancePermissionsInclude | null
+  }
+
+
+
+  /**
+   * Model Groups
+   */
+
+
+  export type AggregateGroups = {
+    _count: GroupsCountAggregateOutputType | null
+    _avg: GroupsAvgAggregateOutputType | null
+    _sum: GroupsSumAggregateOutputType | null
+    _min: GroupsMinAggregateOutputType | null
+    _max: GroupsMaxAggregateOutputType | null
+  }
+
+  export type GroupsAvgAggregateOutputType = {
+    id: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type GroupsSumAggregateOutputType = {
+    id: number | null
+    status: number | null
+    is_deleted: number | null
+  }
+
+  export type GroupsMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type GroupsMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    status: number | null
+    is_deleted: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type GroupsCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    status: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type GroupsAvgAggregateInputType = {
+    id?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type GroupsSumAggregateInputType = {
+    id?: true
+    status?: true
+    is_deleted?: true
+  }
+
+  export type GroupsMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type GroupsMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type GroupsCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type GroupsAggregateArgs = {
+    /**
+     * Filter which Groups to aggregate.
+     */
+    where?: GroupsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: Enumerable<GroupsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Groups
+    **/
+    _count?: true | GroupsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GroupsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GroupsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupsMaxAggregateInputType
+  }
+
+  export type GetGroupsAggregateType<T extends GroupsAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroups]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroups[P]>
+      : GetScalarType<T[P], AggregateGroups[P]>
+  }
+
+
+
+
+  export type GroupsGroupByArgs = {
+    where?: GroupsWhereInput
+    orderBy?: Enumerable<GroupsOrderByWithAggregationInput>
+    by: GroupsScalarFieldEnum[]
+    having?: GroupsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupsCountAggregateInputType | true
+    _avg?: GroupsAvgAggregateInputType
+    _sum?: GroupsSumAggregateInputType
+    _min?: GroupsMinAggregateInputType
+    _max?: GroupsMaxAggregateInputType
+  }
+
+
+  export type GroupsGroupByOutputType = {
+    id: number
+    title: string | null
+    description: string | null
+    status: number
+    is_deleted: number
+    created_at: Date
+    updated_at: Date
+    _count: GroupsCountAggregateOutputType | null
+    _avg: GroupsAvgAggregateOutputType | null
+    _sum: GroupsSumAggregateOutputType | null
+    _min: GroupsMinAggregateOutputType | null
+    _max: GroupsMaxAggregateOutputType | null
+  }
+
+  type GetGroupsGroupByPayload<T extends GroupsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<GroupsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupsGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupsSelect = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    group?: boolean | Groups$groupArgs
+    _count?: boolean | GroupsCountOutputTypeArgs
+  }
+
+
+  export type GroupsInclude = {
+    group?: boolean | Groups$groupArgs
+    _count?: boolean | GroupsCountOutputTypeArgs
+  }
+
+  export type GroupsGetPayload<S extends boolean | null | undefined | GroupsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Groups :
+    S extends undefined ? never :
+    S extends { include: any } & (GroupsArgs | GroupsFindManyArgs)
+    ? Groups  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'group' ? Array < GroupsAppearanceGetPayload<S['include'][P]>>  :
+        P extends '_count' ? GroupsCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (GroupsArgs | GroupsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'group' ? Array < GroupsAppearanceGetPayload<S['select'][P]>>  :
+        P extends '_count' ? GroupsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Groups ? Groups[P] : never
+  } 
+      : Groups
+
+
+  type GroupsCountArgs = 
+    Omit<GroupsFindManyArgs, 'select' | 'include'> & {
+      select?: GroupsCountAggregateInputType | true
+    }
+
+  export interface GroupsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Groups that matches the filter.
+     * @param {GroupsFindUniqueArgs} args - Arguments to find a Groups
+     * @example
+     * // Get one Groups
+     * const groups = await prisma.groups.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends GroupsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, GroupsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Groups'> extends True ? Prisma__GroupsClient<GroupsGetPayload<T>> : Prisma__GroupsClient<GroupsGetPayload<T> | null, null>
+
+    /**
+     * Find one Groups that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {GroupsFindUniqueOrThrowArgs} args - Arguments to find a Groups
+     * @example
+     * // Get one Groups
+     * const groups = await prisma.groups.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends GroupsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, GroupsFindUniqueOrThrowArgs>
+    ): Prisma__GroupsClient<GroupsGetPayload<T>>
+
+    /**
+     * Find the first Groups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsFindFirstArgs} args - Arguments to find a Groups
+     * @example
+     * // Get one Groups
+     * const groups = await prisma.groups.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends GroupsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, GroupsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Groups'> extends True ? Prisma__GroupsClient<GroupsGetPayload<T>> : Prisma__GroupsClient<GroupsGetPayload<T> | null, null>
+
+    /**
+     * Find the first Groups that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsFindFirstOrThrowArgs} args - Arguments to find a Groups
+     * @example
+     * // Get one Groups
+     * const groups = await prisma.groups.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends GroupsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, GroupsFindFirstOrThrowArgs>
+    ): Prisma__GroupsClient<GroupsGetPayload<T>>
+
+    /**
+     * Find zero or more Groups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Groups
+     * const groups = await prisma.groups.findMany()
+     * 
+     * // Get first 10 Groups
+     * const groups = await prisma.groups.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groupsWithIdOnly = await prisma.groups.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends GroupsFindManyArgs>(
+      args?: SelectSubset<T, GroupsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<GroupsGetPayload<T>>>
+
+    /**
+     * Create a Groups.
+     * @param {GroupsCreateArgs} args - Arguments to create a Groups.
+     * @example
+     * // Create one Groups
+     * const Groups = await prisma.groups.create({
+     *   data: {
+     *     // ... data to create a Groups
+     *   }
+     * })
+     * 
+    **/
+    create<T extends GroupsCreateArgs>(
+      args: SelectSubset<T, GroupsCreateArgs>
+    ): Prisma__GroupsClient<GroupsGetPayload<T>>
+
+    /**
+     * Create many Groups.
+     *     @param {GroupsCreateManyArgs} args - Arguments to create many Groups.
+     *     @example
+     *     // Create many Groups
+     *     const groups = await prisma.groups.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends GroupsCreateManyArgs>(
+      args?: SelectSubset<T, GroupsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Groups.
+     * @param {GroupsDeleteArgs} args - Arguments to delete one Groups.
+     * @example
+     * // Delete one Groups
+     * const Groups = await prisma.groups.delete({
+     *   where: {
+     *     // ... filter to delete one Groups
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends GroupsDeleteArgs>(
+      args: SelectSubset<T, GroupsDeleteArgs>
+    ): Prisma__GroupsClient<GroupsGetPayload<T>>
+
+    /**
+     * Update one Groups.
+     * @param {GroupsUpdateArgs} args - Arguments to update one Groups.
+     * @example
+     * // Update one Groups
+     * const groups = await prisma.groups.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends GroupsUpdateArgs>(
+      args: SelectSubset<T, GroupsUpdateArgs>
+    ): Prisma__GroupsClient<GroupsGetPayload<T>>
+
+    /**
+     * Delete zero or more Groups.
+     * @param {GroupsDeleteManyArgs} args - Arguments to filter Groups to delete.
+     * @example
+     * // Delete a few Groups
+     * const { count } = await prisma.groups.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends GroupsDeleteManyArgs>(
+      args?: SelectSubset<T, GroupsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Groups
+     * const groups = await prisma.groups.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends GroupsUpdateManyArgs>(
+      args: SelectSubset<T, GroupsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Groups.
+     * @param {GroupsUpsertArgs} args - Arguments to update or create a Groups.
+     * @example
+     * // Update or create a Groups
+     * const groups = await prisma.groups.upsert({
+     *   create: {
+     *     // ... data to create a Groups
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Groups we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends GroupsUpsertArgs>(
+      args: SelectSubset<T, GroupsUpsertArgs>
+    ): Prisma__GroupsClient<GroupsGetPayload<T>>
+
+    /**
+     * Count the number of Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsCountArgs} args - Arguments to filter Groups to count.
+     * @example
+     * // Count the number of Groups
+     * const count = await prisma.groups.count({
+     *   where: {
+     *     // ... the filter for the Groups we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupsCountArgs>(
+      args?: Subset<T, GroupsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupsAggregateArgs>(args: Subset<T, GroupsAggregateArgs>): Prisma.PrismaPromise<GetGroupsAggregateType<T>>
+
+    /**
+     * Group by Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupsGroupByArgs['orderBy'] }
+        : { orderBy?: GroupsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Groups.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__GroupsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    group<T extends Groups$groupArgs= {}>(args?: Subset<T, Groups$groupArgs>): Prisma.PrismaPromise<Array<GroupsAppearanceGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Groups base type for findUnique actions
+   */
+  export type GroupsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where: GroupsWhereUniqueInput
+  }
+
+  /**
+   * Groups findUnique
+   */
+  export interface GroupsFindUniqueArgs extends GroupsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Groups findUniqueOrThrow
+   */
+  export type GroupsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where: GroupsWhereUniqueInput
+  }
+
+
+  /**
+   * Groups base type for findFirst actions
+   */
+  export type GroupsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where?: GroupsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: Enumerable<GroupsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Groups.
+     */
+    cursor?: GroupsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groups.
+     */
+    distinct?: Enumerable<GroupsScalarFieldEnum>
+  }
+
+  /**
+   * Groups findFirst
+   */
+  export interface GroupsFindFirstArgs extends GroupsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Groups findFirstOrThrow
+   */
+  export type GroupsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where?: GroupsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: Enumerable<GroupsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Groups.
+     */
+    cursor?: GroupsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groups.
+     */
+    distinct?: Enumerable<GroupsScalarFieldEnum>
+  }
+
+
+  /**
+   * Groups findMany
+   */
+  export type GroupsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where?: GroupsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: Enumerable<GroupsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Groups.
+     */
+    cursor?: GroupsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    distinct?: Enumerable<GroupsScalarFieldEnum>
+  }
+
+
+  /**
+   * Groups create
+   */
+  export type GroupsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * The data needed to create a Groups.
+     */
+    data: XOR<GroupsCreateInput, GroupsUncheckedCreateInput>
+  }
+
+
+  /**
+   * Groups createMany
+   */
+  export type GroupsCreateManyArgs = {
+    /**
+     * The data used to create many Groups.
+     */
+    data: Enumerable<GroupsCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Groups update
+   */
+  export type GroupsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * The data needed to update a Groups.
+     */
+    data: XOR<GroupsUpdateInput, GroupsUncheckedUpdateInput>
+    /**
+     * Choose, which Groups to update.
+     */
+    where: GroupsWhereUniqueInput
+  }
+
+
+  /**
+   * Groups updateMany
+   */
+  export type GroupsUpdateManyArgs = {
+    /**
+     * The data used to update Groups.
+     */
+    data: XOR<GroupsUpdateManyMutationInput, GroupsUncheckedUpdateManyInput>
+    /**
+     * Filter which Groups to update
+     */
+    where?: GroupsWhereInput
+  }
+
+
+  /**
+   * Groups upsert
+   */
+  export type GroupsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * The filter to search for the Groups to update in case it exists.
+     */
+    where: GroupsWhereUniqueInput
+    /**
+     * In case the Groups found by the `where` argument doesn't exist, create a new Groups with this data.
+     */
+    create: XOR<GroupsCreateInput, GroupsUncheckedCreateInput>
+    /**
+     * In case the Groups was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupsUpdateInput, GroupsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Groups delete
+   */
+  export type GroupsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+    /**
+     * Filter which Groups to delete.
+     */
+    where: GroupsWhereUniqueInput
+  }
+
+
+  /**
+   * Groups deleteMany
+   */
+  export type GroupsDeleteManyArgs = {
+    /**
+     * Filter which Groups to delete
+     */
+    where?: GroupsWhereInput
+  }
+
+
+  /**
+   * Groups.group
+   */
+  export type Groups$groupArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    where?: GroupsAppearanceWhereInput
+    orderBy?: Enumerable<GroupsAppearanceOrderByWithRelationInput>
+    cursor?: GroupsAppearanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<GroupsAppearanceScalarFieldEnum>
+  }
+
+
+  /**
+   * Groups without action
+   */
+  export type GroupsArgs = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsInclude | null
+  }
+
+
+
+  /**
+   * Model GroupsAppearance
+   */
+
+
+  export type AggregateGroupsAppearance = {
+    _count: GroupsAppearanceCountAggregateOutputType | null
+    _avg: GroupsAppearanceAvgAggregateOutputType | null
+    _sum: GroupsAppearanceSumAggregateOutputType | null
+    _min: GroupsAppearanceMinAggregateOutputType | null
+    _max: GroupsAppearanceMaxAggregateOutputType | null
+  }
+
+  export type GroupsAppearanceAvgAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    appearance_id: number | null
+  }
+
+  export type GroupsAppearanceSumAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    appearance_id: number | null
+  }
+
+  export type GroupsAppearanceMinAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    appearance_id: number | null
+  }
+
+  export type GroupsAppearanceMaxAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    appearance_id: number | null
+  }
+
+  export type GroupsAppearanceCountAggregateOutputType = {
+    id: number
+    group_id: number
+    appearance_id: number
+    _all: number
+  }
+
+
+  export type GroupsAppearanceAvgAggregateInputType = {
+    id?: true
+    group_id?: true
+    appearance_id?: true
+  }
+
+  export type GroupsAppearanceSumAggregateInputType = {
+    id?: true
+    group_id?: true
+    appearance_id?: true
+  }
+
+  export type GroupsAppearanceMinAggregateInputType = {
+    id?: true
+    group_id?: true
+    appearance_id?: true
+  }
+
+  export type GroupsAppearanceMaxAggregateInputType = {
+    id?: true
+    group_id?: true
+    appearance_id?: true
+  }
+
+  export type GroupsAppearanceCountAggregateInputType = {
+    id?: true
+    group_id?: true
+    appearance_id?: true
+    _all?: true
+  }
+
+  export type GroupsAppearanceAggregateArgs = {
+    /**
+     * Filter which GroupsAppearance to aggregate.
+     */
+    where?: GroupsAppearanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupsAppearances to fetch.
+     */
+    orderBy?: Enumerable<GroupsAppearanceOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupsAppearanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupsAppearances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupsAppearances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GroupsAppearances
+    **/
+    _count?: true | GroupsAppearanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GroupsAppearanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GroupsAppearanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupsAppearanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupsAppearanceMaxAggregateInputType
+  }
+
+  export type GetGroupsAppearanceAggregateType<T extends GroupsAppearanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroupsAppearance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroupsAppearance[P]>
+      : GetScalarType<T[P], AggregateGroupsAppearance[P]>
+  }
+
+
+
+
+  export type GroupsAppearanceGroupByArgs = {
+    where?: GroupsAppearanceWhereInput
+    orderBy?: Enumerable<GroupsAppearanceOrderByWithAggregationInput>
+    by: GroupsAppearanceScalarFieldEnum[]
+    having?: GroupsAppearanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupsAppearanceCountAggregateInputType | true
+    _avg?: GroupsAppearanceAvgAggregateInputType
+    _sum?: GroupsAppearanceSumAggregateInputType
+    _min?: GroupsAppearanceMinAggregateInputType
+    _max?: GroupsAppearanceMaxAggregateInputType
+  }
+
+
+  export type GroupsAppearanceGroupByOutputType = {
+    id: number
+    group_id: number
+    appearance_id: number
+    _count: GroupsAppearanceCountAggregateOutputType | null
+    _avg: GroupsAppearanceAvgAggregateOutputType | null
+    _sum: GroupsAppearanceSumAggregateOutputType | null
+    _min: GroupsAppearanceMinAggregateOutputType | null
+    _max: GroupsAppearanceMaxAggregateOutputType | null
+  }
+
+  type GetGroupsAppearanceGroupByPayload<T extends GroupsAppearanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<GroupsAppearanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupsAppearanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupsAppearanceGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupsAppearanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupsAppearanceSelect = {
+    id?: boolean
+    group_id?: boolean
+    appearance_id?: boolean
+    group?: boolean | GroupsArgs
+    appearance?: boolean | AppearancesArgs
+  }
+
+
+  export type GroupsAppearanceInclude = {
+    group?: boolean | GroupsArgs
+    appearance?: boolean | AppearancesArgs
+  }
+
+  export type GroupsAppearanceGetPayload<S extends boolean | null | undefined | GroupsAppearanceArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? GroupsAppearance :
+    S extends undefined ? never :
+    S extends { include: any } & (GroupsAppearanceArgs | GroupsAppearanceFindManyArgs)
+    ? GroupsAppearance  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'group' ? GroupsGetPayload<S['include'][P]> | null :
+        P extends 'appearance' ? AppearancesGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (GroupsAppearanceArgs | GroupsAppearanceFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'group' ? GroupsGetPayload<S['select'][P]> | null :
+        P extends 'appearance' ? AppearancesGetPayload<S['select'][P]> | null :  P extends keyof GroupsAppearance ? GroupsAppearance[P] : never
+  } 
+      : GroupsAppearance
+
+
+  type GroupsAppearanceCountArgs = 
+    Omit<GroupsAppearanceFindManyArgs, 'select' | 'include'> & {
+      select?: GroupsAppearanceCountAggregateInputType | true
+    }
+
+  export interface GroupsAppearanceDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one GroupsAppearance that matches the filter.
+     * @param {GroupsAppearanceFindUniqueArgs} args - Arguments to find a GroupsAppearance
+     * @example
+     * // Get one GroupsAppearance
+     * const groupsAppearance = await prisma.groupsAppearance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends GroupsAppearanceFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, GroupsAppearanceFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'GroupsAppearance'> extends True ? Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T>> : Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T> | null, null>
+
+    /**
+     * Find one GroupsAppearance that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {GroupsAppearanceFindUniqueOrThrowArgs} args - Arguments to find a GroupsAppearance
+     * @example
+     * // Get one GroupsAppearance
+     * const groupsAppearance = await prisma.groupsAppearance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends GroupsAppearanceFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, GroupsAppearanceFindUniqueOrThrowArgs>
+    ): Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T>>
+
+    /**
+     * Find the first GroupsAppearance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAppearanceFindFirstArgs} args - Arguments to find a GroupsAppearance
+     * @example
+     * // Get one GroupsAppearance
+     * const groupsAppearance = await prisma.groupsAppearance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends GroupsAppearanceFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, GroupsAppearanceFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'GroupsAppearance'> extends True ? Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T>> : Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T> | null, null>
+
+    /**
+     * Find the first GroupsAppearance that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAppearanceFindFirstOrThrowArgs} args - Arguments to find a GroupsAppearance
+     * @example
+     * // Get one GroupsAppearance
+     * const groupsAppearance = await prisma.groupsAppearance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends GroupsAppearanceFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, GroupsAppearanceFindFirstOrThrowArgs>
+    ): Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T>>
+
+    /**
+     * Find zero or more GroupsAppearances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAppearanceFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GroupsAppearances
+     * const groupsAppearances = await prisma.groupsAppearance.findMany()
+     * 
+     * // Get first 10 GroupsAppearances
+     * const groupsAppearances = await prisma.groupsAppearance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groupsAppearanceWithIdOnly = await prisma.groupsAppearance.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends GroupsAppearanceFindManyArgs>(
+      args?: SelectSubset<T, GroupsAppearanceFindManyArgs>
+    ): Prisma.PrismaPromise<Array<GroupsAppearanceGetPayload<T>>>
+
+    /**
+     * Create a GroupsAppearance.
+     * @param {GroupsAppearanceCreateArgs} args - Arguments to create a GroupsAppearance.
+     * @example
+     * // Create one GroupsAppearance
+     * const GroupsAppearance = await prisma.groupsAppearance.create({
+     *   data: {
+     *     // ... data to create a GroupsAppearance
+     *   }
+     * })
+     * 
+    **/
+    create<T extends GroupsAppearanceCreateArgs>(
+      args: SelectSubset<T, GroupsAppearanceCreateArgs>
+    ): Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T>>
+
+    /**
+     * Create many GroupsAppearances.
+     *     @param {GroupsAppearanceCreateManyArgs} args - Arguments to create many GroupsAppearances.
+     *     @example
+     *     // Create many GroupsAppearances
+     *     const groupsAppearance = await prisma.groupsAppearance.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends GroupsAppearanceCreateManyArgs>(
+      args?: SelectSubset<T, GroupsAppearanceCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a GroupsAppearance.
+     * @param {GroupsAppearanceDeleteArgs} args - Arguments to delete one GroupsAppearance.
+     * @example
+     * // Delete one GroupsAppearance
+     * const GroupsAppearance = await prisma.groupsAppearance.delete({
+     *   where: {
+     *     // ... filter to delete one GroupsAppearance
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends GroupsAppearanceDeleteArgs>(
+      args: SelectSubset<T, GroupsAppearanceDeleteArgs>
+    ): Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T>>
+
+    /**
+     * Update one GroupsAppearance.
+     * @param {GroupsAppearanceUpdateArgs} args - Arguments to update one GroupsAppearance.
+     * @example
+     * // Update one GroupsAppearance
+     * const groupsAppearance = await prisma.groupsAppearance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends GroupsAppearanceUpdateArgs>(
+      args: SelectSubset<T, GroupsAppearanceUpdateArgs>
+    ): Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T>>
+
+    /**
+     * Delete zero or more GroupsAppearances.
+     * @param {GroupsAppearanceDeleteManyArgs} args - Arguments to filter GroupsAppearances to delete.
+     * @example
+     * // Delete a few GroupsAppearances
+     * const { count } = await prisma.groupsAppearance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends GroupsAppearanceDeleteManyArgs>(
+      args?: SelectSubset<T, GroupsAppearanceDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupsAppearances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAppearanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GroupsAppearances
+     * const groupsAppearance = await prisma.groupsAppearance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends GroupsAppearanceUpdateManyArgs>(
+      args: SelectSubset<T, GroupsAppearanceUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one GroupsAppearance.
+     * @param {GroupsAppearanceUpsertArgs} args - Arguments to update or create a GroupsAppearance.
+     * @example
+     * // Update or create a GroupsAppearance
+     * const groupsAppearance = await prisma.groupsAppearance.upsert({
+     *   create: {
+     *     // ... data to create a GroupsAppearance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GroupsAppearance we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends GroupsAppearanceUpsertArgs>(
+      args: SelectSubset<T, GroupsAppearanceUpsertArgs>
+    ): Prisma__GroupsAppearanceClient<GroupsAppearanceGetPayload<T>>
+
+    /**
+     * Count the number of GroupsAppearances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAppearanceCountArgs} args - Arguments to filter GroupsAppearances to count.
+     * @example
+     * // Count the number of GroupsAppearances
+     * const count = await prisma.groupsAppearance.count({
+     *   where: {
+     *     // ... the filter for the GroupsAppearances we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupsAppearanceCountArgs>(
+      args?: Subset<T, GroupsAppearanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupsAppearanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GroupsAppearance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAppearanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupsAppearanceAggregateArgs>(args: Subset<T, GroupsAppearanceAggregateArgs>): Prisma.PrismaPromise<GetGroupsAppearanceAggregateType<T>>
+
+    /**
+     * Group by GroupsAppearance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAppearanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupsAppearanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupsAppearanceGroupByArgs['orderBy'] }
+        : { orderBy?: GroupsAppearanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupsAppearanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupsAppearanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GroupsAppearance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__GroupsAppearanceClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    group<T extends GroupsArgs= {}>(args?: Subset<T, GroupsArgs>): Prisma__GroupsClient<GroupsGetPayload<T> | Null>;
+
+    appearance<T extends AppearancesArgs= {}>(args?: Subset<T, AppearancesArgs>): Prisma__AppearancesClient<AppearancesGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * GroupsAppearance base type for findUnique actions
+   */
+  export type GroupsAppearanceFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * Filter, which GroupsAppearance to fetch.
+     */
+    where: GroupsAppearanceWhereUniqueInput
+  }
+
+  /**
+   * GroupsAppearance findUnique
+   */
+  export interface GroupsAppearanceFindUniqueArgs extends GroupsAppearanceFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * GroupsAppearance findUniqueOrThrow
+   */
+  export type GroupsAppearanceFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * Filter, which GroupsAppearance to fetch.
+     */
+    where: GroupsAppearanceWhereUniqueInput
+  }
+
+
+  /**
+   * GroupsAppearance base type for findFirst actions
+   */
+  export type GroupsAppearanceFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * Filter, which GroupsAppearance to fetch.
+     */
+    where?: GroupsAppearanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupsAppearances to fetch.
+     */
+    orderBy?: Enumerable<GroupsAppearanceOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupsAppearances.
+     */
+    cursor?: GroupsAppearanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupsAppearances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupsAppearances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupsAppearances.
+     */
+    distinct?: Enumerable<GroupsAppearanceScalarFieldEnum>
+  }
+
+  /**
+   * GroupsAppearance findFirst
+   */
+  export interface GroupsAppearanceFindFirstArgs extends GroupsAppearanceFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * GroupsAppearance findFirstOrThrow
+   */
+  export type GroupsAppearanceFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * Filter, which GroupsAppearance to fetch.
+     */
+    where?: GroupsAppearanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupsAppearances to fetch.
+     */
+    orderBy?: Enumerable<GroupsAppearanceOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupsAppearances.
+     */
+    cursor?: GroupsAppearanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupsAppearances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupsAppearances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupsAppearances.
+     */
+    distinct?: Enumerable<GroupsAppearanceScalarFieldEnum>
+  }
+
+
+  /**
+   * GroupsAppearance findMany
+   */
+  export type GroupsAppearanceFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * Filter, which GroupsAppearances to fetch.
+     */
+    where?: GroupsAppearanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupsAppearances to fetch.
+     */
+    orderBy?: Enumerable<GroupsAppearanceOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GroupsAppearances.
+     */
+    cursor?: GroupsAppearanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupsAppearances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupsAppearances.
+     */
+    skip?: number
+    distinct?: Enumerable<GroupsAppearanceScalarFieldEnum>
+  }
+
+
+  /**
+   * GroupsAppearance create
+   */
+  export type GroupsAppearanceCreateArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * The data needed to create a GroupsAppearance.
+     */
+    data: XOR<GroupsAppearanceCreateInput, GroupsAppearanceUncheckedCreateInput>
+  }
+
+
+  /**
+   * GroupsAppearance createMany
+   */
+  export type GroupsAppearanceCreateManyArgs = {
+    /**
+     * The data used to create many GroupsAppearances.
+     */
+    data: Enumerable<GroupsAppearanceCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * GroupsAppearance update
+   */
+  export type GroupsAppearanceUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * The data needed to update a GroupsAppearance.
+     */
+    data: XOR<GroupsAppearanceUpdateInput, GroupsAppearanceUncheckedUpdateInput>
+    /**
+     * Choose, which GroupsAppearance to update.
+     */
+    where: GroupsAppearanceWhereUniqueInput
+  }
+
+
+  /**
+   * GroupsAppearance updateMany
+   */
+  export type GroupsAppearanceUpdateManyArgs = {
+    /**
+     * The data used to update GroupsAppearances.
+     */
+    data: XOR<GroupsAppearanceUpdateManyMutationInput, GroupsAppearanceUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupsAppearances to update
+     */
+    where?: GroupsAppearanceWhereInput
+  }
+
+
+  /**
+   * GroupsAppearance upsert
+   */
+  export type GroupsAppearanceUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * The filter to search for the GroupsAppearance to update in case it exists.
+     */
+    where: GroupsAppearanceWhereUniqueInput
+    /**
+     * In case the GroupsAppearance found by the `where` argument doesn't exist, create a new GroupsAppearance with this data.
+     */
+    create: XOR<GroupsAppearanceCreateInput, GroupsAppearanceUncheckedCreateInput>
+    /**
+     * In case the GroupsAppearance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupsAppearanceUpdateInput, GroupsAppearanceUncheckedUpdateInput>
+  }
+
+
+  /**
+   * GroupsAppearance delete
+   */
+  export type GroupsAppearanceDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+    /**
+     * Filter which GroupsAppearance to delete.
+     */
+    where: GroupsAppearanceWhereUniqueInput
+  }
+
+
+  /**
+   * GroupsAppearance deleteMany
+   */
+  export type GroupsAppearanceDeleteManyArgs = {
+    /**
+     * Filter which GroupsAppearances to delete
+     */
+    where?: GroupsAppearanceWhereInput
+  }
+
+
+  /**
+   * GroupsAppearance without action
+   */
+  export type GroupsAppearanceArgs = {
+    /**
+     * Select specific fields to fetch from the GroupsAppearance
+     */
+    select?: GroupsAppearanceSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GroupsAppearanceInclude | null
+  }
+
+
+
+  /**
    * Enums
    */
+
+  export const AppearancePermissionsScalarFieldEnum: {
+    id: 'id',
+    appearance_id: 'appearance_id',
+    permission_id: 'permission_id'
+  };
+
+  export type AppearancePermissionsScalarFieldEnum = (typeof AppearancePermissionsScalarFieldEnum)[keyof typeof AppearancePermissionsScalarFieldEnum]
+
+
+  export const AppearancesScalarFieldEnum: {
+    id: 'id',
+    role: 'role',
+    description: 'description',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type AppearancesScalarFieldEnum = (typeof AppearancesScalarFieldEnum)[keyof typeof AppearancesScalarFieldEnum]
+
 
   export const BlackOutDayTypesScalarFieldEnum: {
     id: 'id',
@@ -20368,6 +25633,28 @@ export namespace Prisma {
   export type GeneratorPhaseTypesScalarFieldEnum = (typeof GeneratorPhaseTypesScalarFieldEnum)[keyof typeof GeneratorPhaseTypesScalarFieldEnum]
 
 
+  export const GroupsAppearanceScalarFieldEnum: {
+    id: 'id',
+    group_id: 'group_id',
+    appearance_id: 'appearance_id'
+  };
+
+  export type GroupsAppearanceScalarFieldEnum = (typeof GroupsAppearanceScalarFieldEnum)[keyof typeof GroupsAppearanceScalarFieldEnum]
+
+
+  export const GroupsScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type GroupsScalarFieldEnum = (typeof GroupsScalarFieldEnum)[keyof typeof GroupsScalarFieldEnum]
+
+
   export const LoggingDetailsScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -20394,6 +25681,19 @@ export namespace Prisma {
   };
 
   export type MiscConfigurationScalarFieldEnum = (typeof MiscConfigurationScalarFieldEnum)[keyof typeof MiscConfigurationScalarFieldEnum]
+
+
+  export const PermissionsScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type PermissionsScalarFieldEnum = (typeof PermissionsScalarFieldEnum)[keyof typeof PermissionsScalarFieldEnum]
 
 
   export const ReminderThresoldDaysScalarFieldEnum: {
@@ -21729,6 +27029,265 @@ export namespace Prisma {
     is_deleted?: IntWithAggregatesFilter | number
     created_at?: DateTimeWithAggregatesFilter | Date | string
     updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type PermissionsWhereInput = {
+    AND?: Enumerable<PermissionsWhereInput>
+    OR?: Enumerable<PermissionsWhereInput>
+    NOT?: Enumerable<PermissionsWhereInput>
+    id?: IntFilter | number
+    title?: StringNullableFilter | string | null
+    description?: StringNullableFilter | string | null
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+    permission?: AppearancePermissionsListRelationFilter
+  }
+
+  export type PermissionsOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    permission?: AppearancePermissionsOrderByRelationAggregateInput
+  }
+
+  export type PermissionsWhereUniqueInput = {
+    id?: number
+  }
+
+  export type PermissionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: PermissionsCountOrderByAggregateInput
+    _avg?: PermissionsAvgOrderByAggregateInput
+    _max?: PermissionsMaxOrderByAggregateInput
+    _min?: PermissionsMinOrderByAggregateInput
+    _sum?: PermissionsSumOrderByAggregateInput
+  }
+
+  export type PermissionsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<PermissionsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<PermissionsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<PermissionsScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    title?: StringNullableWithAggregatesFilter | string | null
+    description?: StringNullableWithAggregatesFilter | string | null
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type AppearancesWhereInput = {
+    AND?: Enumerable<AppearancesWhereInput>
+    OR?: Enumerable<AppearancesWhereInput>
+    NOT?: Enumerable<AppearancesWhereInput>
+    id?: IntFilter | number
+    role?: StringNullableFilter | string | null
+    description?: StringNullableFilter | string | null
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+    appearance?: AppearancePermissionsListRelationFilter
+    group_appearance?: GroupsAppearanceListRelationFilter
+  }
+
+  export type AppearancesOrderByWithRelationInput = {
+    id?: SortOrder
+    role?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    appearance?: AppearancePermissionsOrderByRelationAggregateInput
+    group_appearance?: GroupsAppearanceOrderByRelationAggregateInput
+  }
+
+  export type AppearancesWhereUniqueInput = {
+    id?: number
+  }
+
+  export type AppearancesOrderByWithAggregationInput = {
+    id?: SortOrder
+    role?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: AppearancesCountOrderByAggregateInput
+    _avg?: AppearancesAvgOrderByAggregateInput
+    _max?: AppearancesMaxOrderByAggregateInput
+    _min?: AppearancesMinOrderByAggregateInput
+    _sum?: AppearancesSumOrderByAggregateInput
+  }
+
+  export type AppearancesScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<AppearancesScalarWhereWithAggregatesInput>
+    OR?: Enumerable<AppearancesScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<AppearancesScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    role?: StringNullableWithAggregatesFilter | string | null
+    description?: StringNullableWithAggregatesFilter | string | null
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type AppearancePermissionsWhereInput = {
+    AND?: Enumerable<AppearancePermissionsWhereInput>
+    OR?: Enumerable<AppearancePermissionsWhereInput>
+    NOT?: Enumerable<AppearancePermissionsWhereInput>
+    id?: IntFilter | number
+    appearance_id?: IntFilter | number
+    permission_id?: IntFilter | number
+    appearance?: XOR<AppearancesRelationFilter, AppearancesWhereInput> | null
+    permission?: XOR<PermissionsRelationFilter, PermissionsWhereInput> | null
+  }
+
+  export type AppearancePermissionsOrderByWithRelationInput = {
+    id?: SortOrder
+    appearance_id?: SortOrder
+    permission_id?: SortOrder
+    appearance?: AppearancesOrderByWithRelationInput
+    permission?: PermissionsOrderByWithRelationInput
+  }
+
+  export type AppearancePermissionsWhereUniqueInput = {
+    id?: number
+  }
+
+  export type AppearancePermissionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    appearance_id?: SortOrder
+    permission_id?: SortOrder
+    _count?: AppearancePermissionsCountOrderByAggregateInput
+    _avg?: AppearancePermissionsAvgOrderByAggregateInput
+    _max?: AppearancePermissionsMaxOrderByAggregateInput
+    _min?: AppearancePermissionsMinOrderByAggregateInput
+    _sum?: AppearancePermissionsSumOrderByAggregateInput
+  }
+
+  export type AppearancePermissionsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<AppearancePermissionsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<AppearancePermissionsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<AppearancePermissionsScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    appearance_id?: IntWithAggregatesFilter | number
+    permission_id?: IntWithAggregatesFilter | number
+  }
+
+  export type GroupsWhereInput = {
+    AND?: Enumerable<GroupsWhereInput>
+    OR?: Enumerable<GroupsWhereInput>
+    NOT?: Enumerable<GroupsWhereInput>
+    id?: IntFilter | number
+    title?: StringNullableFilter | string | null
+    description?: StringNullableFilter | string | null
+    status?: IntFilter | number
+    is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+    group?: GroupsAppearanceListRelationFilter
+  }
+
+  export type GroupsOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    group?: GroupsAppearanceOrderByRelationAggregateInput
+  }
+
+  export type GroupsWhereUniqueInput = {
+    id?: number
+  }
+
+  export type GroupsOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: GroupsCountOrderByAggregateInput
+    _avg?: GroupsAvgOrderByAggregateInput
+    _max?: GroupsMaxOrderByAggregateInput
+    _min?: GroupsMinOrderByAggregateInput
+    _sum?: GroupsSumOrderByAggregateInput
+  }
+
+  export type GroupsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<GroupsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<GroupsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<GroupsScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    title?: StringNullableWithAggregatesFilter | string | null
+    description?: StringNullableWithAggregatesFilter | string | null
+    status?: IntWithAggregatesFilter | number
+    is_deleted?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type GroupsAppearanceWhereInput = {
+    AND?: Enumerable<GroupsAppearanceWhereInput>
+    OR?: Enumerable<GroupsAppearanceWhereInput>
+    NOT?: Enumerable<GroupsAppearanceWhereInput>
+    id?: IntFilter | number
+    group_id?: IntFilter | number
+    appearance_id?: IntFilter | number
+    group?: XOR<GroupsRelationFilter, GroupsWhereInput> | null
+    appearance?: XOR<AppearancesRelationFilter, AppearancesWhereInput> | null
+  }
+
+  export type GroupsAppearanceOrderByWithRelationInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    appearance_id?: SortOrder
+    group?: GroupsOrderByWithRelationInput
+    appearance?: AppearancesOrderByWithRelationInput
+  }
+
+  export type GroupsAppearanceWhereUniqueInput = {
+    id?: number
+  }
+
+  export type GroupsAppearanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    appearance_id?: SortOrder
+    _count?: GroupsAppearanceCountOrderByAggregateInput
+    _avg?: GroupsAppearanceAvgOrderByAggregateInput
+    _max?: GroupsAppearanceMaxOrderByAggregateInput
+    _min?: GroupsAppearanceMinOrderByAggregateInput
+    _sum?: GroupsAppearanceSumOrderByAggregateInput
+  }
+
+  export type GroupsAppearanceScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<GroupsAppearanceScalarWhereWithAggregatesInput>
+    OR?: Enumerable<GroupsAppearanceScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<GroupsAppearanceScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    group_id?: IntWithAggregatesFilter | number
+    appearance_id?: IntWithAggregatesFilter | number
   }
 
   export type Customer_typesCreateInput = {
@@ -23250,6 +28809,299 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PermissionsCreateInput = {
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    permission?: AppearancePermissionsCreateNestedManyWithoutPermissionInput
+  }
+
+  export type PermissionsUncheckedCreateInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    permission?: AppearancePermissionsUncheckedCreateNestedManyWithoutPermissionInput
+  }
+
+  export type PermissionsUpdateInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    permission?: AppearancePermissionsUpdateManyWithoutPermissionNestedInput
+  }
+
+  export type PermissionsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    permission?: AppearancePermissionsUncheckedUpdateManyWithoutPermissionNestedInput
+  }
+
+  export type PermissionsCreateManyInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PermissionsUpdateManyMutationInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppearancesCreateInput = {
+    role?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    appearance?: AppearancePermissionsCreateNestedManyWithoutAppearanceInput
+    group_appearance?: GroupsAppearanceCreateNestedManyWithoutAppearanceInput
+  }
+
+  export type AppearancesUncheckedCreateInput = {
+    id?: number
+    role?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    appearance?: AppearancePermissionsUncheckedCreateNestedManyWithoutAppearanceInput
+    group_appearance?: GroupsAppearanceUncheckedCreateNestedManyWithoutAppearanceInput
+  }
+
+  export type AppearancesUpdateInput = {
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    appearance?: AppearancePermissionsUpdateManyWithoutAppearanceNestedInput
+    group_appearance?: GroupsAppearanceUpdateManyWithoutAppearanceNestedInput
+  }
+
+  export type AppearancesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    appearance?: AppearancePermissionsUncheckedUpdateManyWithoutAppearanceNestedInput
+    group_appearance?: GroupsAppearanceUncheckedUpdateManyWithoutAppearanceNestedInput
+  }
+
+  export type AppearancesCreateManyInput = {
+    id?: number
+    role?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AppearancesUpdateManyMutationInput = {
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppearancesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppearancePermissionsCreateInput = {
+    appearance?: AppearancesCreateNestedOneWithoutAppearanceInput
+    permission?: PermissionsCreateNestedOneWithoutPermissionInput
+  }
+
+  export type AppearancePermissionsUncheckedCreateInput = {
+    id?: number
+    appearance_id?: number
+    permission_id?: number
+  }
+
+  export type AppearancePermissionsUpdateInput = {
+    appearance?: AppearancesUpdateOneWithoutAppearanceNestedInput
+    permission?: PermissionsUpdateOneWithoutPermissionNestedInput
+  }
+
+  export type AppearancePermissionsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    appearance_id?: IntFieldUpdateOperationsInput | number
+    permission_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AppearancePermissionsCreateManyInput = {
+    id?: number
+    appearance_id?: number
+    permission_id?: number
+  }
+
+  export type AppearancePermissionsUpdateManyMutationInput = {
+
+  }
+
+  export type AppearancePermissionsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    appearance_id?: IntFieldUpdateOperationsInput | number
+    permission_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GroupsCreateInput = {
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    group?: GroupsAppearanceCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUncheckedCreateInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    group?: GroupsAppearanceUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUpdateInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupsAppearanceUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupsAppearanceUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsCreateManyInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type GroupsUpdateManyMutationInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupsAppearanceCreateInput = {
+    group?: GroupsCreateNestedOneWithoutGroupInput
+    appearance?: AppearancesCreateNestedOneWithoutGroup_appearanceInput
+  }
+
+  export type GroupsAppearanceUncheckedCreateInput = {
+    id?: number
+    group_id?: number
+    appearance_id?: number
+  }
+
+  export type GroupsAppearanceUpdateInput = {
+    group?: GroupsUpdateOneWithoutGroupNestedInput
+    appearance?: AppearancesUpdateOneWithoutGroup_appearanceNestedInput
+  }
+
+  export type GroupsAppearanceUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    appearance_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GroupsAppearanceCreateManyInput = {
+    id?: number
+    group_id?: number
+    appearance_id?: number
+  }
+
+  export type GroupsAppearanceUpdateManyMutationInput = {
+
+  }
+
+  export type GroupsAppearanceUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    appearance_id?: IntFieldUpdateOperationsInput | number
+  }
+
   export type IntFilter = {
     equals?: number
     in?: Enumerable<number> | number
@@ -24368,6 +30220,227 @@ export namespace Prisma {
     is_deleted?: SortOrder
   }
 
+  export type AppearancePermissionsListRelationFilter = {
+    every?: AppearancePermissionsWhereInput
+    some?: AppearancePermissionsWhereInput
+    none?: AppearancePermissionsWhereInput
+  }
+
+  export type AppearancePermissionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PermissionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type PermissionsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type PermissionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type PermissionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type PermissionsSumOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type GroupsAppearanceListRelationFilter = {
+    every?: GroupsAppearanceWhereInput
+    some?: GroupsAppearanceWhereInput
+    none?: GroupsAppearanceWhereInput
+  }
+
+  export type GroupsAppearanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AppearancesCountOrderByAggregateInput = {
+    id?: SortOrder
+    role?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AppearancesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type AppearancesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    role?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AppearancesMinOrderByAggregateInput = {
+    id?: SortOrder
+    role?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AppearancesSumOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type AppearancesRelationFilter = {
+    is?: AppearancesWhereInput | null
+    isNot?: AppearancesWhereInput | null
+  }
+
+  export type PermissionsRelationFilter = {
+    is?: PermissionsWhereInput | null
+    isNot?: PermissionsWhereInput | null
+  }
+
+  export type AppearancePermissionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    appearance_id?: SortOrder
+    permission_id?: SortOrder
+  }
+
+  export type AppearancePermissionsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    appearance_id?: SortOrder
+    permission_id?: SortOrder
+  }
+
+  export type AppearancePermissionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    appearance_id?: SortOrder
+    permission_id?: SortOrder
+  }
+
+  export type AppearancePermissionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    appearance_id?: SortOrder
+    permission_id?: SortOrder
+  }
+
+  export type AppearancePermissionsSumOrderByAggregateInput = {
+    id?: SortOrder
+    appearance_id?: SortOrder
+    permission_id?: SortOrder
+  }
+
+  export type GroupsCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type GroupsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type GroupsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type GroupsMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type GroupsSumOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    is_deleted?: SortOrder
+  }
+
+  export type GroupsRelationFilter = {
+    is?: GroupsWhereInput | null
+    isNot?: GroupsWhereInput | null
+  }
+
+  export type GroupsAppearanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    appearance_id?: SortOrder
+  }
+
+  export type GroupsAppearanceAvgOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    appearance_id?: SortOrder
+  }
+
+  export type GroupsAppearanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    appearance_id?: SortOrder
+  }
+
+  export type GroupsAppearanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    appearance_id?: SortOrder
+  }
+
+  export type GroupsAppearanceSumOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    appearance_id?: SortOrder
+  }
+
   export type UsersCreateNestedManyWithoutCustomer_typeInput = {
     create?: XOR<Enumerable<UsersCreateWithoutCustomer_typeInput>, Enumerable<UsersUncheckedCreateWithoutCustomer_typeInput>>
     connectOrCreate?: Enumerable<UsersCreateOrConnectWithoutCustomer_typeInput>
@@ -24676,6 +30749,238 @@ export namespace Prisma {
     delete?: boolean
     connect?: UsersWhereUniqueInput
     update?: XOR<UsersUpdateWithoutUser_contactsInput, UsersUncheckedUpdateWithoutUser_contactsInput>
+  }
+
+  export type AppearancePermissionsCreateNestedManyWithoutPermissionInput = {
+    create?: XOR<Enumerable<AppearancePermissionsCreateWithoutPermissionInput>, Enumerable<AppearancePermissionsUncheckedCreateWithoutPermissionInput>>
+    connectOrCreate?: Enumerable<AppearancePermissionsCreateOrConnectWithoutPermissionInput>
+    createMany?: AppearancePermissionsCreateManyPermissionInputEnvelope
+    connect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+  }
+
+  export type AppearancePermissionsUncheckedCreateNestedManyWithoutPermissionInput = {
+    create?: XOR<Enumerable<AppearancePermissionsCreateWithoutPermissionInput>, Enumerable<AppearancePermissionsUncheckedCreateWithoutPermissionInput>>
+    connectOrCreate?: Enumerable<AppearancePermissionsCreateOrConnectWithoutPermissionInput>
+    createMany?: AppearancePermissionsCreateManyPermissionInputEnvelope
+    connect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+  }
+
+  export type AppearancePermissionsUpdateManyWithoutPermissionNestedInput = {
+    create?: XOR<Enumerable<AppearancePermissionsCreateWithoutPermissionInput>, Enumerable<AppearancePermissionsUncheckedCreateWithoutPermissionInput>>
+    connectOrCreate?: Enumerable<AppearancePermissionsCreateOrConnectWithoutPermissionInput>
+    upsert?: Enumerable<AppearancePermissionsUpsertWithWhereUniqueWithoutPermissionInput>
+    createMany?: AppearancePermissionsCreateManyPermissionInputEnvelope
+    set?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    disconnect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    delete?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    connect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    update?: Enumerable<AppearancePermissionsUpdateWithWhereUniqueWithoutPermissionInput>
+    updateMany?: Enumerable<AppearancePermissionsUpdateManyWithWhereWithoutPermissionInput>
+    deleteMany?: Enumerable<AppearancePermissionsScalarWhereInput>
+  }
+
+  export type AppearancePermissionsUncheckedUpdateManyWithoutPermissionNestedInput = {
+    create?: XOR<Enumerable<AppearancePermissionsCreateWithoutPermissionInput>, Enumerable<AppearancePermissionsUncheckedCreateWithoutPermissionInput>>
+    connectOrCreate?: Enumerable<AppearancePermissionsCreateOrConnectWithoutPermissionInput>
+    upsert?: Enumerable<AppearancePermissionsUpsertWithWhereUniqueWithoutPermissionInput>
+    createMany?: AppearancePermissionsCreateManyPermissionInputEnvelope
+    set?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    disconnect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    delete?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    connect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    update?: Enumerable<AppearancePermissionsUpdateWithWhereUniqueWithoutPermissionInput>
+    updateMany?: Enumerable<AppearancePermissionsUpdateManyWithWhereWithoutPermissionInput>
+    deleteMany?: Enumerable<AppearancePermissionsScalarWhereInput>
+  }
+
+  export type AppearancePermissionsCreateNestedManyWithoutAppearanceInput = {
+    create?: XOR<Enumerable<AppearancePermissionsCreateWithoutAppearanceInput>, Enumerable<AppearancePermissionsUncheckedCreateWithoutAppearanceInput>>
+    connectOrCreate?: Enumerable<AppearancePermissionsCreateOrConnectWithoutAppearanceInput>
+    createMany?: AppearancePermissionsCreateManyAppearanceInputEnvelope
+    connect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+  }
+
+  export type GroupsAppearanceCreateNestedManyWithoutAppearanceInput = {
+    create?: XOR<Enumerable<GroupsAppearanceCreateWithoutAppearanceInput>, Enumerable<GroupsAppearanceUncheckedCreateWithoutAppearanceInput>>
+    connectOrCreate?: Enumerable<GroupsAppearanceCreateOrConnectWithoutAppearanceInput>
+    createMany?: GroupsAppearanceCreateManyAppearanceInputEnvelope
+    connect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+  }
+
+  export type AppearancePermissionsUncheckedCreateNestedManyWithoutAppearanceInput = {
+    create?: XOR<Enumerable<AppearancePermissionsCreateWithoutAppearanceInput>, Enumerable<AppearancePermissionsUncheckedCreateWithoutAppearanceInput>>
+    connectOrCreate?: Enumerable<AppearancePermissionsCreateOrConnectWithoutAppearanceInput>
+    createMany?: AppearancePermissionsCreateManyAppearanceInputEnvelope
+    connect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+  }
+
+  export type GroupsAppearanceUncheckedCreateNestedManyWithoutAppearanceInput = {
+    create?: XOR<Enumerable<GroupsAppearanceCreateWithoutAppearanceInput>, Enumerable<GroupsAppearanceUncheckedCreateWithoutAppearanceInput>>
+    connectOrCreate?: Enumerable<GroupsAppearanceCreateOrConnectWithoutAppearanceInput>
+    createMany?: GroupsAppearanceCreateManyAppearanceInputEnvelope
+    connect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+  }
+
+  export type AppearancePermissionsUpdateManyWithoutAppearanceNestedInput = {
+    create?: XOR<Enumerable<AppearancePermissionsCreateWithoutAppearanceInput>, Enumerable<AppearancePermissionsUncheckedCreateWithoutAppearanceInput>>
+    connectOrCreate?: Enumerable<AppearancePermissionsCreateOrConnectWithoutAppearanceInput>
+    upsert?: Enumerable<AppearancePermissionsUpsertWithWhereUniqueWithoutAppearanceInput>
+    createMany?: AppearancePermissionsCreateManyAppearanceInputEnvelope
+    set?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    disconnect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    delete?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    connect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    update?: Enumerable<AppearancePermissionsUpdateWithWhereUniqueWithoutAppearanceInput>
+    updateMany?: Enumerable<AppearancePermissionsUpdateManyWithWhereWithoutAppearanceInput>
+    deleteMany?: Enumerable<AppearancePermissionsScalarWhereInput>
+  }
+
+  export type GroupsAppearanceUpdateManyWithoutAppearanceNestedInput = {
+    create?: XOR<Enumerable<GroupsAppearanceCreateWithoutAppearanceInput>, Enumerable<GroupsAppearanceUncheckedCreateWithoutAppearanceInput>>
+    connectOrCreate?: Enumerable<GroupsAppearanceCreateOrConnectWithoutAppearanceInput>
+    upsert?: Enumerable<GroupsAppearanceUpsertWithWhereUniqueWithoutAppearanceInput>
+    createMany?: GroupsAppearanceCreateManyAppearanceInputEnvelope
+    set?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    disconnect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    delete?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    connect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    update?: Enumerable<GroupsAppearanceUpdateWithWhereUniqueWithoutAppearanceInput>
+    updateMany?: Enumerable<GroupsAppearanceUpdateManyWithWhereWithoutAppearanceInput>
+    deleteMany?: Enumerable<GroupsAppearanceScalarWhereInput>
+  }
+
+  export type AppearancePermissionsUncheckedUpdateManyWithoutAppearanceNestedInput = {
+    create?: XOR<Enumerable<AppearancePermissionsCreateWithoutAppearanceInput>, Enumerable<AppearancePermissionsUncheckedCreateWithoutAppearanceInput>>
+    connectOrCreate?: Enumerable<AppearancePermissionsCreateOrConnectWithoutAppearanceInput>
+    upsert?: Enumerable<AppearancePermissionsUpsertWithWhereUniqueWithoutAppearanceInput>
+    createMany?: AppearancePermissionsCreateManyAppearanceInputEnvelope
+    set?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    disconnect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    delete?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    connect?: Enumerable<AppearancePermissionsWhereUniqueInput>
+    update?: Enumerable<AppearancePermissionsUpdateWithWhereUniqueWithoutAppearanceInput>
+    updateMany?: Enumerable<AppearancePermissionsUpdateManyWithWhereWithoutAppearanceInput>
+    deleteMany?: Enumerable<AppearancePermissionsScalarWhereInput>
+  }
+
+  export type GroupsAppearanceUncheckedUpdateManyWithoutAppearanceNestedInput = {
+    create?: XOR<Enumerable<GroupsAppearanceCreateWithoutAppearanceInput>, Enumerable<GroupsAppearanceUncheckedCreateWithoutAppearanceInput>>
+    connectOrCreate?: Enumerable<GroupsAppearanceCreateOrConnectWithoutAppearanceInput>
+    upsert?: Enumerable<GroupsAppearanceUpsertWithWhereUniqueWithoutAppearanceInput>
+    createMany?: GroupsAppearanceCreateManyAppearanceInputEnvelope
+    set?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    disconnect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    delete?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    connect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    update?: Enumerable<GroupsAppearanceUpdateWithWhereUniqueWithoutAppearanceInput>
+    updateMany?: Enumerable<GroupsAppearanceUpdateManyWithWhereWithoutAppearanceInput>
+    deleteMany?: Enumerable<GroupsAppearanceScalarWhereInput>
+  }
+
+  export type AppearancesCreateNestedOneWithoutAppearanceInput = {
+    create?: XOR<AppearancesCreateWithoutAppearanceInput, AppearancesUncheckedCreateWithoutAppearanceInput>
+    connectOrCreate?: AppearancesCreateOrConnectWithoutAppearanceInput
+    connect?: AppearancesWhereUniqueInput
+  }
+
+  export type PermissionsCreateNestedOneWithoutPermissionInput = {
+    create?: XOR<PermissionsCreateWithoutPermissionInput, PermissionsUncheckedCreateWithoutPermissionInput>
+    connectOrCreate?: PermissionsCreateOrConnectWithoutPermissionInput
+    connect?: PermissionsWhereUniqueInput
+  }
+
+  export type AppearancesUpdateOneWithoutAppearanceNestedInput = {
+    create?: XOR<AppearancesCreateWithoutAppearanceInput, AppearancesUncheckedCreateWithoutAppearanceInput>
+    connectOrCreate?: AppearancesCreateOrConnectWithoutAppearanceInput
+    upsert?: AppearancesUpsertWithoutAppearanceInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AppearancesWhereUniqueInput
+    update?: XOR<AppearancesUpdateWithoutAppearanceInput, AppearancesUncheckedUpdateWithoutAppearanceInput>
+  }
+
+  export type PermissionsUpdateOneWithoutPermissionNestedInput = {
+    create?: XOR<PermissionsCreateWithoutPermissionInput, PermissionsUncheckedCreateWithoutPermissionInput>
+    connectOrCreate?: PermissionsCreateOrConnectWithoutPermissionInput
+    upsert?: PermissionsUpsertWithoutPermissionInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PermissionsWhereUniqueInput
+    update?: XOR<PermissionsUpdateWithoutPermissionInput, PermissionsUncheckedUpdateWithoutPermissionInput>
+  }
+
+  export type GroupsAppearanceCreateNestedManyWithoutGroupInput = {
+    create?: XOR<Enumerable<GroupsAppearanceCreateWithoutGroupInput>, Enumerable<GroupsAppearanceUncheckedCreateWithoutGroupInput>>
+    connectOrCreate?: Enumerable<GroupsAppearanceCreateOrConnectWithoutGroupInput>
+    createMany?: GroupsAppearanceCreateManyGroupInputEnvelope
+    connect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+  }
+
+  export type GroupsAppearanceUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<Enumerable<GroupsAppearanceCreateWithoutGroupInput>, Enumerable<GroupsAppearanceUncheckedCreateWithoutGroupInput>>
+    connectOrCreate?: Enumerable<GroupsAppearanceCreateOrConnectWithoutGroupInput>
+    createMany?: GroupsAppearanceCreateManyGroupInputEnvelope
+    connect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+  }
+
+  export type GroupsAppearanceUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<Enumerable<GroupsAppearanceCreateWithoutGroupInput>, Enumerable<GroupsAppearanceUncheckedCreateWithoutGroupInput>>
+    connectOrCreate?: Enumerable<GroupsAppearanceCreateOrConnectWithoutGroupInput>
+    upsert?: Enumerable<GroupsAppearanceUpsertWithWhereUniqueWithoutGroupInput>
+    createMany?: GroupsAppearanceCreateManyGroupInputEnvelope
+    set?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    disconnect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    delete?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    connect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    update?: Enumerable<GroupsAppearanceUpdateWithWhereUniqueWithoutGroupInput>
+    updateMany?: Enumerable<GroupsAppearanceUpdateManyWithWhereWithoutGroupInput>
+    deleteMany?: Enumerable<GroupsAppearanceScalarWhereInput>
+  }
+
+  export type GroupsAppearanceUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<Enumerable<GroupsAppearanceCreateWithoutGroupInput>, Enumerable<GroupsAppearanceUncheckedCreateWithoutGroupInput>>
+    connectOrCreate?: Enumerable<GroupsAppearanceCreateOrConnectWithoutGroupInput>
+    upsert?: Enumerable<GroupsAppearanceUpsertWithWhereUniqueWithoutGroupInput>
+    createMany?: GroupsAppearanceCreateManyGroupInputEnvelope
+    set?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    disconnect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    delete?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    connect?: Enumerable<GroupsAppearanceWhereUniqueInput>
+    update?: Enumerable<GroupsAppearanceUpdateWithWhereUniqueWithoutGroupInput>
+    updateMany?: Enumerable<GroupsAppearanceUpdateManyWithWhereWithoutGroupInput>
+    deleteMany?: Enumerable<GroupsAppearanceScalarWhereInput>
+  }
+
+  export type GroupsCreateNestedOneWithoutGroupInput = {
+    create?: XOR<GroupsCreateWithoutGroupInput, GroupsUncheckedCreateWithoutGroupInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutGroupInput
+    connect?: GroupsWhereUniqueInput
+  }
+
+  export type AppearancesCreateNestedOneWithoutGroup_appearanceInput = {
+    create?: XOR<AppearancesCreateWithoutGroup_appearanceInput, AppearancesUncheckedCreateWithoutGroup_appearanceInput>
+    connectOrCreate?: AppearancesCreateOrConnectWithoutGroup_appearanceInput
+    connect?: AppearancesWhereUniqueInput
+  }
+
+  export type GroupsUpdateOneWithoutGroupNestedInput = {
+    create?: XOR<GroupsCreateWithoutGroupInput, GroupsUncheckedCreateWithoutGroupInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutGroupInput
+    upsert?: GroupsUpsertWithoutGroupInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: GroupsWhereUniqueInput
+    update?: XOR<GroupsUpdateWithoutGroupInput, GroupsUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type AppearancesUpdateOneWithoutGroup_appearanceNestedInput = {
+    create?: XOR<AppearancesCreateWithoutGroup_appearanceInput, AppearancesUncheckedCreateWithoutGroup_appearanceInput>
+    connectOrCreate?: AppearancesCreateOrConnectWithoutGroup_appearanceInput
+    upsert?: AppearancesUpsertWithoutGroup_appearanceInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AppearancesWhereUniqueInput
+    update?: XOR<AppearancesUpdateWithoutGroup_appearanceInput, AppearancesUncheckedUpdateWithoutGroup_appearanceInput>
   }
 
   export type NestedIntFilter = {
@@ -25429,6 +31734,364 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AppearancePermissionsCreateWithoutPermissionInput = {
+    appearance?: AppearancesCreateNestedOneWithoutAppearanceInput
+  }
+
+  export type AppearancePermissionsUncheckedCreateWithoutPermissionInput = {
+    id?: number
+    appearance_id?: number
+  }
+
+  export type AppearancePermissionsCreateOrConnectWithoutPermissionInput = {
+    where: AppearancePermissionsWhereUniqueInput
+    create: XOR<AppearancePermissionsCreateWithoutPermissionInput, AppearancePermissionsUncheckedCreateWithoutPermissionInput>
+  }
+
+  export type AppearancePermissionsCreateManyPermissionInputEnvelope = {
+    data: Enumerable<AppearancePermissionsCreateManyPermissionInput>
+    skipDuplicates?: boolean
+  }
+
+  export type AppearancePermissionsUpsertWithWhereUniqueWithoutPermissionInput = {
+    where: AppearancePermissionsWhereUniqueInput
+    update: XOR<AppearancePermissionsUpdateWithoutPermissionInput, AppearancePermissionsUncheckedUpdateWithoutPermissionInput>
+    create: XOR<AppearancePermissionsCreateWithoutPermissionInput, AppearancePermissionsUncheckedCreateWithoutPermissionInput>
+  }
+
+  export type AppearancePermissionsUpdateWithWhereUniqueWithoutPermissionInput = {
+    where: AppearancePermissionsWhereUniqueInput
+    data: XOR<AppearancePermissionsUpdateWithoutPermissionInput, AppearancePermissionsUncheckedUpdateWithoutPermissionInput>
+  }
+
+  export type AppearancePermissionsUpdateManyWithWhereWithoutPermissionInput = {
+    where: AppearancePermissionsScalarWhereInput
+    data: XOR<AppearancePermissionsUpdateManyMutationInput, AppearancePermissionsUncheckedUpdateManyWithoutPermissionInput>
+  }
+
+  export type AppearancePermissionsScalarWhereInput = {
+    AND?: Enumerable<AppearancePermissionsScalarWhereInput>
+    OR?: Enumerable<AppearancePermissionsScalarWhereInput>
+    NOT?: Enumerable<AppearancePermissionsScalarWhereInput>
+    id?: IntFilter | number
+    appearance_id?: IntFilter | number
+    permission_id?: IntFilter | number
+  }
+
+  export type AppearancePermissionsCreateWithoutAppearanceInput = {
+    permission?: PermissionsCreateNestedOneWithoutPermissionInput
+  }
+
+  export type AppearancePermissionsUncheckedCreateWithoutAppearanceInput = {
+    id?: number
+    permission_id?: number
+  }
+
+  export type AppearancePermissionsCreateOrConnectWithoutAppearanceInput = {
+    where: AppearancePermissionsWhereUniqueInput
+    create: XOR<AppearancePermissionsCreateWithoutAppearanceInput, AppearancePermissionsUncheckedCreateWithoutAppearanceInput>
+  }
+
+  export type AppearancePermissionsCreateManyAppearanceInputEnvelope = {
+    data: Enumerable<AppearancePermissionsCreateManyAppearanceInput>
+    skipDuplicates?: boolean
+  }
+
+  export type GroupsAppearanceCreateWithoutAppearanceInput = {
+    group?: GroupsCreateNestedOneWithoutGroupInput
+  }
+
+  export type GroupsAppearanceUncheckedCreateWithoutAppearanceInput = {
+    id?: number
+    group_id?: number
+  }
+
+  export type GroupsAppearanceCreateOrConnectWithoutAppearanceInput = {
+    where: GroupsAppearanceWhereUniqueInput
+    create: XOR<GroupsAppearanceCreateWithoutAppearanceInput, GroupsAppearanceUncheckedCreateWithoutAppearanceInput>
+  }
+
+  export type GroupsAppearanceCreateManyAppearanceInputEnvelope = {
+    data: Enumerable<GroupsAppearanceCreateManyAppearanceInput>
+    skipDuplicates?: boolean
+  }
+
+  export type AppearancePermissionsUpsertWithWhereUniqueWithoutAppearanceInput = {
+    where: AppearancePermissionsWhereUniqueInput
+    update: XOR<AppearancePermissionsUpdateWithoutAppearanceInput, AppearancePermissionsUncheckedUpdateWithoutAppearanceInput>
+    create: XOR<AppearancePermissionsCreateWithoutAppearanceInput, AppearancePermissionsUncheckedCreateWithoutAppearanceInput>
+  }
+
+  export type AppearancePermissionsUpdateWithWhereUniqueWithoutAppearanceInput = {
+    where: AppearancePermissionsWhereUniqueInput
+    data: XOR<AppearancePermissionsUpdateWithoutAppearanceInput, AppearancePermissionsUncheckedUpdateWithoutAppearanceInput>
+  }
+
+  export type AppearancePermissionsUpdateManyWithWhereWithoutAppearanceInput = {
+    where: AppearancePermissionsScalarWhereInput
+    data: XOR<AppearancePermissionsUpdateManyMutationInput, AppearancePermissionsUncheckedUpdateManyWithoutAppearanceInput>
+  }
+
+  export type GroupsAppearanceUpsertWithWhereUniqueWithoutAppearanceInput = {
+    where: GroupsAppearanceWhereUniqueInput
+    update: XOR<GroupsAppearanceUpdateWithoutAppearanceInput, GroupsAppearanceUncheckedUpdateWithoutAppearanceInput>
+    create: XOR<GroupsAppearanceCreateWithoutAppearanceInput, GroupsAppearanceUncheckedCreateWithoutAppearanceInput>
+  }
+
+  export type GroupsAppearanceUpdateWithWhereUniqueWithoutAppearanceInput = {
+    where: GroupsAppearanceWhereUniqueInput
+    data: XOR<GroupsAppearanceUpdateWithoutAppearanceInput, GroupsAppearanceUncheckedUpdateWithoutAppearanceInput>
+  }
+
+  export type GroupsAppearanceUpdateManyWithWhereWithoutAppearanceInput = {
+    where: GroupsAppearanceScalarWhereInput
+    data: XOR<GroupsAppearanceUpdateManyMutationInput, GroupsAppearanceUncheckedUpdateManyWithoutGroup_appearanceInput>
+  }
+
+  export type GroupsAppearanceScalarWhereInput = {
+    AND?: Enumerable<GroupsAppearanceScalarWhereInput>
+    OR?: Enumerable<GroupsAppearanceScalarWhereInput>
+    NOT?: Enumerable<GroupsAppearanceScalarWhereInput>
+    id?: IntFilter | number
+    group_id?: IntFilter | number
+    appearance_id?: IntFilter | number
+  }
+
+  export type AppearancesCreateWithoutAppearanceInput = {
+    role?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    group_appearance?: GroupsAppearanceCreateNestedManyWithoutAppearanceInput
+  }
+
+  export type AppearancesUncheckedCreateWithoutAppearanceInput = {
+    id?: number
+    role?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    group_appearance?: GroupsAppearanceUncheckedCreateNestedManyWithoutAppearanceInput
+  }
+
+  export type AppearancesCreateOrConnectWithoutAppearanceInput = {
+    where: AppearancesWhereUniqueInput
+    create: XOR<AppearancesCreateWithoutAppearanceInput, AppearancesUncheckedCreateWithoutAppearanceInput>
+  }
+
+  export type PermissionsCreateWithoutPermissionInput = {
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PermissionsUncheckedCreateWithoutPermissionInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PermissionsCreateOrConnectWithoutPermissionInput = {
+    where: PermissionsWhereUniqueInput
+    create: XOR<PermissionsCreateWithoutPermissionInput, PermissionsUncheckedCreateWithoutPermissionInput>
+  }
+
+  export type AppearancesUpsertWithoutAppearanceInput = {
+    update: XOR<AppearancesUpdateWithoutAppearanceInput, AppearancesUncheckedUpdateWithoutAppearanceInput>
+    create: XOR<AppearancesCreateWithoutAppearanceInput, AppearancesUncheckedCreateWithoutAppearanceInput>
+  }
+
+  export type AppearancesUpdateWithoutAppearanceInput = {
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group_appearance?: GroupsAppearanceUpdateManyWithoutAppearanceNestedInput
+  }
+
+  export type AppearancesUncheckedUpdateWithoutAppearanceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group_appearance?: GroupsAppearanceUncheckedUpdateManyWithoutAppearanceNestedInput
+  }
+
+  export type PermissionsUpsertWithoutPermissionInput = {
+    update: XOR<PermissionsUpdateWithoutPermissionInput, PermissionsUncheckedUpdateWithoutPermissionInput>
+    create: XOR<PermissionsCreateWithoutPermissionInput, PermissionsUncheckedCreateWithoutPermissionInput>
+  }
+
+  export type PermissionsUpdateWithoutPermissionInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionsUncheckedUpdateWithoutPermissionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupsAppearanceCreateWithoutGroupInput = {
+    appearance?: AppearancesCreateNestedOneWithoutGroup_appearanceInput
+  }
+
+  export type GroupsAppearanceUncheckedCreateWithoutGroupInput = {
+    id?: number
+    appearance_id?: number
+  }
+
+  export type GroupsAppearanceCreateOrConnectWithoutGroupInput = {
+    where: GroupsAppearanceWhereUniqueInput
+    create: XOR<GroupsAppearanceCreateWithoutGroupInput, GroupsAppearanceUncheckedCreateWithoutGroupInput>
+  }
+
+  export type GroupsAppearanceCreateManyGroupInputEnvelope = {
+    data: Enumerable<GroupsAppearanceCreateManyGroupInput>
+    skipDuplicates?: boolean
+  }
+
+  export type GroupsAppearanceUpsertWithWhereUniqueWithoutGroupInput = {
+    where: GroupsAppearanceWhereUniqueInput
+    update: XOR<GroupsAppearanceUpdateWithoutGroupInput, GroupsAppearanceUncheckedUpdateWithoutGroupInput>
+    create: XOR<GroupsAppearanceCreateWithoutGroupInput, GroupsAppearanceUncheckedCreateWithoutGroupInput>
+  }
+
+  export type GroupsAppearanceUpdateWithWhereUniqueWithoutGroupInput = {
+    where: GroupsAppearanceWhereUniqueInput
+    data: XOR<GroupsAppearanceUpdateWithoutGroupInput, GroupsAppearanceUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type GroupsAppearanceUpdateManyWithWhereWithoutGroupInput = {
+    where: GroupsAppearanceScalarWhereInput
+    data: XOR<GroupsAppearanceUpdateManyMutationInput, GroupsAppearanceUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type GroupsCreateWithoutGroupInput = {
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type GroupsUncheckedCreateWithoutGroupInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type GroupsCreateOrConnectWithoutGroupInput = {
+    where: GroupsWhereUniqueInput
+    create: XOR<GroupsCreateWithoutGroupInput, GroupsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type AppearancesCreateWithoutGroup_appearanceInput = {
+    role?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    appearance?: AppearancePermissionsCreateNestedManyWithoutAppearanceInput
+  }
+
+  export type AppearancesUncheckedCreateWithoutGroup_appearanceInput = {
+    id?: number
+    role?: string | null
+    description?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    appearance?: AppearancePermissionsUncheckedCreateNestedManyWithoutAppearanceInput
+  }
+
+  export type AppearancesCreateOrConnectWithoutGroup_appearanceInput = {
+    where: AppearancesWhereUniqueInput
+    create: XOR<AppearancesCreateWithoutGroup_appearanceInput, AppearancesUncheckedCreateWithoutGroup_appearanceInput>
+  }
+
+  export type GroupsUpsertWithoutGroupInput = {
+    update: XOR<GroupsUpdateWithoutGroupInput, GroupsUncheckedUpdateWithoutGroupInput>
+    create: XOR<GroupsCreateWithoutGroupInput, GroupsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type GroupsUpdateWithoutGroupInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupsUncheckedUpdateWithoutGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppearancesUpsertWithoutGroup_appearanceInput = {
+    update: XOR<AppearancesUpdateWithoutGroup_appearanceInput, AppearancesUncheckedUpdateWithoutGroup_appearanceInput>
+    create: XOR<AppearancesCreateWithoutGroup_appearanceInput, AppearancesUncheckedCreateWithoutGroup_appearanceInput>
+  }
+
+  export type AppearancesUpdateWithoutGroup_appearanceInput = {
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    appearance?: AppearancePermissionsUpdateManyWithoutAppearanceNestedInput
+  }
+
+  export type AppearancesUncheckedUpdateWithoutGroup_appearanceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    appearance?: AppearancePermissionsUncheckedUpdateManyWithoutAppearanceNestedInput
+  }
+
   export type UsersCreateManyCustomer_typeInput = {
     id?: number
     name?: string | null
@@ -25734,6 +32397,82 @@ export namespace Prisma {
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppearancePermissionsCreateManyPermissionInput = {
+    id?: number
+    appearance_id?: number
+  }
+
+  export type AppearancePermissionsUpdateWithoutPermissionInput = {
+    appearance?: AppearancesUpdateOneWithoutAppearanceNestedInput
+  }
+
+  export type AppearancePermissionsUncheckedUpdateWithoutPermissionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    appearance_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AppearancePermissionsUncheckedUpdateManyWithoutPermissionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    appearance_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AppearancePermissionsCreateManyAppearanceInput = {
+    id?: number
+    permission_id?: number
+  }
+
+  export type GroupsAppearanceCreateManyAppearanceInput = {
+    id?: number
+    group_id?: number
+  }
+
+  export type AppearancePermissionsUpdateWithoutAppearanceInput = {
+    permission?: PermissionsUpdateOneWithoutPermissionNestedInput
+  }
+
+  export type AppearancePermissionsUncheckedUpdateWithoutAppearanceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    permission_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AppearancePermissionsUncheckedUpdateManyWithoutAppearanceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    permission_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GroupsAppearanceUpdateWithoutAppearanceInput = {
+    group?: GroupsUpdateOneWithoutGroupNestedInput
+  }
+
+  export type GroupsAppearanceUncheckedUpdateWithoutAppearanceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GroupsAppearanceUncheckedUpdateManyWithoutGroup_appearanceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GroupsAppearanceCreateManyGroupInput = {
+    id?: number
+    appearance_id?: number
+  }
+
+  export type GroupsAppearanceUpdateWithoutGroupInput = {
+    appearance?: AppearancesUpdateOneWithoutGroup_appearanceNestedInput
+  }
+
+  export type GroupsAppearanceUncheckedUpdateWithoutGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    appearance_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GroupsAppearanceUncheckedUpdateManyWithoutGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    appearance_id?: IntFieldUpdateOperationsInput | number
   }
 
 

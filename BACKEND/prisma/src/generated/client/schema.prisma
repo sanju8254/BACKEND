@@ -106,7 +106,7 @@ model WorkOrderStatus {
   status_name String?
   color_code String?
   description String? @db.Text
-  applies_to Int @default(1) //1=all,2=work order
+  applies_to Int @default(1) //1=all,2=work order,3=service
   status Int @default(1)
   is_deleted Int @default(0)
   created_at DateTime @default(now())
@@ -274,4 +274,64 @@ model SmtpDetails {
   updated_at DateTime @updatedAt
 
   @@map("smtp_details")
+}
+
+//user management section
+model Permissions {
+  id Int @id @default(autoincrement())
+  title String?
+  description String? @db.LongText
+  status Int @default(1)
+  is_deleted Int @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  permission AppearancePermissions[]
+
+  @@map("permissions")
+}
+
+model Appearances { //this is user management role table
+  id Int @id @default(autoincrement())
+  role String?
+  description String? @db.LongText
+  status Int @default(1)
+  is_deleted Int @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  appearance AppearancePermissions[]
+  group_appearance GroupsAppearance[]
+  @@map("appearances")  
+}
+
+model AppearancePermissions {
+  id Int @id @default(autoincrement())
+  appearance Appearances? @relation(fields: [appearance_id], references: [id])
+  appearance_id Int @default(0)
+  permission Permissions? @relation(fields: [permission_id], references: [id])
+  permission_id Int @default(0)
+
+  @@map("appearance_permissions")
+}
+
+model Groups {
+  id Int @id @default(autoincrement())
+  title String?
+  description String? @db.LongText
+  status Int @default(1)
+  is_deleted Int @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  group GroupsAppearance[]
+
+  @@map("groups")
+}
+
+model GroupsAppearance {
+  id Int @id @default(autoincrement())
+  group Groups? @relation(fields: [group_id], references: [id])
+  group_id Int @default(0)
+  appearance Appearances? @relation(fields: [appearance_id], references: [id])
+  appearance_id Int @default(0)
+
+  @@map("appearance_groups")
 }
