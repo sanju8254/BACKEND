@@ -9,13 +9,14 @@ datasource db {
 }
 
 model Customer_types {
-  id         Int      @id @default(autoincrement())
-  type_name  String?
-  status     Int      @default(1) // 1=active,0=inactive
-  is_deleted Int      @default(0) // 0=not deleted,1=deleted
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  customer_type Users[]
+  id               Int               @id @default(autoincrement())
+  type_name        String?
+  status           Int               @default(1) // 1=active,0=inactive
+  is_deleted       Int               @default(0) // 0=not deleted,1=deleted
+  created_at       DateTime          @default(now())
+  updated_at       DateTime          @updatedAt
+  customer_type    Users[]  
+  customertype CustomerDetails[]
 
   @@map("customer_types")
 }
@@ -33,24 +34,24 @@ model Roles {
 }
 
 model Users {
-  id Int @id @default(autoincrement())
-  name String?
-  contact_name String?
-  email String?
-  password String? @db.VarChar(255)
-  address String?
-  billing_address String?
-  contact String?
-  customer_type Customer_types? @relation(fields: [customer_type_id], references: [id])
-  customer_type_id Int @default(0)
-  role_type Roles? @relation(fields: [user_type], references: [id])
-  user_type Int @default(0)
-  created_by Int @default(0)
-  status Int @default(1) // 1=active,0=inactive
-  is_deleted Int @default(0) // 0=not deleted,1=deleted
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  user_contacts CustomerContracts[]
+  id               Int                 @id @default(autoincrement())
+  name             String?
+  contact_name     String?
+  email            String?
+  password         String?             @db.VarChar(255)
+  address          String?
+  billing_address  String?
+  contact          String?
+  customer_type    Customer_types?     @relation(fields: [customer_type_id], references: [id])
+  customer_type_id Int                 @default(0)
+  role_type        Roles?              @relation(fields: [user_type], references: [id])
+  user_type        Int                 @default(0)
+  created_by       Int                 @default(0)
+  status           Int                 @default(1) // 1=active,0=inactive
+  is_deleted       Int                 @default(0) // 0=not deleted,1=deleted
+  created_at       DateTime            @default(now())
+  updated_at       DateTime            @updatedAt
+  user_contacts    CustomerContracts[]
 
   @@map("users")
 }
@@ -92,10 +93,10 @@ model GeneratorModels {
 }
 
 model GeneratorPhaseTypes {
-  id Int @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   phase_type String?
-  status Int @default(1)
-  is_deleted Int @default(0)
+  status     Int      @default(1)
+  is_deleted Int      @default(0)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -103,28 +104,28 @@ model GeneratorPhaseTypes {
 }
 
 model WorkOrderStatus {
-  id Int @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   status_name String?
-  color_code String?
-  description String? @db.Text
-  applies_to Int @default(1) //1=all,2=work order,3=service
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  color_code  String?
+  description String?  @db.Text
+  applies_to  Int      @default(1) //1=all,2=work order,3=service
+  status      Int      @default(1)
+  is_deleted  Int      @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   @@map("work_order_status")
 }
 
 model WorkOrderTypes {
-  id Int @id @default(autoincrement())
-  order_type String?
+  id                   Int      @id @default(autoincrement())
+  order_type           String?
   on_screen_color_code String?
   on_report_color_code String?
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  status               Int      @default(1)
+  is_deleted           Int      @default(0)
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
 
   @@map("work_order_types")
 }
@@ -133,7 +134,7 @@ model service_levels {
   id                         Int      @id @default(autoincrement())
   service_name               Int      @unique
   service_limit              Int
-  threshold_limit Int @default(0)
+  threshold_limit            Int      @default(0)
   default_load_test_duration Int
   on_screen_color_code       String   @db.VarChar(15)
   on_report_color_code       String   @db.VarChar(15)
@@ -146,76 +147,76 @@ model service_levels {
 }
 
 model BlackOutDayTypes {
-  id Int @id @default(autoincrement())
-  type String @unique
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id                Int            @id @default(autoincrement())
+  type              String         @unique
+  status            Int            @default(1)
+  is_deleted        Int            @default(0)
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
   blackout_day_type BlackOutDays[]
 
   @@map("blackout_day_types")
 }
 
 model BlackOutDays {
-  id Int @id @default(autoincrement())
+  id                Int               @id @default(autoincrement())
   blackout_day_type BlackOutDayTypes? @relation(fields: [day_type_id], references: [id])
-  day_type_id Int @default(0)
-  title String @unique
-  start_date DateTime @db.Date
-  end_date DateTime @db.Date
-  applies_to Int @default(0) //1=single user,2=multiple user,3=entire company
-  color_code String?
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt 
+  day_type_id       Int               @default(0)
+  title             String            @unique
+  start_date        DateTime          @db.Date
+  end_date          DateTime          @db.Date
+  applies_to        Int               @default(0) //1=single user,2=multiple user,3=entire company
+  color_code        String?
+  status            Int               @default(1)
+  is_deleted        Int               @default(0)
+  created_at        DateTime          @default(now())
+  updated_at        DateTime          @updatedAt
 
   @@map("blackout_days")
 }
 
 model ReminderThresoldDays {
-  id Int @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   thresold_day Int
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  status       Int      @default(1)
+  is_deleted   Int      @default(0)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
   @@map("thresold_reminder_days")
 }
 
 model CustomerContracts {
-  id Int @id @default(autoincrement())
-  user_contacts Users? @relation(fields: [customer_id], references: [id])
-  customer_id Int
-  first_name String?
-  last_name String?
-  primary_email String?
-  secondary_email String?
-  home_phone_number String?
-  work_phone_number String?
-  mobile String?
-  fax_phone_number String?
+  id                  Int      @id @default(autoincrement())
+  user_contacts       Users?   @relation(fields: [customer_id], references: [id])
+  customer_id         Int
+  first_name          String?
+  last_name           String?
+  primary_email       String?
+  secondary_email     String?
+  home_phone_number   String?
+  work_phone_number   String?
+  mobile              String?
+  fax_phone_number    String?
   other_phone_number1 String?
   other_phone_number2 String?
-  job_title String?
-  is_primary Int @default(0)
-  created_by Int @default(0)
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  job_title           String?
+  is_primary          Int      @default(0)
+  created_by          Int      @default(0)
+  status              Int      @default(1)
+  is_deleted          Int      @default(0)
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
 
   @@map("customer_contacts")
 }
 
 model CustomerNoteTitlesMaster {
-  id Int @id @default(autoincrement())
-  title String? @unique
-  created_by Int @default(0)
-  status Int @default(1)
-  is_deleted Int @default(0)
+  id         Int      @id @default(autoincrement())
+  title      String?  @unique
+  created_by Int      @default(0)
+  status     Int      @default(1)
+  is_deleted Int      @default(0)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -223,116 +224,133 @@ model CustomerNoteTitlesMaster {
 }
 
 model CustomerStatusList {
-  id Int @id @default(autoincrement())
-  title String? @unique
-  description String? @db.LongText
-  created_by Int @default(0)
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  title       String?  @unique
+  description String?  @db.LongText
+  created_by  Int      @default(0)
+  status      Int      @default(1)
+  is_deleted  Int      @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   @@map("customer_status_list")
 }
 
 model MiscConfiguration {
-  id Int @id @default(autoincrement())
-  name String?
-  description String? @db.LongText
-  created_by Int @default(0)
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  name        String?
+  description String?  @db.LongText
+  created_by  Int      @default(0)
+  status      Int      @default(1)
+  is_deleted  Int      @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   @@map("misc_configuration")
 }
 
 model LoggingDetails {
-  id Int @id @default(autoincrement())
-  title String?
-  description String? @db.LongText
+  id               Int      @id @default(autoincrement())
+  title            String?
+  description      String?  @db.LongText
   configuare_value String?
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  status           Int      @default(1)
+  is_deleted       Int      @default(0)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
 
   @@map("logging_details")
 }
 
 model SmtpDetails {
-  id Int @id @default(autoincrement())
-  host_name String?
-  port_no Int @default(0)
-  user_name String?
-  password String?
+  id              Int      @id @default(autoincrement())
+  host_name       String?
+  port_no         Int      @default(0)
+  user_name       String?
+  password        String?
   encryption_type String?
-  sent_from String?
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  sent_from       String?
+  status          Int      @default(1)
+  is_deleted      Int      @default(0)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
 
   @@map("smtp_details")
 }
 
 //user management section
 model Permissions {
-  id Int @id @default(autoincrement())
-  title String?
-  description String? @db.LongText
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  permission AppearancePermissions[]
+  id          Int                     @id @default(autoincrement())
+  title       String?
+  description String?                 @db.LongText
+  status      Int                     @default(1)
+  is_deleted  Int                     @default(0)
+  created_at  DateTime                @default(now())
+  updated_at  DateTime                @updatedAt
+  permission  AppearancePermissions[]
 
   @@map("permissions")
 }
 
-model Appearances { //this is user management role table
-  id Int @id @default(autoincrement())
-  role String?
-  description String? @db.LongText
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  appearance AppearancePermissions[]
+model Appearances {
+  id               Int                     @id @default(autoincrement())
+  role             String?
+  description      String?                 @db.LongText
+  status           Int                     @default(1)
+  is_deleted       Int                     @default(0)
+  created_at       DateTime                @default(now())
+  updated_at       DateTime                @updatedAt
+  appearance       AppearancePermissions[]
   group_appearance GroupsAppearance[]
-  @@map("appearances")  
+
+  @@map("appearances")
 }
 
 model AppearancePermissions {
-  id Int @id @default(autoincrement())
-  appearance Appearances? @relation(fields: [appearance_id], references: [id])
-  appearance_id Int @default(0)
-  permission Permissions? @relation(fields: [permission_id], references: [id])
-  permission_id Int @default(0)
+  id            Int          @id @default(autoincrement())
+  appearance    Appearances? @relation(fields: [appearance_id], references: [id])
+  appearance_id Int          @default(0)
+  permission    Permissions? @relation(fields: [permission_id], references: [id])
+  permission_id Int          @default(0)
 
   @@map("appearance_permissions")
 }
 
 model Groups {
-  id Int @id @default(autoincrement())
-  title String?
-  description String? @db.LongText
-  status Int @default(1)
-  is_deleted Int @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  group GroupsAppearance[]
+  id          Int                @id @default(autoincrement())
+  title       String?
+  description String?            @db.LongText
+  status      Int                @default(1)
+  is_deleted  Int                @default(0)
+  created_at  DateTime           @default(now())
+  updated_at  DateTime           @updatedAt
+  group       GroupsAppearance[]
 
   @@map("groups")
 }
 
 model GroupsAppearance {
-  id Int @id @default(autoincrement())
-  group Groups? @relation(fields: [group_id], references: [id])
-  group_id Int @default(0)
-  appearance Appearances? @relation(fields: [appearance_id], references: [id])
-  appearance_id Int @default(0)
+  id            Int          @id @default(autoincrement())
+  group         Groups?      @relation(fields: [group_id], references: [id])
+  group_id      Int          @default(0)
+  appearance    Appearances? @relation(fields: [appearance_id], references: [id])
+  appearance_id Int          @default(0)
 
   @@map("appearance_groups")
 }
+
+model CustomerDetails {
+  id               Int             @id @default(autoincrement())
+  company_name     String          @db.VarChar(255)
+  customertype    Customer_types? @relation(fields: [customer_type_id], references: [id])
+  customer_type_id Int             @default(0)
+  physical_address String          @db.Text
+  billing_address  String          @db.Text
+  is_deleted       Int             @default(0)
+  created_by       Int
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
+
+  @@map("customer_details")
+}
+

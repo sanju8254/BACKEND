@@ -373,6 +373,22 @@ export type GroupsAppearance = {
   appearance_id: number
 }
 
+/**
+ * Model CustomerDetails
+ * 
+ */
+export type CustomerDetails = {
+  id: number
+  company_name: string
+  customer_type_id: number
+  physical_address: string
+  billing_address: string
+  is_deleted: number
+  created_by: number
+  created_at: Date
+  updated_at: Date
+}
+
 
 /**
  * ##  Prisma Client ʲˢ
@@ -730,6 +746,16 @@ export class PrismaClient<
     * ```
     */
   get groupsAppearance(): Prisma.GroupsAppearanceDelegate<GlobalReject>;
+
+  /**
+   * `prisma.customerDetails`: Exposes CRUD operations for the **CustomerDetails** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerDetails
+    * const customerDetails = await prisma.customerDetails.findMany()
+    * ```
+    */
+  get customerDetails(): Prisma.CustomerDetailsDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -1222,7 +1248,8 @@ export namespace Prisma {
     Appearances: 'Appearances',
     AppearancePermissions: 'AppearancePermissions',
     Groups: 'Groups',
-    GroupsAppearance: 'GroupsAppearance'
+    GroupsAppearance: 'GroupsAppearance',
+    CustomerDetails: 'CustomerDetails'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1390,10 +1417,12 @@ export namespace Prisma {
 
   export type Customer_typesCountOutputType = {
     customer_type: number
+    customertype: number
   }
 
   export type Customer_typesCountOutputTypeSelect = {
-    customer_type?: boolean
+    customer_type?: boolean | Customer_typesCountOutputTypeCountCustomer_typeArgs
+    customertype?: boolean | Customer_typesCountOutputTypeCountCustomertypeArgs
   }
 
   export type Customer_typesCountOutputTypeGetPayload<S extends boolean | null | undefined | Customer_typesCountOutputTypeArgs> =
@@ -1422,6 +1451,22 @@ export namespace Prisma {
      * Select specific fields to fetch from the Customer_typesCountOutputType
      */
     select?: Customer_typesCountOutputTypeSelect | null
+  }
+
+
+  /**
+   * Customer_typesCountOutputType without action
+   */
+  export type Customer_typesCountOutputTypeCountCustomer_typeArgs = {
+    where?: UsersWhereInput
+  }
+
+
+  /**
+   * Customer_typesCountOutputType without action
+   */
+  export type Customer_typesCountOutputTypeCountCustomertypeArgs = {
+    where?: CustomerDetailsWhereInput
   }
 
 
@@ -1487,7 +1532,7 @@ export namespace Prisma {
   }
 
   export type UsersCountOutputTypeSelect = {
-    user_contacts?: boolean
+    user_contacts?: boolean | UsersCountOutputTypeCountUser_contactsArgs
   }
 
   export type UsersCountOutputTypeGetPayload<S extends boolean | null | undefined | UsersCountOutputTypeArgs> =
@@ -1516,6 +1561,14 @@ export namespace Prisma {
      * Select specific fields to fetch from the UsersCountOutputType
      */
     select?: UsersCountOutputTypeSelect | null
+  }
+
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountUser_contactsArgs = {
+    where?: CustomerContractsWhereInput
   }
 
 
@@ -1581,7 +1634,7 @@ export namespace Prisma {
   }
 
   export type BlackOutDayTypesCountOutputTypeSelect = {
-    blackout_day_type?: boolean
+    blackout_day_type?: boolean | BlackOutDayTypesCountOutputTypeCountBlackout_day_typeArgs
   }
 
   export type BlackOutDayTypesCountOutputTypeGetPayload<S extends boolean | null | undefined | BlackOutDayTypesCountOutputTypeArgs> =
@@ -1613,6 +1666,14 @@ export namespace Prisma {
   }
 
 
+  /**
+   * BlackOutDayTypesCountOutputType without action
+   */
+  export type BlackOutDayTypesCountOutputTypeCountBlackout_day_typeArgs = {
+    where?: BlackOutDaysWhereInput
+  }
+
+
 
   /**
    * Count Type PermissionsCountOutputType
@@ -1624,7 +1685,7 @@ export namespace Prisma {
   }
 
   export type PermissionsCountOutputTypeSelect = {
-    permission?: boolean
+    permission?: boolean | PermissionsCountOutputTypeCountPermissionArgs
   }
 
   export type PermissionsCountOutputTypeGetPayload<S extends boolean | null | undefined | PermissionsCountOutputTypeArgs> =
@@ -1656,6 +1717,14 @@ export namespace Prisma {
   }
 
 
+  /**
+   * PermissionsCountOutputType without action
+   */
+  export type PermissionsCountOutputTypeCountPermissionArgs = {
+    where?: AppearancePermissionsWhereInput
+  }
+
+
 
   /**
    * Count Type AppearancesCountOutputType
@@ -1668,8 +1737,8 @@ export namespace Prisma {
   }
 
   export type AppearancesCountOutputTypeSelect = {
-    appearance?: boolean
-    group_appearance?: boolean
+    appearance?: boolean | AppearancesCountOutputTypeCountAppearanceArgs
+    group_appearance?: boolean | AppearancesCountOutputTypeCountGroup_appearanceArgs
   }
 
   export type AppearancesCountOutputTypeGetPayload<S extends boolean | null | undefined | AppearancesCountOutputTypeArgs> =
@@ -1701,6 +1770,22 @@ export namespace Prisma {
   }
 
 
+  /**
+   * AppearancesCountOutputType without action
+   */
+  export type AppearancesCountOutputTypeCountAppearanceArgs = {
+    where?: AppearancePermissionsWhereInput
+  }
+
+
+  /**
+   * AppearancesCountOutputType without action
+   */
+  export type AppearancesCountOutputTypeCountGroup_appearanceArgs = {
+    where?: GroupsAppearanceWhereInput
+  }
+
+
 
   /**
    * Count Type GroupsCountOutputType
@@ -1712,7 +1797,7 @@ export namespace Prisma {
   }
 
   export type GroupsCountOutputTypeSelect = {
-    group?: boolean
+    group?: boolean | GroupsCountOutputTypeCountGroupArgs
   }
 
   export type GroupsCountOutputTypeGetPayload<S extends boolean | null | undefined | GroupsCountOutputTypeArgs> =
@@ -1741,6 +1826,14 @@ export namespace Prisma {
      * Select specific fields to fetch from the GroupsCountOutputType
      */
     select?: GroupsCountOutputTypeSelect | null
+  }
+
+
+  /**
+   * GroupsCountOutputType without action
+   */
+  export type GroupsCountOutputTypeCountGroupArgs = {
+    where?: GroupsAppearanceWhereInput
   }
 
 
@@ -1966,12 +2059,14 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     customer_type?: boolean | Customer_types$customer_typeArgs
+    customertype?: boolean | Customer_types$customertypeArgs
     _count?: boolean | Customer_typesCountOutputTypeArgs
   }
 
 
   export type Customer_typesInclude = {
     customer_type?: boolean | Customer_types$customer_typeArgs
+    customertype?: boolean | Customer_types$customertypeArgs
     _count?: boolean | Customer_typesCountOutputTypeArgs
   }
 
@@ -1983,12 +2078,14 @@ export namespace Prisma {
     ? Customer_types  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'customer_type' ? Array < UsersGetPayload<S['include'][P]>>  :
+        P extends 'customertype' ? Array < CustomerDetailsGetPayload<S['include'][P]>>  :
         P extends '_count' ? Customer_typesCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (Customer_typesArgs | Customer_typesFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'customer_type' ? Array < UsersGetPayload<S['select'][P]>>  :
+        P extends 'customertype' ? Array < CustomerDetailsGetPayload<S['select'][P]>>  :
         P extends '_count' ? Customer_typesCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Customer_types ? Customer_types[P] : never
   } 
       : Customer_types
@@ -2363,6 +2460,8 @@ export namespace Prisma {
 
     customer_type<T extends Customer_types$customer_typeArgs= {}>(args?: Subset<T, Customer_types$customer_typeArgs>): Prisma.PrismaPromise<Array<UsersGetPayload<T>>| Null>;
 
+    customertype<T extends Customer_types$customertypeArgs= {}>(args?: Subset<T, Customer_types$customertypeArgs>): Prisma.PrismaPromise<Array<CustomerDetailsGetPayload<T>>| Null>;
+
     private get _document();
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2736,6 +2835,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<UsersScalarFieldEnum>
+  }
+
+
+  /**
+   * Customer_types.customertype
+   */
+  export type Customer_types$customertypeArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    where?: CustomerDetailsWhereInput
+    orderBy?: Enumerable<CustomerDetailsOrderByWithRelationInput>
+    cursor?: CustomerDetailsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<CustomerDetailsScalarFieldEnum>
   }
 
 
@@ -23377,7 +23497,7 @@ export namespace Prisma {
     /**
      * The data needed to create a AppearancePermissions.
      */
-    data: XOR<AppearancePermissionsCreateInput, AppearancePermissionsUncheckedCreateInput>
+    data?: XOR<AppearancePermissionsCreateInput, AppearancePermissionsUncheckedCreateInput>
   }
 
 
@@ -25354,7 +25474,7 @@ export namespace Prisma {
     /**
      * The data needed to create a GroupsAppearance.
      */
-    data: XOR<GroupsAppearanceCreateInput, GroupsAppearanceUncheckedCreateInput>
+    data?: XOR<GroupsAppearanceCreateInput, GroupsAppearanceUncheckedCreateInput>
   }
 
 
@@ -25482,122 +25602,1026 @@ export namespace Prisma {
 
 
   /**
+   * Model CustomerDetails
+   */
+
+
+  export type AggregateCustomerDetails = {
+    _count: CustomerDetailsCountAggregateOutputType | null
+    _avg: CustomerDetailsAvgAggregateOutputType | null
+    _sum: CustomerDetailsSumAggregateOutputType | null
+    _min: CustomerDetailsMinAggregateOutputType | null
+    _max: CustomerDetailsMaxAggregateOutputType | null
+  }
+
+  export type CustomerDetailsAvgAggregateOutputType = {
+    id: number | null
+    customer_type_id: number | null
+    is_deleted: number | null
+    created_by: number | null
+  }
+
+  export type CustomerDetailsSumAggregateOutputType = {
+    id: number | null
+    customer_type_id: number | null
+    is_deleted: number | null
+    created_by: number | null
+  }
+
+  export type CustomerDetailsMinAggregateOutputType = {
+    id: number | null
+    company_name: string | null
+    customer_type_id: number | null
+    physical_address: string | null
+    billing_address: string | null
+    is_deleted: number | null
+    created_by: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CustomerDetailsMaxAggregateOutputType = {
+    id: number | null
+    company_name: string | null
+    customer_type_id: number | null
+    physical_address: string | null
+    billing_address: string | null
+    is_deleted: number | null
+    created_by: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CustomerDetailsCountAggregateOutputType = {
+    id: number
+    company_name: number
+    customer_type_id: number
+    physical_address: number
+    billing_address: number
+    is_deleted: number
+    created_by: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type CustomerDetailsAvgAggregateInputType = {
+    id?: true
+    customer_type_id?: true
+    is_deleted?: true
+    created_by?: true
+  }
+
+  export type CustomerDetailsSumAggregateInputType = {
+    id?: true
+    customer_type_id?: true
+    is_deleted?: true
+    created_by?: true
+  }
+
+  export type CustomerDetailsMinAggregateInputType = {
+    id?: true
+    company_name?: true
+    customer_type_id?: true
+    physical_address?: true
+    billing_address?: true
+    is_deleted?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CustomerDetailsMaxAggregateInputType = {
+    id?: true
+    company_name?: true
+    customer_type_id?: true
+    physical_address?: true
+    billing_address?: true
+    is_deleted?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CustomerDetailsCountAggregateInputType = {
+    id?: true
+    company_name?: true
+    customer_type_id?: true
+    physical_address?: true
+    billing_address?: true
+    is_deleted?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type CustomerDetailsAggregateArgs = {
+    /**
+     * Filter which CustomerDetails to aggregate.
+     */
+    where?: CustomerDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerDetails to fetch.
+     */
+    orderBy?: Enumerable<CustomerDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerDetails
+    **/
+    _count?: true | CustomerDetailsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerDetailsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerDetailsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerDetailsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerDetailsMaxAggregateInputType
+  }
+
+  export type GetCustomerDetailsAggregateType<T extends CustomerDetailsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerDetails]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerDetails[P]>
+      : GetScalarType<T[P], AggregateCustomerDetails[P]>
+  }
+
+
+
+
+  export type CustomerDetailsGroupByArgs = {
+    where?: CustomerDetailsWhereInput
+    orderBy?: Enumerable<CustomerDetailsOrderByWithAggregationInput>
+    by: CustomerDetailsScalarFieldEnum[]
+    having?: CustomerDetailsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerDetailsCountAggregateInputType | true
+    _avg?: CustomerDetailsAvgAggregateInputType
+    _sum?: CustomerDetailsSumAggregateInputType
+    _min?: CustomerDetailsMinAggregateInputType
+    _max?: CustomerDetailsMaxAggregateInputType
+  }
+
+
+  export type CustomerDetailsGroupByOutputType = {
+    id: number
+    company_name: string
+    customer_type_id: number
+    physical_address: string
+    billing_address: string
+    is_deleted: number
+    created_by: number
+    created_at: Date
+    updated_at: Date
+    _count: CustomerDetailsCountAggregateOutputType | null
+    _avg: CustomerDetailsAvgAggregateOutputType | null
+    _sum: CustomerDetailsSumAggregateOutputType | null
+    _min: CustomerDetailsMinAggregateOutputType | null
+    _max: CustomerDetailsMaxAggregateOutputType | null
+  }
+
+  type GetCustomerDetailsGroupByPayload<T extends CustomerDetailsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<CustomerDetailsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerDetailsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerDetailsGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerDetailsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerDetailsSelect = {
+    id?: boolean
+    company_name?: boolean
+    customer_type_id?: boolean
+    physical_address?: boolean
+    billing_address?: boolean
+    is_deleted?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    customertype?: boolean | Customer_typesArgs
+  }
+
+
+  export type CustomerDetailsInclude = {
+    customertype?: boolean | Customer_typesArgs
+  }
+
+  export type CustomerDetailsGetPayload<S extends boolean | null | undefined | CustomerDetailsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? CustomerDetails :
+    S extends undefined ? never :
+    S extends { include: any } & (CustomerDetailsArgs | CustomerDetailsFindManyArgs)
+    ? CustomerDetails  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'customertype' ? Customer_typesGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (CustomerDetailsArgs | CustomerDetailsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'customertype' ? Customer_typesGetPayload<S['select'][P]> | null :  P extends keyof CustomerDetails ? CustomerDetails[P] : never
+  } 
+      : CustomerDetails
+
+
+  type CustomerDetailsCountArgs = 
+    Omit<CustomerDetailsFindManyArgs, 'select' | 'include'> & {
+      select?: CustomerDetailsCountAggregateInputType | true
+    }
+
+  export interface CustomerDetailsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one CustomerDetails that matches the filter.
+     * @param {CustomerDetailsFindUniqueArgs} args - Arguments to find a CustomerDetails
+     * @example
+     * // Get one CustomerDetails
+     * const customerDetails = await prisma.customerDetails.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends CustomerDetailsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, CustomerDetailsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'CustomerDetails'> extends True ? Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T>> : Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T> | null, null>
+
+    /**
+     * Find one CustomerDetails that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {CustomerDetailsFindUniqueOrThrowArgs} args - Arguments to find a CustomerDetails
+     * @example
+     * // Get one CustomerDetails
+     * const customerDetails = await prisma.customerDetails.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends CustomerDetailsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, CustomerDetailsFindUniqueOrThrowArgs>
+    ): Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T>>
+
+    /**
+     * Find the first CustomerDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDetailsFindFirstArgs} args - Arguments to find a CustomerDetails
+     * @example
+     * // Get one CustomerDetails
+     * const customerDetails = await prisma.customerDetails.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends CustomerDetailsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, CustomerDetailsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'CustomerDetails'> extends True ? Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T>> : Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T> | null, null>
+
+    /**
+     * Find the first CustomerDetails that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDetailsFindFirstOrThrowArgs} args - Arguments to find a CustomerDetails
+     * @example
+     * // Get one CustomerDetails
+     * const customerDetails = await prisma.customerDetails.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends CustomerDetailsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CustomerDetailsFindFirstOrThrowArgs>
+    ): Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T>>
+
+    /**
+     * Find zero or more CustomerDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDetailsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerDetails
+     * const customerDetails = await prisma.customerDetails.findMany()
+     * 
+     * // Get first 10 CustomerDetails
+     * const customerDetails = await prisma.customerDetails.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerDetailsWithIdOnly = await prisma.customerDetails.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends CustomerDetailsFindManyArgs>(
+      args?: SelectSubset<T, CustomerDetailsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<CustomerDetailsGetPayload<T>>>
+
+    /**
+     * Create a CustomerDetails.
+     * @param {CustomerDetailsCreateArgs} args - Arguments to create a CustomerDetails.
+     * @example
+     * // Create one CustomerDetails
+     * const CustomerDetails = await prisma.customerDetails.create({
+     *   data: {
+     *     // ... data to create a CustomerDetails
+     *   }
+     * })
+     * 
+    **/
+    create<T extends CustomerDetailsCreateArgs>(
+      args: SelectSubset<T, CustomerDetailsCreateArgs>
+    ): Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T>>
+
+    /**
+     * Create many CustomerDetails.
+     *     @param {CustomerDetailsCreateManyArgs} args - Arguments to create many CustomerDetails.
+     *     @example
+     *     // Create many CustomerDetails
+     *     const customerDetails = await prisma.customerDetails.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends CustomerDetailsCreateManyArgs>(
+      args?: SelectSubset<T, CustomerDetailsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a CustomerDetails.
+     * @param {CustomerDetailsDeleteArgs} args - Arguments to delete one CustomerDetails.
+     * @example
+     * // Delete one CustomerDetails
+     * const CustomerDetails = await prisma.customerDetails.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerDetails
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends CustomerDetailsDeleteArgs>(
+      args: SelectSubset<T, CustomerDetailsDeleteArgs>
+    ): Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T>>
+
+    /**
+     * Update one CustomerDetails.
+     * @param {CustomerDetailsUpdateArgs} args - Arguments to update one CustomerDetails.
+     * @example
+     * // Update one CustomerDetails
+     * const customerDetails = await prisma.customerDetails.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends CustomerDetailsUpdateArgs>(
+      args: SelectSubset<T, CustomerDetailsUpdateArgs>
+    ): Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T>>
+
+    /**
+     * Delete zero or more CustomerDetails.
+     * @param {CustomerDetailsDeleteManyArgs} args - Arguments to filter CustomerDetails to delete.
+     * @example
+     * // Delete a few CustomerDetails
+     * const { count } = await prisma.customerDetails.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends CustomerDetailsDeleteManyArgs>(
+      args?: SelectSubset<T, CustomerDetailsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDetailsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerDetails
+     * const customerDetails = await prisma.customerDetails.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends CustomerDetailsUpdateManyArgs>(
+      args: SelectSubset<T, CustomerDetailsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerDetails.
+     * @param {CustomerDetailsUpsertArgs} args - Arguments to update or create a CustomerDetails.
+     * @example
+     * // Update or create a CustomerDetails
+     * const customerDetails = await prisma.customerDetails.upsert({
+     *   create: {
+     *     // ... data to create a CustomerDetails
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerDetails we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends CustomerDetailsUpsertArgs>(
+      args: SelectSubset<T, CustomerDetailsUpsertArgs>
+    ): Prisma__CustomerDetailsClient<CustomerDetailsGetPayload<T>>
+
+    /**
+     * Count the number of CustomerDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDetailsCountArgs} args - Arguments to filter CustomerDetails to count.
+     * @example
+     * // Count the number of CustomerDetails
+     * const count = await prisma.customerDetails.count({
+     *   where: {
+     *     // ... the filter for the CustomerDetails we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerDetailsCountArgs>(
+      args?: Subset<T, CustomerDetailsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerDetailsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDetailsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerDetailsAggregateArgs>(args: Subset<T, CustomerDetailsAggregateArgs>): Prisma.PrismaPromise<GetCustomerDetailsAggregateType<T>>
+
+    /**
+     * Group by CustomerDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDetailsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerDetailsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerDetailsGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerDetailsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerDetailsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerDetailsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerDetails.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__CustomerDetailsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    customertype<T extends Customer_typesArgs= {}>(args?: Subset<T, Customer_typesArgs>): Prisma__Customer_typesClient<Customer_typesGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * CustomerDetails base type for findUnique actions
+   */
+  export type CustomerDetailsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * Filter, which CustomerDetails to fetch.
+     */
+    where: CustomerDetailsWhereUniqueInput
+  }
+
+  /**
+   * CustomerDetails findUnique
+   */
+  export interface CustomerDetailsFindUniqueArgs extends CustomerDetailsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * CustomerDetails findUniqueOrThrow
+   */
+  export type CustomerDetailsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * Filter, which CustomerDetails to fetch.
+     */
+    where: CustomerDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerDetails base type for findFirst actions
+   */
+  export type CustomerDetailsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * Filter, which CustomerDetails to fetch.
+     */
+    where?: CustomerDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerDetails to fetch.
+     */
+    orderBy?: Enumerable<CustomerDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerDetails.
+     */
+    cursor?: CustomerDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerDetails.
+     */
+    distinct?: Enumerable<CustomerDetailsScalarFieldEnum>
+  }
+
+  /**
+   * CustomerDetails findFirst
+   */
+  export interface CustomerDetailsFindFirstArgs extends CustomerDetailsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * CustomerDetails findFirstOrThrow
+   */
+  export type CustomerDetailsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * Filter, which CustomerDetails to fetch.
+     */
+    where?: CustomerDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerDetails to fetch.
+     */
+    orderBy?: Enumerable<CustomerDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerDetails.
+     */
+    cursor?: CustomerDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerDetails.
+     */
+    distinct?: Enumerable<CustomerDetailsScalarFieldEnum>
+  }
+
+
+  /**
+   * CustomerDetails findMany
+   */
+  export type CustomerDetailsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * Filter, which CustomerDetails to fetch.
+     */
+    where?: CustomerDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerDetails to fetch.
+     */
+    orderBy?: Enumerable<CustomerDetailsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerDetails.
+     */
+    cursor?: CustomerDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerDetails.
+     */
+    skip?: number
+    distinct?: Enumerable<CustomerDetailsScalarFieldEnum>
+  }
+
+
+  /**
+   * CustomerDetails create
+   */
+  export type CustomerDetailsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * The data needed to create a CustomerDetails.
+     */
+    data: XOR<CustomerDetailsCreateInput, CustomerDetailsUncheckedCreateInput>
+  }
+
+
+  /**
+   * CustomerDetails createMany
+   */
+  export type CustomerDetailsCreateManyArgs = {
+    /**
+     * The data used to create many CustomerDetails.
+     */
+    data: Enumerable<CustomerDetailsCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * CustomerDetails update
+   */
+  export type CustomerDetailsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * The data needed to update a CustomerDetails.
+     */
+    data: XOR<CustomerDetailsUpdateInput, CustomerDetailsUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerDetails to update.
+     */
+    where: CustomerDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerDetails updateMany
+   */
+  export type CustomerDetailsUpdateManyArgs = {
+    /**
+     * The data used to update CustomerDetails.
+     */
+    data: XOR<CustomerDetailsUpdateManyMutationInput, CustomerDetailsUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerDetails to update
+     */
+    where?: CustomerDetailsWhereInput
+  }
+
+
+  /**
+   * CustomerDetails upsert
+   */
+  export type CustomerDetailsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * The filter to search for the CustomerDetails to update in case it exists.
+     */
+    where: CustomerDetailsWhereUniqueInput
+    /**
+     * In case the CustomerDetails found by the `where` argument doesn't exist, create a new CustomerDetails with this data.
+     */
+    create: XOR<CustomerDetailsCreateInput, CustomerDetailsUncheckedCreateInput>
+    /**
+     * In case the CustomerDetails was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerDetailsUpdateInput, CustomerDetailsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * CustomerDetails delete
+   */
+  export type CustomerDetailsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+    /**
+     * Filter which CustomerDetails to delete.
+     */
+    where: CustomerDetailsWhereUniqueInput
+  }
+
+
+  /**
+   * CustomerDetails deleteMany
+   */
+  export type CustomerDetailsDeleteManyArgs = {
+    /**
+     * Filter which CustomerDetails to delete
+     */
+    where?: CustomerDetailsWhereInput
+  }
+
+
+  /**
+   * CustomerDetails without action
+   */
+  export type CustomerDetailsArgs = {
+    /**
+     * Select specific fields to fetch from the CustomerDetails
+     */
+    select?: CustomerDetailsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerDetailsInclude | null
+  }
+
+
+
+  /**
    * Enums
    */
 
-  export const AppearancePermissionsScalarFieldEnum: {
-    id: 'id',
-    appearance_id: 'appearance_id',
-    permission_id: 'permission_id'
-  };
-
-  export type AppearancePermissionsScalarFieldEnum = (typeof AppearancePermissionsScalarFieldEnum)[keyof typeof AppearancePermissionsScalarFieldEnum]
-
-
-  export const AppearancesScalarFieldEnum: {
-    id: 'id',
-    role: 'role',
-    description: 'description',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type AppearancesScalarFieldEnum = (typeof AppearancesScalarFieldEnum)[keyof typeof AppearancesScalarFieldEnum]
-
-
-  export const BlackOutDayTypesScalarFieldEnum: {
-    id: 'id',
-    type: 'type',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type BlackOutDayTypesScalarFieldEnum = (typeof BlackOutDayTypesScalarFieldEnum)[keyof typeof BlackOutDayTypesScalarFieldEnum]
-
-
-  export const BlackOutDaysScalarFieldEnum: {
-    id: 'id',
-    day_type_id: 'day_type_id',
-    title: 'title',
-    start_date: 'start_date',
-    end_date: 'end_date',
-    applies_to: 'applies_to',
-    color_code: 'color_code',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type BlackOutDaysScalarFieldEnum = (typeof BlackOutDaysScalarFieldEnum)[keyof typeof BlackOutDaysScalarFieldEnum]
-
-
-  export const Contract_typesScalarFieldEnum: {
-    id: 'id',
-    type_name: 'type_name',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+  export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
+    Serializable: 'Serializable'
   };
 
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
-
-  export const CustomerContractsScalarFieldEnum: {
-    id: 'id',
-    customer_id: 'customer_id',
-    first_name: 'first_name',
-    last_name: 'last_name',
-    primary_email: 'primary_email',
-    secondary_email: 'secondary_email',
-    home_phone_number: 'home_phone_number',
-    work_phone_number: 'work_phone_number',
-    mobile: 'mobile',
-    fax_phone_number: 'fax_phone_number',
-    other_phone_number1: 'other_phone_number1',
-    other_phone_number2: 'other_phone_number2',
-    job_title: 'job_title',
-    is_primary: 'is_primary',
-    created_by: 'created_by',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type CustomerContractsScalarFieldEnum = (typeof CustomerContractsScalarFieldEnum)[keyof typeof CustomerContractsScalarFieldEnum]
-
-
-  export const CustomerNoteTitlesMasterScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    created_by: 'created_by',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type CustomerNoteTitlesMasterScalarFieldEnum = (typeof CustomerNoteTitlesMasterScalarFieldEnum)[keyof typeof CustomerNoteTitlesMasterScalarFieldEnum]
-
-
-  export const CustomerStatusListScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    description: 'description',
-    created_by: 'created_by',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type CustomerStatusListScalarFieldEnum = (typeof CustomerStatusListScalarFieldEnum)[keyof typeof CustomerStatusListScalarFieldEnum]
 
 
   export const Customer_typesScalarFieldEnum: {
@@ -25631,9 +26655,11 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     address: 'address',
+    billing_address: 'billing_address',
     contact: 'contact',
     customer_type_id: 'customer_type_id',
     user_type: 'user_type',
+    created_by: 'created_by',
     status: 'status',
     is_deleted: 'is_deleted',
     created_at: 'created_at',
@@ -25692,188 +26718,6 @@ export namespace Prisma {
   export type GeneratorPhaseTypesScalarFieldEnum = (typeof GeneratorPhaseTypesScalarFieldEnum)[keyof typeof GeneratorPhaseTypesScalarFieldEnum]
 
 
-  export const GroupsAppearanceScalarFieldEnum: {
-    id: 'id',
-    group_id: 'group_id',
-    appearance_id: 'appearance_id'
-  };
-
-  export type GroupsAppearanceScalarFieldEnum = (typeof GroupsAppearanceScalarFieldEnum)[keyof typeof GroupsAppearanceScalarFieldEnum]
-
-
-  export const GroupsScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    description: 'description',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type GroupsScalarFieldEnum = (typeof GroupsScalarFieldEnum)[keyof typeof GroupsScalarFieldEnum]
-
-
-  export const LoggingDetailsScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    description: 'description',
-    configuare_value: 'configuare_value',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type LoggingDetailsScalarFieldEnum = (typeof LoggingDetailsScalarFieldEnum)[keyof typeof LoggingDetailsScalarFieldEnum]
-
-
-  export const MiscConfigurationScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    description: 'description',
-    created_by: 'created_by',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type MiscConfigurationScalarFieldEnum = (typeof MiscConfigurationScalarFieldEnum)[keyof typeof MiscConfigurationScalarFieldEnum]
-
-
-  export const PermissionsScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    description: 'description',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type PermissionsScalarFieldEnum = (typeof PermissionsScalarFieldEnum)[keyof typeof PermissionsScalarFieldEnum]
-
-
-  export const ReminderThresoldDaysScalarFieldEnum: {
-    id: 'id',
-    thresold_day: 'thresold_day',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type ReminderThresoldDaysScalarFieldEnum = (typeof ReminderThresoldDaysScalarFieldEnum)[keyof typeof ReminderThresoldDaysScalarFieldEnum]
-
-
-  export const RolesScalarFieldEnum: {
-    id: 'id',
-    service_name: 'service_name',
-    service_limit: 'service_limit',
-    default_load_test_duration: 'default_load_test_duration',
-    on_screen_color_code: 'on_screen_color_code',
-    on_report_color_code: 'on_report_color_code',
-    default_duration: 'default_duration',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_by: 'created_by',
-    created_date: 'created_date',
-    updated_date: 'updated_date'
-  };
-
-  export type Service_levelsScalarFieldEnum = (typeof Service_levelsScalarFieldEnum)[keyof typeof Service_levelsScalarFieldEnum]
-
-
-  export const CustomerNoteTitleScalarFieldEnum: {
-    customer_note_id: 'customer_note_id',
-    customer_id: 'customer_id',
-    note_timestamp: 'note_timestamp',
-    title: 'title',
-    body: 'body',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_by: 'created_by',
-    created_date: 'created_date',
-    updated_date: 'updated_date'
-  };
-
-  export type CustomerNoteTitleScalarFieldEnum = (typeof CustomerNoteTitleScalarFieldEnum)[keyof typeof CustomerNoteTitleScalarFieldEnum]
-
-
-  export const Service_levelsScalarFieldEnum: {
-    id: 'id',
-    service_name: 'service_name',
-    service_limit: 'service_limit',
-    threshold_limit: 'threshold_limit',
-    default_load_test_duration: 'default_load_test_duration',
-    on_screen_color_code: 'on_screen_color_code',
-    on_report_color_code: 'on_report_color_code',
-    default_duration: 'default_duration',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_by: 'created_by',
-    created_date: 'created_date',
-    updated_date: 'updated_date'
-  };
-
-  export type Service_levelsScalarFieldEnum = (typeof Service_levelsScalarFieldEnum)[keyof typeof Service_levelsScalarFieldEnum]
-
-
-  export const SmtpDetailsScalarFieldEnum: {
-    id: 'id',
-    host_name: 'host_name',
-    port_no: 'port_no',
-    user_name: 'user_name',
-    password: 'password',
-    encryption_type: 'encryption_type',
-    sent_from: 'sent_from',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type SmtpDetailsScalarFieldEnum = (typeof SmtpDetailsScalarFieldEnum)[keyof typeof SmtpDetailsScalarFieldEnum]
-
-
-  export const SortOrder: {
-    asc: 'asc',
-    desc: 'desc'
-  };
-
-  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
-
-  export const UsersScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    contact_name: 'contact_name',
-    email: 'email',
-    password: 'password',
-    address: 'address',
-    billing_address: 'billing_address',
-    contact: 'contact',
-    customer_type_id: 'customer_type_id',
-    user_type: 'user_type',
-    created_by: 'created_by',
-    status: 'status',
-    is_deleted: 'is_deleted',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
-
-
   export const WorkOrderStatusScalarFieldEnum: {
     id: 'id',
     status_name: 'status_name',
@@ -25903,6 +26747,251 @@ export namespace Prisma {
   export type WorkOrderTypesScalarFieldEnum = (typeof WorkOrderTypesScalarFieldEnum)[keyof typeof WorkOrderTypesScalarFieldEnum]
 
 
+  export const Service_levelsScalarFieldEnum: {
+    id: 'id',
+    service_name: 'service_name',
+    service_limit: 'service_limit',
+    threshold_limit: 'threshold_limit',
+    default_load_test_duration: 'default_load_test_duration',
+    on_screen_color_code: 'on_screen_color_code',
+    on_report_color_code: 'on_report_color_code',
+    default_duration: 'default_duration',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_by: 'created_by',
+    created_date: 'created_date',
+    updated_date: 'updated_date'
+  };
+
+  export type Service_levelsScalarFieldEnum = (typeof Service_levelsScalarFieldEnum)[keyof typeof Service_levelsScalarFieldEnum]
+
+
+  export const BlackOutDayTypesScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type BlackOutDayTypesScalarFieldEnum = (typeof BlackOutDayTypesScalarFieldEnum)[keyof typeof BlackOutDayTypesScalarFieldEnum]
+
+
+  export const BlackOutDaysScalarFieldEnum: {
+    id: 'id',
+    day_type_id: 'day_type_id',
+    title: 'title',
+    start_date: 'start_date',
+    end_date: 'end_date',
+    applies_to: 'applies_to',
+    color_code: 'color_code',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type BlackOutDaysScalarFieldEnum = (typeof BlackOutDaysScalarFieldEnum)[keyof typeof BlackOutDaysScalarFieldEnum]
+
+
+  export const ReminderThresoldDaysScalarFieldEnum: {
+    id: 'id',
+    thresold_day: 'thresold_day',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ReminderThresoldDaysScalarFieldEnum = (typeof ReminderThresoldDaysScalarFieldEnum)[keyof typeof ReminderThresoldDaysScalarFieldEnum]
+
+
+  export const CustomerContractsScalarFieldEnum: {
+    id: 'id',
+    customer_id: 'customer_id',
+    first_name: 'first_name',
+    last_name: 'last_name',
+    primary_email: 'primary_email',
+    secondary_email: 'secondary_email',
+    home_phone_number: 'home_phone_number',
+    work_phone_number: 'work_phone_number',
+    mobile: 'mobile',
+    fax_phone_number: 'fax_phone_number',
+    other_phone_number1: 'other_phone_number1',
+    other_phone_number2: 'other_phone_number2',
+    job_title: 'job_title',
+    is_primary: 'is_primary',
+    created_by: 'created_by',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CustomerContractsScalarFieldEnum = (typeof CustomerContractsScalarFieldEnum)[keyof typeof CustomerContractsScalarFieldEnum]
+
+
+  export const CustomerNoteTitlesMasterScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    created_by: 'created_by',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CustomerNoteTitlesMasterScalarFieldEnum = (typeof CustomerNoteTitlesMasterScalarFieldEnum)[keyof typeof CustomerNoteTitlesMasterScalarFieldEnum]
+
+
+  export const CustomerStatusListScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    created_by: 'created_by',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CustomerStatusListScalarFieldEnum = (typeof CustomerStatusListScalarFieldEnum)[keyof typeof CustomerStatusListScalarFieldEnum]
+
+
+  export const MiscConfigurationScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    created_by: 'created_by',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type MiscConfigurationScalarFieldEnum = (typeof MiscConfigurationScalarFieldEnum)[keyof typeof MiscConfigurationScalarFieldEnum]
+
+
+  export const LoggingDetailsScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    configuare_value: 'configuare_value',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type LoggingDetailsScalarFieldEnum = (typeof LoggingDetailsScalarFieldEnum)[keyof typeof LoggingDetailsScalarFieldEnum]
+
+
+  export const SmtpDetailsScalarFieldEnum: {
+    id: 'id',
+    host_name: 'host_name',
+    port_no: 'port_no',
+    user_name: 'user_name',
+    password: 'password',
+    encryption_type: 'encryption_type',
+    sent_from: 'sent_from',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type SmtpDetailsScalarFieldEnum = (typeof SmtpDetailsScalarFieldEnum)[keyof typeof SmtpDetailsScalarFieldEnum]
+
+
+  export const PermissionsScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type PermissionsScalarFieldEnum = (typeof PermissionsScalarFieldEnum)[keyof typeof PermissionsScalarFieldEnum]
+
+
+  export const AppearancesScalarFieldEnum: {
+    id: 'id',
+    role: 'role',
+    description: 'description',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type AppearancesScalarFieldEnum = (typeof AppearancesScalarFieldEnum)[keyof typeof AppearancesScalarFieldEnum]
+
+
+  export const AppearancePermissionsScalarFieldEnum: {
+    id: 'id',
+    appearance_id: 'appearance_id',
+    permission_id: 'permission_id'
+  };
+
+  export type AppearancePermissionsScalarFieldEnum = (typeof AppearancePermissionsScalarFieldEnum)[keyof typeof AppearancePermissionsScalarFieldEnum]
+
+
+  export const GroupsScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type GroupsScalarFieldEnum = (typeof GroupsScalarFieldEnum)[keyof typeof GroupsScalarFieldEnum]
+
+
+  export const GroupsAppearanceScalarFieldEnum: {
+    id: 'id',
+    group_id: 'group_id',
+    appearance_id: 'appearance_id'
+  };
+
+  export type GroupsAppearanceScalarFieldEnum = (typeof GroupsAppearanceScalarFieldEnum)[keyof typeof GroupsAppearanceScalarFieldEnum]
+
+
+  export const CustomerDetailsScalarFieldEnum: {
+    id: 'id',
+    company_name: 'company_name',
+    customer_type_id: 'customer_type_id',
+    physical_address: 'physical_address',
+    billing_address: 'billing_address',
+    is_deleted: 'is_deleted',
+    created_by: 'created_by',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CustomerDetailsScalarFieldEnum = (typeof CustomerDetailsScalarFieldEnum)[keyof typeof CustomerDetailsScalarFieldEnum]
+
+
+  export const SortOrder: {
+    asc: 'asc',
+    desc: 'desc'
+  };
+
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Deep Input Types
    */
@@ -25919,6 +27008,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter | Date | string
     updated_at?: DateTimeFilter | Date | string
     customer_type?: UsersListRelationFilter
+    customertype?: CustomerDetailsListRelationFilter
   }
 
   export type Customer_typesOrderByWithRelationInput = {
@@ -25929,6 +27019,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     customer_type?: UsersOrderByRelationAggregateInput
+    customertype?: CustomerDetailsOrderByRelationAggregateInput
   }
 
   export type Customer_typesWhereUniqueInput = {
@@ -26040,13 +27131,13 @@ export namespace Prisma {
 
   export type UsersOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
-    contact_name?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    address?: SortOrder
-    billing_address?: SortOrder
-    contact?: SortOrder
+    name?: SortOrderInput | SortOrder
+    contact_name?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    billing_address?: SortOrderInput | SortOrder
+    contact?: SortOrderInput | SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
     created_by?: SortOrder
@@ -26065,13 +27156,13 @@ export namespace Prisma {
 
   export type UsersOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
-    contact_name?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    address?: SortOrder
-    billing_address?: SortOrder
-    contact?: SortOrder
+    name?: SortOrderInput | SortOrder
+    contact_name?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    billing_address?: SortOrderInput | SortOrder
+    contact?: SortOrderInput | SortOrder
     customer_type_id?: SortOrder
     user_type?: SortOrder
     created_by?: SortOrder
@@ -26282,7 +27373,7 @@ export namespace Prisma {
 
   export type GeneratorPhaseTypesOrderByWithRelationInput = {
     id?: SortOrder
-    phase_type?: SortOrder
+    phase_type?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -26295,7 +27386,7 @@ export namespace Prisma {
 
   export type GeneratorPhaseTypesOrderByWithAggregationInput = {
     id?: SortOrder
-    phase_type?: SortOrder
+    phase_type?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -26336,9 +27427,9 @@ export namespace Prisma {
 
   export type WorkOrderStatusOrderByWithRelationInput = {
     id?: SortOrder
-    status_name?: SortOrder
-    color_code?: SortOrder
-    description?: SortOrder
+    status_name?: SortOrderInput | SortOrder
+    color_code?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     applies_to?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
@@ -26352,9 +27443,9 @@ export namespace Prisma {
 
   export type WorkOrderStatusOrderByWithAggregationInput = {
     id?: SortOrder
-    status_name?: SortOrder
-    color_code?: SortOrder
-    description?: SortOrder
+    status_name?: SortOrderInput | SortOrder
+    color_code?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     applies_to?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
@@ -26398,9 +27489,9 @@ export namespace Prisma {
 
   export type WorkOrderTypesOrderByWithRelationInput = {
     id?: SortOrder
-    order_type?: SortOrder
-    on_screen_color_code?: SortOrder
-    on_report_color_code?: SortOrder
+    order_type?: SortOrderInput | SortOrder
+    on_screen_color_code?: SortOrderInput | SortOrder
+    on_report_color_code?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -26413,9 +27504,9 @@ export namespace Prisma {
 
   export type WorkOrderTypesOrderByWithAggregationInput = {
     id?: SortOrder
-    order_type?: SortOrder
-    on_screen_color_code?: SortOrder
-    on_report_color_code?: SortOrder
+    order_type?: SortOrderInput | SortOrder
+    on_screen_color_code?: SortOrderInput | SortOrder
+    on_report_color_code?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -26600,7 +27691,7 @@ export namespace Prisma {
     start_date?: SortOrder
     end_date?: SortOrder
     applies_to?: SortOrder
-    color_code?: SortOrder
+    color_code?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -26620,7 +27711,7 @@ export namespace Prisma {
     start_date?: SortOrder
     end_date?: SortOrder
     applies_to?: SortOrder
-    color_code?: SortOrder
+    color_code?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -26729,17 +27820,17 @@ export namespace Prisma {
   export type CustomerContractsOrderByWithRelationInput = {
     id?: SortOrder
     customer_id?: SortOrder
-    first_name?: SortOrder
-    last_name?: SortOrder
-    primary_email?: SortOrder
-    secondary_email?: SortOrder
-    home_phone_number?: SortOrder
-    work_phone_number?: SortOrder
-    mobile?: SortOrder
-    fax_phone_number?: SortOrder
-    other_phone_number1?: SortOrder
-    other_phone_number2?: SortOrder
-    job_title?: SortOrder
+    first_name?: SortOrderInput | SortOrder
+    last_name?: SortOrderInput | SortOrder
+    primary_email?: SortOrderInput | SortOrder
+    secondary_email?: SortOrderInput | SortOrder
+    home_phone_number?: SortOrderInput | SortOrder
+    work_phone_number?: SortOrderInput | SortOrder
+    mobile?: SortOrderInput | SortOrder
+    fax_phone_number?: SortOrderInput | SortOrder
+    other_phone_number1?: SortOrderInput | SortOrder
+    other_phone_number2?: SortOrderInput | SortOrder
+    job_title?: SortOrderInput | SortOrder
     is_primary?: SortOrder
     created_by?: SortOrder
     status?: SortOrder
@@ -26756,17 +27847,17 @@ export namespace Prisma {
   export type CustomerContractsOrderByWithAggregationInput = {
     id?: SortOrder
     customer_id?: SortOrder
-    first_name?: SortOrder
-    last_name?: SortOrder
-    primary_email?: SortOrder
-    secondary_email?: SortOrder
-    home_phone_number?: SortOrder
-    work_phone_number?: SortOrder
-    mobile?: SortOrder
-    fax_phone_number?: SortOrder
-    other_phone_number1?: SortOrder
-    other_phone_number2?: SortOrder
-    job_title?: SortOrder
+    first_name?: SortOrderInput | SortOrder
+    last_name?: SortOrderInput | SortOrder
+    primary_email?: SortOrderInput | SortOrder
+    secondary_email?: SortOrderInput | SortOrder
+    home_phone_number?: SortOrderInput | SortOrder
+    work_phone_number?: SortOrderInput | SortOrder
+    mobile?: SortOrderInput | SortOrder
+    fax_phone_number?: SortOrderInput | SortOrder
+    other_phone_number1?: SortOrderInput | SortOrder
+    other_phone_number2?: SortOrderInput | SortOrder
+    job_title?: SortOrderInput | SortOrder
     is_primary?: SortOrder
     created_by?: SortOrder
     status?: SortOrder
@@ -26820,7 +27911,7 @@ export namespace Prisma {
 
   export type CustomerNoteTitlesMasterOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
+    title?: SortOrderInput | SortOrder
     created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
@@ -26835,7 +27926,7 @@ export namespace Prisma {
 
   export type CustomerNoteTitlesMasterOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
+    title?: SortOrderInput | SortOrder
     created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
@@ -26877,8 +27968,8 @@ export namespace Prisma {
 
   export type CustomerStatusListOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
+    title?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
@@ -26893,8 +27984,8 @@ export namespace Prisma {
 
   export type CustomerStatusListOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
+    title?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
@@ -26937,8 +28028,8 @@ export namespace Prisma {
 
   export type MiscConfigurationOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
+    name?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
@@ -26952,8 +28043,8 @@ export namespace Prisma {
 
   export type MiscConfigurationOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
+    name?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     created_by?: SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
@@ -26996,9 +28087,9 @@ export namespace Prisma {
 
   export type LoggingDetailsOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    configuare_value?: SortOrder
+    title?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    configuare_value?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27011,9 +28102,9 @@ export namespace Prisma {
 
   export type LoggingDetailsOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    configuare_value?: SortOrder
+    title?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    configuare_value?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27058,12 +28149,12 @@ export namespace Prisma {
 
   export type SmtpDetailsOrderByWithRelationInput = {
     id?: SortOrder
-    host_name?: SortOrder
+    host_name?: SortOrderInput | SortOrder
     port_no?: SortOrder
-    user_name?: SortOrder
-    password?: SortOrder
-    encryption_type?: SortOrder
-    sent_from?: SortOrder
+    user_name?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    encryption_type?: SortOrderInput | SortOrder
+    sent_from?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27076,12 +28167,12 @@ export namespace Prisma {
 
   export type SmtpDetailsOrderByWithAggregationInput = {
     id?: SortOrder
-    host_name?: SortOrder
+    host_name?: SortOrderInput | SortOrder
     port_no?: SortOrder
-    user_name?: SortOrder
-    password?: SortOrder
-    encryption_type?: SortOrder
-    sent_from?: SortOrder
+    user_name?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    encryption_type?: SortOrderInput | SortOrder
+    sent_from?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27126,8 +28217,8 @@ export namespace Prisma {
 
   export type PermissionsOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
+    title?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27141,8 +28232,8 @@ export namespace Prisma {
 
   export type PermissionsOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
+    title?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27184,8 +28275,8 @@ export namespace Prisma {
 
   export type AppearancesOrderByWithRelationInput = {
     id?: SortOrder
-    role?: SortOrder
-    description?: SortOrder
+    role?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27200,8 +28291,8 @@ export namespace Prisma {
 
   export type AppearancesOrderByWithAggregationInput = {
     id?: SortOrder
-    role?: SortOrder
-    description?: SortOrder
+    role?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27285,8 +28376,8 @@ export namespace Prisma {
 
   export type GroupsOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
+    title?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27300,8 +28391,8 @@ export namespace Prisma {
 
   export type GroupsOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
+    title?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     status?: SortOrder
     is_deleted?: SortOrder
     created_at?: SortOrder
@@ -27369,6 +28460,71 @@ export namespace Prisma {
     appearance_id?: IntWithAggregatesFilter | number
   }
 
+  export type CustomerDetailsWhereInput = {
+    AND?: Enumerable<CustomerDetailsWhereInput>
+    OR?: Enumerable<CustomerDetailsWhereInput>
+    NOT?: Enumerable<CustomerDetailsWhereInput>
+    id?: IntFilter | number
+    company_name?: StringFilter | string
+    customer_type_id?: IntFilter | number
+    physical_address?: StringFilter | string
+    billing_address?: StringFilter | string
+    is_deleted?: IntFilter | number
+    created_by?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+    customertype?: XOR<Customer_typesRelationFilter, Customer_typesWhereInput> | null
+  }
+
+  export type CustomerDetailsOrderByWithRelationInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    customer_type_id?: SortOrder
+    physical_address?: SortOrder
+    billing_address?: SortOrder
+    is_deleted?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    customertype?: Customer_typesOrderByWithRelationInput
+  }
+
+  export type CustomerDetailsWhereUniqueInput = {
+    id?: number
+  }
+
+  export type CustomerDetailsOrderByWithAggregationInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    customer_type_id?: SortOrder
+    physical_address?: SortOrder
+    billing_address?: SortOrder
+    is_deleted?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: CustomerDetailsCountOrderByAggregateInput
+    _avg?: CustomerDetailsAvgOrderByAggregateInput
+    _max?: CustomerDetailsMaxOrderByAggregateInput
+    _min?: CustomerDetailsMinOrderByAggregateInput
+    _sum?: CustomerDetailsSumOrderByAggregateInput
+  }
+
+  export type CustomerDetailsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<CustomerDetailsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<CustomerDetailsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<CustomerDetailsScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    company_name?: StringWithAggregatesFilter | string
+    customer_type_id?: IntWithAggregatesFilter | number
+    physical_address?: StringWithAggregatesFilter | string
+    billing_address?: StringWithAggregatesFilter | string
+    is_deleted?: IntWithAggregatesFilter | number
+    created_by?: IntWithAggregatesFilter | number
+    created_at?: DateTimeWithAggregatesFilter | Date | string
+    updated_at?: DateTimeWithAggregatesFilter | Date | string
+  }
+
   export type Customer_typesCreateInput = {
     type_name?: string | null
     status?: number
@@ -27376,6 +28532,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     customer_type?: UsersCreateNestedManyWithoutCustomer_typeInput
+    customertype?: CustomerDetailsCreateNestedManyWithoutCustomertypeInput
   }
 
   export type Customer_typesUncheckedCreateInput = {
@@ -27386,6 +28543,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     customer_type?: UsersUncheckedCreateNestedManyWithoutCustomer_typeInput
+    customertype?: CustomerDetailsUncheckedCreateNestedManyWithoutCustomertypeInput
   }
 
   export type Customer_typesUpdateInput = {
@@ -27395,6 +28553,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     customer_type?: UsersUpdateManyWithoutCustomer_typeNestedInput
+    customertype?: CustomerDetailsUpdateManyWithoutCustomertypeNestedInput
   }
 
   export type Customer_typesUncheckedUpdateInput = {
@@ -27405,6 +28564,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     customer_type?: UsersUncheckedUpdateManyWithoutCustomer_typeNestedInput
+    customertype?: CustomerDetailsUncheckedUpdateManyWithoutCustomertypeNestedInput
   }
 
   export type Customer_typesCreateManyInput = {
@@ -29181,6 +30341,86 @@ export namespace Prisma {
     appearance_id?: IntFieldUpdateOperationsInput | number
   }
 
+  export type CustomerDetailsCreateInput = {
+    company_name: string
+    physical_address: string
+    billing_address: string
+    is_deleted?: number
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    customertype?: Customer_typesCreateNestedOneWithoutCustomertypeInput
+  }
+
+  export type CustomerDetailsUncheckedCreateInput = {
+    id?: number
+    company_name: string
+    customer_type_id?: number
+    physical_address: string
+    billing_address: string
+    is_deleted?: number
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerDetailsUpdateInput = {
+    company_name?: StringFieldUpdateOperationsInput | string
+    physical_address?: StringFieldUpdateOperationsInput | string
+    billing_address?: StringFieldUpdateOperationsInput | string
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customertype?: Customer_typesUpdateOneWithoutCustomertypeNestedInput
+  }
+
+  export type CustomerDetailsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    company_name?: StringFieldUpdateOperationsInput | string
+    customer_type_id?: IntFieldUpdateOperationsInput | number
+    physical_address?: StringFieldUpdateOperationsInput | string
+    billing_address?: StringFieldUpdateOperationsInput | string
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDetailsCreateManyInput = {
+    id?: number
+    company_name: string
+    customer_type_id?: number
+    physical_address: string
+    billing_address: string
+    is_deleted?: number
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerDetailsUpdateManyMutationInput = {
+    company_name?: StringFieldUpdateOperationsInput | string
+    physical_address?: StringFieldUpdateOperationsInput | string
+    billing_address?: StringFieldUpdateOperationsInput | string
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDetailsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    company_name?: StringFieldUpdateOperationsInput | string
+    customer_type_id?: IntFieldUpdateOperationsInput | number
+    physical_address?: StringFieldUpdateOperationsInput | string
+    billing_address?: StringFieldUpdateOperationsInput | string
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter = {
     equals?: number
     in?: Enumerable<number> | number
@@ -29223,7 +30463,22 @@ export namespace Prisma {
     none?: UsersWhereInput
   }
 
+  export type CustomerDetailsListRelationFilter = {
+    every?: CustomerDetailsWhereInput
+    some?: CustomerDetailsWhereInput
+    none?: CustomerDetailsWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type UsersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomerDetailsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -30520,6 +31775,56 @@ export namespace Prisma {
     appearance_id?: SortOrder
   }
 
+  export type CustomerDetailsCountOrderByAggregateInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    customer_type_id?: SortOrder
+    physical_address?: SortOrder
+    billing_address?: SortOrder
+    is_deleted?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerDetailsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    customer_type_id?: SortOrder
+    is_deleted?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type CustomerDetailsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    customer_type_id?: SortOrder
+    physical_address?: SortOrder
+    billing_address?: SortOrder
+    is_deleted?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerDetailsMinOrderByAggregateInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    customer_type_id?: SortOrder
+    physical_address?: SortOrder
+    billing_address?: SortOrder
+    is_deleted?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CustomerDetailsSumOrderByAggregateInput = {
+    id?: SortOrder
+    customer_type_id?: SortOrder
+    is_deleted?: SortOrder
+    created_by?: SortOrder
+  }
+
   export type UsersCreateNestedManyWithoutCustomer_typeInput = {
     create?: XOR<Enumerable<UsersCreateWithoutCustomer_typeInput>, Enumerable<UsersUncheckedCreateWithoutCustomer_typeInput>>
     connectOrCreate?: Enumerable<UsersCreateOrConnectWithoutCustomer_typeInput>
@@ -30527,11 +31832,25 @@ export namespace Prisma {
     connect?: Enumerable<UsersWhereUniqueInput>
   }
 
+  export type CustomerDetailsCreateNestedManyWithoutCustomertypeInput = {
+    create?: XOR<Enumerable<CustomerDetailsCreateWithoutCustomertypeInput>, Enumerable<CustomerDetailsUncheckedCreateWithoutCustomertypeInput>>
+    connectOrCreate?: Enumerable<CustomerDetailsCreateOrConnectWithoutCustomertypeInput>
+    createMany?: CustomerDetailsCreateManyCustomertypeInputEnvelope
+    connect?: Enumerable<CustomerDetailsWhereUniqueInput>
+  }
+
   export type UsersUncheckedCreateNestedManyWithoutCustomer_typeInput = {
     create?: XOR<Enumerable<UsersCreateWithoutCustomer_typeInput>, Enumerable<UsersUncheckedCreateWithoutCustomer_typeInput>>
     connectOrCreate?: Enumerable<UsersCreateOrConnectWithoutCustomer_typeInput>
     createMany?: UsersCreateManyCustomer_typeInputEnvelope
     connect?: Enumerable<UsersWhereUniqueInput>
+  }
+
+  export type CustomerDetailsUncheckedCreateNestedManyWithoutCustomertypeInput = {
+    create?: XOR<Enumerable<CustomerDetailsCreateWithoutCustomertypeInput>, Enumerable<CustomerDetailsUncheckedCreateWithoutCustomertypeInput>>
+    connectOrCreate?: Enumerable<CustomerDetailsCreateOrConnectWithoutCustomertypeInput>
+    createMany?: CustomerDetailsCreateManyCustomertypeInputEnvelope
+    connect?: Enumerable<CustomerDetailsWhereUniqueInput>
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -30564,6 +31883,20 @@ export namespace Prisma {
     deleteMany?: Enumerable<UsersScalarWhereInput>
   }
 
+  export type CustomerDetailsUpdateManyWithoutCustomertypeNestedInput = {
+    create?: XOR<Enumerable<CustomerDetailsCreateWithoutCustomertypeInput>, Enumerable<CustomerDetailsUncheckedCreateWithoutCustomertypeInput>>
+    connectOrCreate?: Enumerable<CustomerDetailsCreateOrConnectWithoutCustomertypeInput>
+    upsert?: Enumerable<CustomerDetailsUpsertWithWhereUniqueWithoutCustomertypeInput>
+    createMany?: CustomerDetailsCreateManyCustomertypeInputEnvelope
+    set?: Enumerable<CustomerDetailsWhereUniqueInput>
+    disconnect?: Enumerable<CustomerDetailsWhereUniqueInput>
+    delete?: Enumerable<CustomerDetailsWhereUniqueInput>
+    connect?: Enumerable<CustomerDetailsWhereUniqueInput>
+    update?: Enumerable<CustomerDetailsUpdateWithWhereUniqueWithoutCustomertypeInput>
+    updateMany?: Enumerable<CustomerDetailsUpdateManyWithWhereWithoutCustomertypeInput>
+    deleteMany?: Enumerable<CustomerDetailsScalarWhereInput>
+  }
+
   export type UsersUncheckedUpdateManyWithoutCustomer_typeNestedInput = {
     create?: XOR<Enumerable<UsersCreateWithoutCustomer_typeInput>, Enumerable<UsersUncheckedCreateWithoutCustomer_typeInput>>
     connectOrCreate?: Enumerable<UsersCreateOrConnectWithoutCustomer_typeInput>
@@ -30576,6 +31909,20 @@ export namespace Prisma {
     update?: Enumerable<UsersUpdateWithWhereUniqueWithoutCustomer_typeInput>
     updateMany?: Enumerable<UsersUpdateManyWithWhereWithoutCustomer_typeInput>
     deleteMany?: Enumerable<UsersScalarWhereInput>
+  }
+
+  export type CustomerDetailsUncheckedUpdateManyWithoutCustomertypeNestedInput = {
+    create?: XOR<Enumerable<CustomerDetailsCreateWithoutCustomertypeInput>, Enumerable<CustomerDetailsUncheckedCreateWithoutCustomertypeInput>>
+    connectOrCreate?: Enumerable<CustomerDetailsCreateOrConnectWithoutCustomertypeInput>
+    upsert?: Enumerable<CustomerDetailsUpsertWithWhereUniqueWithoutCustomertypeInput>
+    createMany?: CustomerDetailsCreateManyCustomertypeInputEnvelope
+    set?: Enumerable<CustomerDetailsWhereUniqueInput>
+    disconnect?: Enumerable<CustomerDetailsWhereUniqueInput>
+    delete?: Enumerable<CustomerDetailsWhereUniqueInput>
+    connect?: Enumerable<CustomerDetailsWhereUniqueInput>
+    update?: Enumerable<CustomerDetailsUpdateWithWhereUniqueWithoutCustomertypeInput>
+    updateMany?: Enumerable<CustomerDetailsUpdateManyWithWhereWithoutCustomertypeInput>
+    deleteMany?: Enumerable<CustomerDetailsScalarWhereInput>
   }
 
   export type UsersCreateNestedManyWithoutRole_typeInput = {
@@ -31062,6 +32409,22 @@ export namespace Prisma {
     update?: XOR<AppearancesUpdateWithoutGroup_appearanceInput, AppearancesUncheckedUpdateWithoutGroup_appearanceInput>
   }
 
+  export type Customer_typesCreateNestedOneWithoutCustomertypeInput = {
+    create?: XOR<Customer_typesCreateWithoutCustomertypeInput, Customer_typesUncheckedCreateWithoutCustomertypeInput>
+    connectOrCreate?: Customer_typesCreateOrConnectWithoutCustomertypeInput
+    connect?: Customer_typesWhereUniqueInput
+  }
+
+  export type Customer_typesUpdateOneWithoutCustomertypeNestedInput = {
+    create?: XOR<Customer_typesCreateWithoutCustomertypeInput, Customer_typesUncheckedCreateWithoutCustomertypeInput>
+    connectOrCreate?: Customer_typesCreateOrConnectWithoutCustomertypeInput
+    upsert?: Customer_typesUpsertWithoutCustomertypeInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: Customer_typesWhereUniqueInput
+    update?: XOR<Customer_typesUpdateWithoutCustomertypeInput, Customer_typesUncheckedUpdateWithoutCustomertypeInput>
+  }
+
   export type NestedIntFilter = {
     equals?: number
     in?: Enumerable<number> | number
@@ -31243,6 +32606,37 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CustomerDetailsCreateWithoutCustomertypeInput = {
+    company_name: string
+    physical_address: string
+    billing_address: string
+    is_deleted?: number
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerDetailsUncheckedCreateWithoutCustomertypeInput = {
+    id?: number
+    company_name: string
+    physical_address: string
+    billing_address: string
+    is_deleted?: number
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerDetailsCreateOrConnectWithoutCustomertypeInput = {
+    where: CustomerDetailsWhereUniqueInput
+    create: XOR<CustomerDetailsCreateWithoutCustomertypeInput, CustomerDetailsUncheckedCreateWithoutCustomertypeInput>
+  }
+
+  export type CustomerDetailsCreateManyCustomertypeInputEnvelope = {
+    data: Enumerable<CustomerDetailsCreateManyCustomertypeInput>
+    skipDuplicates?: boolean
+  }
+
   export type UsersUpsertWithWhereUniqueWithoutCustomer_typeInput = {
     where: UsersWhereUniqueInput
     update: XOR<UsersUpdateWithoutCustomer_typeInput, UsersUncheckedUpdateWithoutCustomer_typeInput>
@@ -31276,6 +32670,37 @@ export namespace Prisma {
     created_by?: IntFilter | number
     status?: IntFilter | number
     is_deleted?: IntFilter | number
+    created_at?: DateTimeFilter | Date | string
+    updated_at?: DateTimeFilter | Date | string
+  }
+
+  export type CustomerDetailsUpsertWithWhereUniqueWithoutCustomertypeInput = {
+    where: CustomerDetailsWhereUniqueInput
+    update: XOR<CustomerDetailsUpdateWithoutCustomertypeInput, CustomerDetailsUncheckedUpdateWithoutCustomertypeInput>
+    create: XOR<CustomerDetailsCreateWithoutCustomertypeInput, CustomerDetailsUncheckedCreateWithoutCustomertypeInput>
+  }
+
+  export type CustomerDetailsUpdateWithWhereUniqueWithoutCustomertypeInput = {
+    where: CustomerDetailsWhereUniqueInput
+    data: XOR<CustomerDetailsUpdateWithoutCustomertypeInput, CustomerDetailsUncheckedUpdateWithoutCustomertypeInput>
+  }
+
+  export type CustomerDetailsUpdateManyWithWhereWithoutCustomertypeInput = {
+    where: CustomerDetailsScalarWhereInput
+    data: XOR<CustomerDetailsUpdateManyMutationInput, CustomerDetailsUncheckedUpdateManyWithoutCustomertypeInput>
+  }
+
+  export type CustomerDetailsScalarWhereInput = {
+    AND?: Enumerable<CustomerDetailsScalarWhereInput>
+    OR?: Enumerable<CustomerDetailsScalarWhereInput>
+    NOT?: Enumerable<CustomerDetailsScalarWhereInput>
+    id?: IntFilter | number
+    company_name?: StringFilter | string
+    customer_type_id?: IntFilter | number
+    physical_address?: StringFilter | string
+    billing_address?: StringFilter | string
+    is_deleted?: IntFilter | number
+    created_by?: IntFilter | number
     created_at?: DateTimeFilter | Date | string
     updated_at?: DateTimeFilter | Date | string
   }
@@ -31347,6 +32772,7 @@ export namespace Prisma {
     is_deleted?: number
     created_at?: Date | string
     updated_at?: Date | string
+    customertype?: CustomerDetailsCreateNestedManyWithoutCustomertypeInput
   }
 
   export type Customer_typesUncheckedCreateWithoutCustomer_typeInput = {
@@ -31356,6 +32782,7 @@ export namespace Prisma {
     is_deleted?: number
     created_at?: Date | string
     updated_at?: Date | string
+    customertype?: CustomerDetailsUncheckedCreateNestedManyWithoutCustomertypeInput
   }
 
   export type Customer_typesCreateOrConnectWithoutCustomer_typeInput = {
@@ -31447,6 +32874,7 @@ export namespace Prisma {
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customertype?: CustomerDetailsUpdateManyWithoutCustomertypeNestedInput
   }
 
   export type Customer_typesUncheckedUpdateWithoutCustomer_typeInput = {
@@ -31456,6 +32884,7 @@ export namespace Prisma {
     is_deleted?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customertype?: CustomerDetailsUncheckedUpdateManyWithoutCustomertypeNestedInput
   }
 
   export type RolesUpsertWithoutRole_typeInput = {
@@ -32171,6 +33600,54 @@ export namespace Prisma {
     appearance?: AppearancePermissionsUncheckedUpdateManyWithoutAppearanceNestedInput
   }
 
+  export type Customer_typesCreateWithoutCustomertypeInput = {
+    type_name?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    customer_type?: UsersCreateNestedManyWithoutCustomer_typeInput
+  }
+
+  export type Customer_typesUncheckedCreateWithoutCustomertypeInput = {
+    id?: number
+    type_name?: string | null
+    status?: number
+    is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    customer_type?: UsersUncheckedCreateNestedManyWithoutCustomer_typeInput
+  }
+
+  export type Customer_typesCreateOrConnectWithoutCustomertypeInput = {
+    where: Customer_typesWhereUniqueInput
+    create: XOR<Customer_typesCreateWithoutCustomertypeInput, Customer_typesUncheckedCreateWithoutCustomertypeInput>
+  }
+
+  export type Customer_typesUpsertWithoutCustomertypeInput = {
+    update: XOR<Customer_typesUpdateWithoutCustomertypeInput, Customer_typesUncheckedUpdateWithoutCustomertypeInput>
+    create: XOR<Customer_typesCreateWithoutCustomertypeInput, Customer_typesUncheckedCreateWithoutCustomertypeInput>
+  }
+
+  export type Customer_typesUpdateWithoutCustomertypeInput = {
+    type_name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_type?: UsersUpdateManyWithoutCustomer_typeNestedInput
+  }
+
+  export type Customer_typesUncheckedUpdateWithoutCustomertypeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type_name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: IntFieldUpdateOperationsInput | number
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_type?: UsersUncheckedUpdateManyWithoutCustomer_typeNestedInput
+  }
+
   export type UsersCreateManyCustomer_typeInput = {
     id?: number
     name?: string | null
@@ -32184,6 +33661,17 @@ export namespace Prisma {
     created_by?: number
     status?: number
     is_deleted?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CustomerDetailsCreateManyCustomertypeInput = {
+    id?: number
+    company_name: string
+    physical_address: string
+    billing_address: string
+    is_deleted?: number
+    created_by: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -32236,6 +33724,38 @@ export namespace Prisma {
     created_by?: IntFieldUpdateOperationsInput | number
     status?: IntFieldUpdateOperationsInput | number
     is_deleted?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDetailsUpdateWithoutCustomertypeInput = {
+    company_name?: StringFieldUpdateOperationsInput | string
+    physical_address?: StringFieldUpdateOperationsInput | string
+    billing_address?: StringFieldUpdateOperationsInput | string
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDetailsUncheckedUpdateWithoutCustomertypeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    company_name?: StringFieldUpdateOperationsInput | string
+    physical_address?: StringFieldUpdateOperationsInput | string
+    billing_address?: StringFieldUpdateOperationsInput | string
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDetailsUncheckedUpdateManyWithoutCustomertypeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    company_name?: StringFieldUpdateOperationsInput | string
+    physical_address?: StringFieldUpdateOperationsInput | string
+    billing_address?: StringFieldUpdateOperationsInput | string
+    is_deleted?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -7,10 +7,6 @@ const users = require("../routes/users");
 const contractTypes = require("../routes/contractTypes");
 const generatorBrands = require("../routes/generatorBrands");
 const generatorModels = require("../routes/generatorModels");
-<<<<<<< HEAD
-const serviceLevels = require("../routes/serviceLevels");
-const customerNoteTitle = require("../routes/customerNoteTitle");
-=======
 const generatorPhaseType = require("../routes/generatorPhaseType");
 const workOrderStatus = require("../routes/workOrderStatus");
 const workOrderType = require("../routes/workOrderTypes");
@@ -25,7 +21,7 @@ const customers = require("../routes/customers");
 const permissions = require("../routes/permissions");
 const appearances = require("../routes/appearances");
 const groups = require("../routes/groups");
->>>>>>> 5ff6ee5c834ec61767c63f40c527220acfb9ea59
+const customerDetails = require("../routes/customerDetails");
 
 app.use(cors());
 app.use(express.json())
@@ -40,10 +36,6 @@ app.use('/api/users', users);
 app.use('/api/contracttypes', contractTypes);
 app.use('/api/generatorbrands', generatorBrands);
 app.use('/api/generatormodels', generatorModels);
-<<<<<<< HEAD
-app.use('/api/servicelevels', serviceLevels);
-app.use('/api/customerNoteTitle', customerNoteTitle);
-=======
 app.use('/api/generatorphasetype', generatorPhaseType);
 app.use('/api/workorderstatus', workOrderStatus);
 app.use('/api/workordertype', workOrderType);
@@ -58,8 +50,8 @@ app.use('/api/customers', customers);
 app.use('/api/permissions', permissions);
 app.use('/api/appearances', appearances);
 app.use('/api/groups', groups);
+app.use('/api/customerdetails', customerDetails);
 
->>>>>>> 5ff6ee5c834ec61767c63f40c527220acfb9ea59
 /* Error handler middleware */
 app.use((err, req, res, next) => 
 {

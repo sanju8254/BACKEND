@@ -86,20 +86,123 @@ Prisma.NullTypes = {
  * Enums
  */
 
-exports.Prisma.AppearancePermissionsScalarFieldEnum = {
-  id: 'id',
-  appearance_id: 'appearance_id',
-  permission_id: 'permission_id'
-};
+exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
+  Serializable: 'Serializable'
+});
 
-exports.Prisma.AppearancesScalarFieldEnum = {
+exports.Prisma.Customer_typesScalarFieldEnum = {
   id: 'id',
-  role: 'role',
-  description: 'description',
+  type_name: 'type_name',
   status: 'status',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.RolesScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.UsersScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  contact_name: 'contact_name',
+  email: 'email',
+  password: 'password',
+  address: 'address',
+  billing_address: 'billing_address',
+  contact: 'contact',
+  customer_type_id: 'customer_type_id',
+  user_type: 'user_type',
+  created_by: 'created_by',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Contract_typesScalarFieldEnum = {
+  id: 'id',
+  type_name: 'type_name',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.GeneratorBrandsScalarFieldEnum = {
+  id: 'id',
+  brand_name: 'brand_name',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.GeneratorModelsScalarFieldEnum = {
+  id: 'id',
+  model_name: 'model_name',
+  brand_id: 'brand_id',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.GeneratorPhaseTypesScalarFieldEnum = {
+  id: 'id',
+  phase_type: 'phase_type',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.WorkOrderStatusScalarFieldEnum = {
+  id: 'id',
+  status_name: 'status_name',
+  color_code: 'color_code',
+  description: 'description',
+  applies_to: 'applies_to',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.WorkOrderTypesScalarFieldEnum = {
+  id: 'id',
+  order_type: 'order_type',
+  on_screen_color_code: 'on_screen_color_code',
+  on_report_color_code: 'on_report_color_code',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_levelsScalarFieldEnum = {
+  id: 'id',
+  service_name: 'service_name',
+  service_limit: 'service_limit',
+  threshold_limit: 'threshold_limit',
+  default_load_test_duration: 'default_load_test_duration',
+  on_screen_color_code: 'on_screen_color_code',
+  on_report_color_code: 'on_report_color_code',
+  default_duration: 'default_duration',
+  status: 'status',
+  is_deleted: 'is_deleted',
+  created_by: 'created_by',
+  created_date: 'created_date',
+  updated_date: 'updated_date'
 };
 
 exports.Prisma.BlackOutDayTypesScalarFieldEnum = {
@@ -125,9 +228,9 @@ exports.Prisma.BlackOutDaysScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Contract_typesScalarFieldEnum = {
+exports.Prisma.ReminderThresoldDaysScalarFieldEnum = {
   id: 'id',
-  type_name: 'type_name',
+  thresold_day: 'thresold_day',
   status: 'status',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
@@ -177,53 +280,11 @@ exports.Prisma.CustomerStatusListScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Customer_typesScalarFieldEnum = {
+exports.Prisma.MiscConfigurationScalarFieldEnum = {
   id: 'id',
-  type_name: 'type_name',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.GeneratorBrandsScalarFieldEnum = {
-  id: 'id',
-  brand_name: 'brand_name',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.GeneratorModelsScalarFieldEnum = {
-  id: 'id',
-  model_name: 'model_name',
-  brand_id: 'brand_id',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.GeneratorPhaseTypesScalarFieldEnum = {
-  id: 'id',
-  phase_type: 'phase_type',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.GroupsAppearanceScalarFieldEnum = {
-  id: 'id',
-  group_id: 'group_id',
-  appearance_id: 'appearance_id'
-};
-
-exports.Prisma.GroupsScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
+  name: 'name',
   description: 'description',
+  created_by: 'created_by',
   status: 'status',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
@@ -241,11 +302,14 @@ exports.Prisma.LoggingDetailsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.MiscConfigurationScalarFieldEnum = {
+exports.Prisma.SmtpDetailsScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  description: 'description',
-  created_by: 'created_by',
+  host_name: 'host_name',
+  port_no: 'port_no',
+  user_name: 'user_name',
+  password: 'password',
+  encryption_type: 'encryption_type',
+  sent_from: 'sent_from',
   status: 'status',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
@@ -262,99 +326,46 @@ exports.Prisma.PermissionsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.ReminderThresoldDaysScalarFieldEnum = {
+exports.Prisma.AppearancesScalarFieldEnum = {
   id: 'id',
-  thresold_day: 'thresold_day',
+  role: 'role',
+  description: 'description',
   status: 'status',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.RolesScalarFieldEnum = {
+exports.Prisma.AppearancePermissionsScalarFieldEnum = {
   id: 'id',
-  service_name: 'service_name',
-  service_limit: 'service_limit',
-  default_load_test_duration: 'default_load_test_duration',
-  on_screen_color_code: 'on_screen_color_code',
-  on_report_color_code: 'on_report_color_code',
-  default_duration: 'default_duration',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_by: 'created_by',
-  created_date: 'created_date',
-  updated_date: 'updated_date'
+  appearance_id: 'appearance_id',
+  permission_id: 'permission_id'
 };
 
-exports.Prisma.CustomerNoteTitleScalarFieldEnum = {
-  customer_note_id: 'customer_note_id',
-  customer_id: 'customer_id',
-  note_timestamp: 'note_timestamp',
+exports.Prisma.GroupsScalarFieldEnum = {
+  id: 'id',
   title: 'title',
-  body: 'body',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_by: 'created_by',
-  created_date: 'created_date',
-  updated_date: 'updated_date'
-};
-
-exports.Prisma.Service_levelsScalarFieldEnum = {
-  id: 'id',
-  service_name: 'service_name',
-  service_limit: 'service_limit',
-  threshold_limit: 'threshold_limit',
-  default_load_test_duration: 'default_load_test_duration',
-  on_screen_color_code: 'on_screen_color_code',
-  on_report_color_code: 'on_report_color_code',
-  default_duration: 'default_duration',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_by: 'created_by',
-  created_date: 'created_date',
-  updated_date: 'updated_date'
-};
-
-exports.Prisma.SmtpDetailsScalarFieldEnum = {
-  id: 'id',
-  host_name: 'host_name',
-  port_no: 'port_no',
-  user_name: 'user_name',
-  password: 'password',
-  encryption_type: 'encryption_type',
-  sent_from: 'sent_from',
+  description: 'description',
   status: 'status',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Service_levelsScalarFieldEnum = {
+exports.Prisma.GroupsAppearanceScalarFieldEnum = {
   id: 'id',
-  service_name: 'service_name',
-  service_limit: 'service_limit',
-  threshold_limit: 'threshold_limit',
-  default_load_test_duration: 'default_load_test_duration',
-  on_screen_color_code: 'on_screen_color_code',
-  on_report_color_code: 'on_report_color_code',
-  default_duration: 'default_duration',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_by: 'created_by',
-  created_date: 'created_date',
-  updated_date: 'updated_date'
+  group_id: 'group_id',
+  appearance_id: 'appearance_id'
 };
 
-exports.Prisma.SmtpDetailsScalarFieldEnum = {
+exports.Prisma.CustomerDetailsScalarFieldEnum = {
   id: 'id',
-  host_name: 'host_name',
-  port_no: 'port_no',
-  user_name: 'user_name',
-  password: 'password',
-  encryption_type: 'encryption_type',
-  sent_from: 'sent_from',
-  status: 'status',
+  company_name: 'company_name',
+  customer_type_id: 'customer_type_id',
+  physical_address: 'physical_address',
+  billing_address: 'billing_address',
   is_deleted: 'is_deleted',
+  created_by: 'created_by',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -364,52 +375,9 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
-  Serializable: 'Serializable'
-});
-
-exports.Prisma.UsersScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  contact_name: 'contact_name',
-  email: 'email',
-  password: 'password',
-  address: 'address',
-  billing_address: 'billing_address',
-  contact: 'contact',
-  customer_type_id: 'customer_type_id',
-  user_type: 'user_type',
-  created_by: 'created_by',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.WorkOrderStatusScalarFieldEnum = {
-  id: 'id',
-  status_name: 'status_name',
-  color_code: 'color_code',
-  description: 'description',
-  applies_to: 'applies_to',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.WorkOrderTypesScalarFieldEnum = {
-  id: 'id',
-  order_type: 'order_type',
-  on_screen_color_code: 'on_screen_color_code',
-  on_report_color_code: 'on_report_color_code',
-  status: 'status',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 
@@ -437,7 +405,8 @@ exports.Prisma.ModelName = {
   Appearances: 'Appearances',
   AppearancePermissions: 'AppearancePermissions',
   Groups: 'Groups',
-  GroupsAppearance: 'GroupsAppearance'
+  GroupsAppearance: 'GroupsAppearance',
+  CustomerDetails: 'CustomerDetails'
 };
 
 /**
