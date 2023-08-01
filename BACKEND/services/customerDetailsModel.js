@@ -39,7 +39,7 @@ const list = async (data) => {
                 ...searchCustomerType
             },
             include: {
-                customer_type: {
+                customertype: {
                     select: {
                         type_name: true
                     }
@@ -47,9 +47,6 @@ const list = async (data) => {
             }
         }).then(result => {
             response = { status: status, msg: "Fetched customer Details list.", data: result, total_page: total_page_number, total_record: total_record };
-        }).catch(error => {
-            console.log(error);
-            response = { status: 400, msg: "An error occured." };
         });
     }
     else {
