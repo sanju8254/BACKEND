@@ -8,9 +8,9 @@ const list = async (data) => {
     const pageNo = data.page_no;
     const offSet = helper.getOffset(pageNo);
 
-    const searchName = data.searchName ? { name: { contains: data.searchName } } : {}
-    const searchAdress = data.searchAdress ? { address: { contains: data.searchAdress } } : {}
-    const searchCustomerType = data.searchCustomerType ? { contact_name: { contains: data.searchCustomerType } } : {}
+    const searchName = data.searchName ? { company_name: { contains: data.searchName } } : {}
+    const searchAdress = data.searchAdress ? { physical_address: { contains: data.searchAdress } } : {}
+    const searchCustomerType = data.searchCustomerType ? { customer_type_id: { equals: data.searchCustomerType } } : {}
 
     let status = 200;
     let response = {};
