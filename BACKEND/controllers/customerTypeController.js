@@ -39,6 +39,7 @@ const remove_record = async (req, res, next) => {
 	}
 }
 
+
 module.exports = {
     index,
     store,
