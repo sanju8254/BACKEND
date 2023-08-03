@@ -55,7 +55,7 @@ const list = async (data) => {
 
     return response;
 }
-const store = async (data, authUser) => {   
+const store = async (data, authUser) => {
     let status = 200;
     let response = {};
     const { company_name, customer_type } = data;
@@ -89,11 +89,11 @@ const store = async (data, authUser) => {
     return response;
 }
 
-const update=async(data,authUser)=>{
+const update = async (data, authUser) => {
     let status = 200;
     let response = {};
-    const {company_name,customer_type}=data;
-    await prisma.customerDetails.findFirst({ where: { company_name: company_name, customer_type_id: customer_type, is_deleted: 0 } }).then(duplicate => {
+    const { company_name, customer_type } = data;
+    await prisma.customerDetails.findFirst({ where: { company_name: company_name, customer_type_id: customer_type, is_deleted: 0, NOT: { id: data.customer_details_id } } }).then(duplicate => {
         if (duplicate == null) {
             var promiseResult = new Promise(function (resolve, reject) {
                 prisma.customerDetails.update({
@@ -106,8 +106,8 @@ const update=async(data,authUser)=>{
                         physical_address: data.physical_address,
                         billing_address: data.billing_address,
                         created_by: authUser.id
-                    }                    
-                 
+                    }
+
                 }).then(result => {
                     response = { status: status, msg: "Company Details Updated successfully.", data: result };
                     resolve(response);
@@ -127,7 +127,7 @@ const update=async(data,authUser)=>{
     return response;
 }
 
-const remove_record = async (data,authUser) => {
+const remove_record = async (data, authUser) => {
     let status = 200;
     let response = {};
     await prisma.customerDetails.update({
